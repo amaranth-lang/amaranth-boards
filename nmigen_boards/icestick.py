@@ -61,3 +61,8 @@ class ICEStickPlatform(LatticeICE40Platform):
         iceprog = os.environ.get("ICEPROG", "iceprog")
         with products.extract("{}.bin".format(name)) as bitstream_filename:
             subprocess.run([iceprog, bitstream_filename], check=True)
+
+
+if __name__ == "__main__":
+    from ._blinky import build_and_program
+    build_and_program(ICEStickPlatform)

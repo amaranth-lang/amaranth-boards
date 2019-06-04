@@ -61,3 +61,8 @@ class TinyFPGABXPlatform(LatticeICE40Platform):
         tinyprog = os.environ.get("TINYPROG", "tinyprog")
         with products.extract("{}.bin".format(name)) as bitstream_filename:
             subprocess.run([tinyprog, "-p", bitstream_filename], check=True)
+
+
+if __name__ == "__main__":
+    from ._blinky import build_and_program
+    build_and_program(TinyFPGABXPlatform)

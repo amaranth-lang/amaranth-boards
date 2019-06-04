@@ -40,3 +40,8 @@ class ICE40HX1KBlinkEVNPlatform(LatticeICE40Platform):
         iceburn = os.environ.get("ICEBURN", "iCEburn")
         with products.extract("{}.bin".format(name)) as bitstream_filename:
             subprocess.run([iceburn, "-evw", bitstream_filename], check=True)
+
+
+if __name__ == "__main__":
+    from ._blinky import build_and_program
+    build_and_program(ICE40HX1KBlinkEVNPlatform)
