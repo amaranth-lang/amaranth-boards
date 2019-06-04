@@ -9,8 +9,8 @@ __all__ = ["TinyFPGABXPlatform"]
 
 
 class TinyFPGABXPlatform(LatticeICE40Platform):
-    device     = "lp8k"
-    package    = "cm81"
+    device     = "iCE40LP8K"
+    package    = "CM81"
     clocks     = [
         ("clk16", 16e6),
     ]

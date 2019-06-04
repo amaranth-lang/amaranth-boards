@@ -9,8 +9,8 @@ __all__ = ["ICEStickPlatform"]
 
 
 class ICEStickPlatform(LatticeICE40Platform):
-    device     = "hx1k"
-    package    = "tq144"
+    device     = "iCE40HX1K"
+    package    = "TQ144"
     clocks     = [
         ("clk12", 12e6),
     ]

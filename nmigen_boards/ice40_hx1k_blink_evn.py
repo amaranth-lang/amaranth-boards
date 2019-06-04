@@ -9,8 +9,8 @@ __all__ = ["ICE40HX1KBlinkEVNPlatform"]
 
 
 class ICE40HX1KBlinkEVNPlatform(LatticeICE40Platform):
-    device     = "hx1k"
-    package    = "vq100"
+    device     = "iCE40HX1K"
+    package    = "VQ100"
     clocks     = [
         ("clk3p3", 3.3e6),
     ]
