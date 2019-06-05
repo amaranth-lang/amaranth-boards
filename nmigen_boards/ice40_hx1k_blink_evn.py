@@ -11,22 +11,27 @@ __all__ = ["ICE40HX1KBlinkEVNPlatform"]
 class ICE40HX1KBlinkEVNPlatform(LatticeICE40Platform):
     device     = "iCE40HX1K"
     package    = "VQ100"
-    clocks     = [
-        ("clk3p3", 3.3e6),
-    ]
     resources  = [
-        Resource("clk3p3", 0, Pins("13", dir="i"),
-                 extras={"GLOBAL": "1", "IO_STANDARD": "SB_LVCMOS33"}),
+        Resource("clk3p3", 0, Pins("13", dir="i"), Clock(3.3e6),
+                 Attrs(GLOBAL="1", IO_STANDARD="SB_LVCMOS33")),
 
-        Resource("user_led", 0, Pins("59", dir="o"), extras={"IO_STANDARD": "SB_LVCMOS33"}),
-        Resource("user_led", 1, Pins("56", dir="o"), extras={"IO_STANDARD": "SB_LVCMOS33"}),
-        Resource("user_led", 2, Pins("53", dir="o"), extras={"IO_STANDARD": "SB_LVCMOS33"}),
-        Resource("user_led", 3, Pins("51", dir="o"), extras={"IO_STANDARD": "SB_LVCMOS33"}),
+        Resource("user_led", 0, Pins("59", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS33")),
+        Resource("user_led", 1, Pins("56", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS33")),
+        Resource("user_led", 2, Pins("53", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS33")),
+        Resource("user_led", 3, Pins("51", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS33")),
 
-        Resource("user_btn", 0, Pins("60"), extras={"IO_STANDARD": "SB_LVCMOS33"}),
-        Resource("user_btn", 1, Pins("57"), extras={"IO_STANDARD": "SB_LVCMOS33"}),
-        Resource("user_btn", 2, Pins("54"), extras={"IO_STANDARD": "SB_LVCMOS33"}),
-        Resource("user_btn", 3, Pins("52"), extras={"IO_STANDARD": "SB_LVCMOS33"}),
+        Resource("user_btn", 0, Pins("60"), Attrs(IO_STANDARD="SB_LVCMOS33")),
+        Resource("user_btn", 1, Pins("57"), Attrs(IO_STANDARD="SB_LVCMOS33")),
+        Resource("user_btn", 2, Pins("54"), Attrs(IO_STANDARD="SB_LVCMOS33")),
+        Resource("user_btn", 3, Pins("52"), Attrs(IO_STANDARD="SB_LVCMOS33")),
+
+        Resource("spiflash", 0,
+            Subsignal("cs_n", Pins("49", dir="o")),
+            Subsignal("clk",  Pins("48", dir="o")),
+            Subsignal("mosi", Pins("45", dir="o")),
+            Subsignal("miso", Pins("46", dir="i")),
+            Attrs(IO_STANDARD="SB_LVCMOS33")
+        ),
     ]
     connectors = [
         Connector("pmod",  1, "10  9  8  7 - -  4  3  2  1 - -"), # J1
@@ -44,4 +49,4 @@ class ICE40HX1KBlinkEVNPlatform(LatticeICE40Platform):
 
 if __name__ == "__main__":
     from ._blinky import build_and_program
-    build_and_program(ICE40HX1KBlinkEVNPlatform)
+    build_and_program(ICE40HX1KBlinkEVNPlatform, "clk3p3", 3.3e6)

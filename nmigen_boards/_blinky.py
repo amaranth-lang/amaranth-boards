@@ -1,15 +1,18 @@
 import itertools
 
 from nmigen import *
-from nmigen.build import ConstraintError
+from nmigen.build import ResourceError
 
 
 class Blinky(Elaboratable):
+    def __init__(self, clk_name, clk_freq):
+        self.clk_name = clk_name
+        self.clk_freq = clk_freq
+
     def elaborate(self, platform):
         m = Module()
 
-        clk_name, clk_freq = next(iter(platform.clocks.items()))
-        clk = platform.request(*clk_name)
+        clk = platform.request(self.clk_name)
         m.domains.sync = ClockDomain()
         m.d.comb += ClockSignal().eq(clk.i)
 
@@ -17,11 +20,11 @@ class Blinky(Elaboratable):
         for n in itertools.count():
             try:
                 leds.append(platform.request("user_led", n))
-            except ConstraintError:
+            except ResourceError:
                 break
         leds = Cat(led.o for led in leds)
 
-        ctr = Signal(max=int(clk_freq//2), reset=int(clk_freq//2) - 1)
+        ctr = Signal(max=int(self.clk_freq//2), reset=int(self.clk_freq//2) - 1)
         with m.If(ctr == 0):
             m.d.sync += ctr.eq(ctr.reset)
             m.d.sync += leds.eq(~leds)
@@ -31,5 +34,5 @@ class Blinky(Elaboratable):
         return m
 
 
-def build_and_program(platform_cls, **kwargs):
-    platform_cls().build(Blinky(), do_program=True, **kwargs)
+def build_and_program(platform_cls, clk_name, clk_freq, **kwargs):
+    platform_cls().build(Blinky(clk_name, clk_freq), do_program=True, **kwargs)

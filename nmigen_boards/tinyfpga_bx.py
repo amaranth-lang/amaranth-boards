@@ -11,20 +11,17 @@ __all__ = ["TinyFPGABXPlatform"]
 class TinyFPGABXPlatform(LatticeICE40Platform):
     device     = "iCE40LP8K"
     package    = "CM81"
-    clocks     = [
-        ("clk16", 16e6),
-    ]
     resources  = [
         Resource("clk16", 0, Pins("B2", dir="i"),
-                 extras={"IO_STANDARD": "SB_LVCMOS33"}),
+                 Clock(16e6), Attrs(IO_STANDARD="SB_LVCMOS33")),
 
-        Resource("user_led", 0, Pins("B3", dir="o"), extras={"IO_STANDARD": "SB_LVCMOS33"}),
+        Resource("user_led", 0, Pins("B3", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS33")),
 
         Resource("usb", 0,
             Subsignal("d_p",    Pins("B4", dir="io")),
             Subsignal("d_n",    Pins("A4", dir="io")),
             Subsignal("pullup", Pins("A3", dir="o")),
-            extras={"IO_STANDARD": "SB_LVCMOS33"}
+            Attrs(IO_STANDARD="SB_LVCMOS33")
         ),
 
         Resource("spiflash", 0,
@@ -34,14 +31,14 @@ class TinyFPGABXPlatform(LatticeICE40Platform):
             Subsignal("miso", Pins("H7", dir="i")),
             Subsignal("wp",   Pins("H4", dir="o")),
             Subsignal("hold", Pins("J8", dir="o")),
-            extras={"IO_STANDARD": "SB_LVCMOS33"}
+            Attrs(IO_STANDARD="SB_LVCMOS33")
         ),
 
         Resource("spiflash4x", 0,
             Subsignal("cs_n", Pins("F7", dir="o")),
             Subsignal("clk",  Pins("G7", dir="o")),
             Subsignal("dq",   Pins("G6 H7 H4 J8", dir="io")),
-            extras={"IO_STANDARD": "SB_LVCMOS33"}
+            Attrs(IO_STANDARD="SB_LVCMOS33")
         ),
     ]
     connectors = [
@@ -65,4 +62,4 @@ class TinyFPGABXPlatform(LatticeICE40Platform):
 
 if __name__ == "__main__":
     from ._blinky import build_and_program
-    build_and_program(TinyFPGABXPlatform)
+    build_and_program(TinyFPGABXPlatform, "clk16", 16e6)
