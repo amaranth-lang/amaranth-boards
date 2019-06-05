@@ -62,4 +62,4 @@ class ICEStickPlatform(LatticeICE40Platform):
 
 if __name__ == "__main__":
     from ._blinky import build_and_program
-    build_and_program(ICEStickPlatform, "clk12", 12e6)
+    build_and_program(ICEStickPlatform, "clk12")
