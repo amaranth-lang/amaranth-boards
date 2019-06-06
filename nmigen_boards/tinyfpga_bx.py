@@ -3,6 +3,7 @@ import subprocess
 
 from nmigen.build import *
 from nmigen.vendor.lattice_ice40 import *
+from .dev import *
 
 
 __all__ = ["TinyFPGABXPlatform"]
@@ -24,22 +25,10 @@ class TinyFPGABXPlatform(LatticeICE40Platform):
             Attrs(IO_STANDARD="SB_LVCMOS33")
         ),
 
-        Resource("spiflash", 0,
-            Subsignal("cs_n", Pins("F7", dir="o")),
-            Subsignal("clk",  Pins("G7", dir="o")),
-            Subsignal("mosi", Pins("G6", dir="o")),
-            Subsignal("miso", Pins("H7", dir="i")),
-            Subsignal("wp",   Pins("H4", dir="o")),
-            Subsignal("hold", Pins("J8", dir="o")),
-            Attrs(IO_STANDARD="SB_LVCMOS33")
-        ),
-
-        Resource("spiflash4x", 0,
-            Subsignal("cs_n", Pins("F7", dir="o")),
-            Subsignal("clk",  Pins("G7", dir="o")),
-            Subsignal("dq",   Pins("G6 H7 H4 J8", dir="io")),
-            Attrs(IO_STANDARD="SB_LVCMOS33")
-        ),
+        *SPIFlashResources(0,
+            cs_n="F7", clk="G7",
+            mosi="G6", miso="H7", wp_n="H4", hold_n="J8",
+            attrs=Attrs(IO_STANDARD="SB_LVCMOS33")),
     ]
     connectors = [
         Connector("gpio", 0,

@@ -3,6 +3,7 @@ import subprocess
 
 from nmigen.build import *
 from nmigen.vendor.lattice_ice40 import *
+from .dev import *
 
 
 __all__ = ["ICE40HX1KBlinkEVNPlatform"]
@@ -25,12 +26,10 @@ class ICE40HX1KBlinkEVNPlatform(LatticeICE40Platform):
         Resource("user_btn", 2, Pins("54"), Attrs(IO_STANDARD="SB_LVCMOS33")),
         Resource("user_btn", 3, Pins("52"), Attrs(IO_STANDARD="SB_LVCMOS33")),
 
-        Resource("spiflash", 0,
-            Subsignal("cs_n", Pins("49", dir="o")),
-            Subsignal("clk",  Pins("48", dir="o")),
-            Subsignal("mosi", Pins("45", dir="o")),
-            Subsignal("miso", Pins("46", dir="i")),
-            Attrs(IO_STANDARD="SB_LVCMOS33")
+        *SPIFlashResources(0,
+            cs_n="49", clk="48",
+            mosi="45", miso="46",
+            attrs=Attrs(IO_STANDARD="SB_LVCMOS33")
         ),
     ]
     connectors = [

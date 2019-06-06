@@ -3,6 +3,7 @@ import subprocess
 
 from nmigen.build import *
 from nmigen.vendor.lattice_ice40 import *
+from .dev import *
 
 
 __all__ = ["ICEBreakerPlatform"]
@@ -28,21 +29,11 @@ class ICEBreakerPlatform(LatticeICE40Platform):
             Attrs(IO_STANDARD="SB_LVTTL")
         ),
 
-        Resource("spiflash", 0,
-            Subsignal("cs_n", Pins("16", dir="o")),
-            Subsignal("clk",  Pins("15", dir="o")),
-            Subsignal("mosi", Pins("14", dir="o")),
-            Subsignal("miso", Pins("17", dir="i")),
-            Subsignal("wp",   Pins("12", dir="o")),
-            Subsignal("hold", Pins("13", dir="o")),
-            Attrs(IO_STANDARD="SB_LVCMOS33")
-        ),
-
-        Resource("spiflash4x", 0,
-            Subsignal("cs_n", Pins("16", dir="o")),
-            Subsignal("clk",  Pins("15", dir="o")),
-            Subsignal("dq",   Pins("14 17 12 13", dir="io")),
-            Attrs(IO_STANDARD="SB_LVCMOS33")
+        *SPIFlashResources(0,
+            cs_n="16", clk="15",
+            mosi="14", miso="17",
+            wp_n="12", hold_n="13",
+            attrs=Attrs(IO_STANDARD="SB_LVCMOS33")
         ),
     ]
     connectors = [

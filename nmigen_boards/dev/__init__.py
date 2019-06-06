@@ -1,0 +1,1 @@
+from .flash import SPIFlashResources
