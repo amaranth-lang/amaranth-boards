@@ -16,12 +16,13 @@ class ICEBreakerPlatform(LatticeICE40Platform):
         Resource("clk12", 0, Pins("35", dir="i"),
                  Clock(12e6), Attrs(GLOBAL="1", IO_STANDARD="SB_LVCMOS33")),
 
-        Resource("user_led_n", 0, Pins("11", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS33")),
-        Resource("user_led_n", 1, Pins("37", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS33")),
+        Resource("user_led",  0, PinsN("11", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS33")),
+        Resource("user_led",  1, PinsN("37", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS33")),
         # Color-specific aliases
-        Resource("user_ledr_n", 0, Pins("11", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS33")),
-        Resource("user_ledg_n", 0, Pins("37", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS33")),
-        Resource("user_btn_n", 4, Pins("10", dir="i"), Attrs(IO_STANDARD="SB_LVCMOS33")),
+        Resource("user_ledr", 0, PinsN("11", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS33")),
+        Resource("user_ledg", 0, PinsN("37", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS33")),
+
+        Resource("user_btn",  4, PinsN("10", dir="i"), Attrs(IO_STANDARD="SB_LVCMOS33")),
 
         Resource("serial", 0,
             Subsignal("rx",  Pins("6", dir="i")),
@@ -30,9 +31,7 @@ class ICEBreakerPlatform(LatticeICE40Platform):
         ),
 
         *SPIFlashResources(0,
-            cs_n="16", clk="15",
-            mosi="14", miso="17",
-            wp_n="12", hold_n="13",
+            cs="16", clk="15", mosi="14", miso="17", wp="12", hold="13",
             attrs=Attrs(IO_STANDARD="SB_LVCMOS33")
         ),
     ]

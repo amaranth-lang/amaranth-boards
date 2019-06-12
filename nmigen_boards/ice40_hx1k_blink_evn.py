@@ -27,8 +27,7 @@ class ICE40HX1KBlinkEVNPlatform(LatticeICE40Platform):
         Resource("user_btn", 3, Pins("52"), Attrs(IO_STANDARD="SB_LVCMOS33")),
 
         *SPIFlashResources(0,
-            cs_n="49", clk="48",
-            mosi="45", miso="46",
+            cs="49", clk="48", mosi="45", miso="46",
             attrs=Attrs(IO_STANDARD="SB_LVCMOS33")
         ),
     ]
