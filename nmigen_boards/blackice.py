@@ -9,8 +9,8 @@ __all__ = ["BlackIcePlatform"]
 
 
 class BlackIcePlatform(LatticeICE40Platform):
-    device = "iCE40HX4K"
-    package = "TQ144"
+    device     = "iCE40HX4K"
+    package    = "TQ144"
     resources  = [
         Resource("clk100", 0, Pins("129", dir="i"),
             Clock(100e6), Attrs(GLOBAL="1", IO_STANDARD="SB_LVCMOS33")

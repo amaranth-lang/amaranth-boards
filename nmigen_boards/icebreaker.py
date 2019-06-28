@@ -10,8 +10,8 @@ __all__ = ["ICEBreakerPlatform"]
 
 
 class ICEBreakerPlatform(LatticeICE40Platform):
-    device = "iCE40UP5K"
-    package = "SG48"
+    device     = "iCE40UP5K"
+    package    = "SG48"
     resources  = [
         Resource("clk12", 0, Pins("35", dir="i"),
                  Clock(12e6), Attrs(GLOBAL="1", IO_STANDARD="SB_LVCMOS33")),
@@ -45,22 +45,35 @@ class ICEBreakerPlatform(LatticeICE40Platform):
     # p.add_resources(p.break_off_pmod)
     # pmod_btn = plat.request("user_btn")
     break_off_pmod = [
-         Resource("user_btn", 1, Pins("9", dir="i", conn=("pmod", 2)), Attrs(IO_STANDARD="SB_LVCMOS33")),
-         Resource("user_btn", 2, Pins("4",  dir="i", conn=("pmod", 2)), Attrs(IO_STANDARD="SB_LVCMOS33")),
-         Resource("user_btn", 3, Pins("10",  dir="i", conn=("pmod", 2)), Attrs(IO_STANDARD="SB_LVCMOS33")),
+         Resource("user_btn", 1, Pins("9", dir="i", conn=("pmod", 2)),
+                  Attrs(IO_STANDARD="SB_LVCMOS33")),
+         Resource("user_btn", 2, Pins("4", dir="i", conn=("pmod", 2)),
+                  Attrs(IO_STANDARD="SB_LVCMOS33")),
+         Resource("user_btn", 3, Pins("10", dir="i", conn=("pmod", 2)),
+                  Attrs(IO_STANDARD="SB_LVCMOS33")),
 
-         Resource("user_led", 2, Pins("7", dir="o", conn=("pmod", 2)), Attrs(IO_STANDARD="SB_LVCMOS33")),
-         Resource("user_led", 3, Pins("1", dir="o", conn=("pmod", 2)), Attrs(IO_STANDARD="SB_LVCMOS33")),
-         Resource("user_led", 4, Pins("2", dir="o", conn=("pmod", 2)), Attrs(IO_STANDARD="SB_LVCMOS33")),
-         Resource("user_led", 5, Pins("8", dir="o", conn=("pmod", 2)), Attrs(IO_STANDARD="SB_LVCMOS33")),
-         Resource("user_led", 6, Pins("3", dir="o", conn=("pmod", 2)), Attrs(IO_STANDARD="SB_LVCMOS33")),
+         Resource("user_led", 2, Pins("7", dir="o", conn=("pmod", 2)),
+                  Attrs(IO_STANDARD="SB_LVCMOS33")),
+         Resource("user_led", 3, Pins("1", dir="o", conn=("pmod", 2)),
+                  Attrs(IO_STANDARD="SB_LVCMOS33")),
+         Resource("user_led", 4, Pins("2", dir="o", conn=("pmod", 2)),
+                  Attrs(IO_STANDARD="SB_LVCMOS33")),
+         Resource("user_led", 5, Pins("8", dir="o", conn=("pmod", 2)),
+                  Attrs(IO_STANDARD="SB_LVCMOS33")),
+         Resource("user_led", 6, Pins("3", dir="o", conn=("pmod", 2)),
+                  Attrs(IO_STANDARD="SB_LVCMOS33")),
 
          # Color-specific aliases
-         Resource("user_ledr", 1, Pins("7", dir="o", conn=("pmod", 2)), Attrs(IO_STANDARD="SB_LVCMOS33")),
-         Resource("user_ledg", 1, Pins("1", dir="o", conn=("pmod", 2)), Attrs(IO_STANDARD="SB_LVCMOS33")),
-         Resource("user_ledg", 2, Pins("2", dir="o", conn=("pmod", 2)), Attrs(IO_STANDARD="SB_LVCMOS33")),
-         Resource("user_ledg", 3, Pins("8", dir="o", conn=("pmod", 2)), Attrs(IO_STANDARD="SB_LVCMOS33")),
-         Resource("user_ledg", 4, Pins("3", dir="o", conn=("pmod", 2)), Attrs(IO_STANDARD="SB_LVCMOS33"))
+         Resource("user_ledr", 1, Pins("7", dir="o", conn=("pmod", 2)),
+                  Attrs(IO_STANDARD="SB_LVCMOS33")),
+         Resource("user_ledg", 1, Pins("1", dir="o", conn=("pmod", 2)),
+                  Attrs(IO_STANDARD="SB_LVCMOS33")),
+         Resource("user_ledg", 2, Pins("2", dir="o", conn=("pmod", 2)),
+                  Attrs(IO_STANDARD="SB_LVCMOS33")),
+         Resource("user_ledg", 3, Pins("8", dir="o", conn=("pmod", 2)),
+                  Attrs(IO_STANDARD="SB_LVCMOS33")),
+         Resource("user_ledg", 4, Pins("3", dir="o", conn=("pmod", 2)),
+                  Attrs(IO_STANDARD="SB_LVCMOS33"))
     ]
 
     def toolchain_program(self, products, name):
