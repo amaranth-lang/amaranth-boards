@@ -4,6 +4,7 @@ import subprocess
 from nmigen.build import *
 from nmigen.vendor.lattice_ice40 import *
 from .dev import *
+from .dev.uart import IrDAResource
 
 
 __all__ = ["ICEStickPlatform"]
@@ -27,11 +28,9 @@ class ICEStickPlatform(LatticeICE40Platform):
             attrs=Attrs(IO_STANDARD="SB_LVTTL", PULLUP="1")
         ),
 
-        Resource("irda", 0,
-            Subsignal("rx", Pins("106", dir="i")),
-            Subsignal("tx", Pins("105", dir="o")),
-            Subsignal("sd", Pins("107", dir="o")),
-            Attrs(IO_STANDARD="SB_LVCMOS33")
+        IrDAResource(0,
+            rx="106", tx="105", sd="107",
+            attrs=Attrs(IO_STANDARD="SB_LVCMOS33")
         ),
 
         *SPIFlashResources(0,
