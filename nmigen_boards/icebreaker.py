@@ -24,10 +24,9 @@ class ICEBreakerPlatform(LatticeICE40Platform):
 
         Resource("user_btn",  0, PinsN("10", dir="i"), Attrs(IO_STANDARD="SB_LVCMOS33")),
 
-        Resource("serial", 0,
-            Subsignal("rx",  Pins("6", dir="i")),
-            Subsignal("tx",  Pins("9", dir="o"), Attrs(PULLUP="1")),
-            Attrs(IO_STANDARD="SB_LVTTL")
+        UARTResource(0,
+            rx="6", tx="9",
+            attrs=Attrs(IO_STANDARD="SB_LVTTL", PULLUP="1")
         ),
 
         *SPIFlashResources(0,

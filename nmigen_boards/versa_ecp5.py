@@ -57,15 +57,14 @@ class VersaECP5Platform(LatticeECP5Platform):
         Resource("user_sw", 6, PinsN("K19", dir="i"), Attrs(IO_TYPE="LVCMOS25")),
         Resource("user_sw", 7, PinsN("K20", dir="i"), Attrs(IO_TYPE="LVCMOS25")),
 
-        Resource("serial", 0,
-            Subsignal("rx", Pins("C11", dir="i")),
-            Subsignal("tx", Pins("A11", dir="o")),
-            Attrs(IO_TYPE="LVCMOS33", PULLMODE="UP")
+        UARTResource(0,
+            rx="C11", tx="A11",
+            attrs=Attrs(IO_TYPE="LVCMOS33", PULLMODE="UP")
         ),
 
         *SPIFlashResources(0,
             cs="R2", clk="U3", miso="W2", mosi="V2", wp="Y2", hold="W1",
-            attrs=Attrs(IO_STANDARD="SB_LVCMOS33")
+            attrs=Attrs(IO_STANDARD="LVCMOS33")
         ),
 
         Resource("eth_clk125",     0, Pins("L19"),

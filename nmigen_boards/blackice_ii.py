@@ -34,12 +34,9 @@ class BlackIceIIPlatform(LatticeICE40Platform):
         Resource("user_sw", 2, PinsN("39", dir="i"), Attrs(IO_STANDARD="SB_LVCMOS33")),
         Resource("user_sw", 3, PinsN("41", dir="i"), Attrs(IO_STANDARD="SB_LVCMOS33")),
 
-        Resource("serial", 0,
-            Subsignal("rx", Pins("88", dir="i")),
-            Subsignal("tx", Pins("85", dir="o")),
-            Subsignal("rts", Pins("91", dir="o")),
-            Subsignal("cts", Pins("94", dir="i")),
-            Attrs(IO_STANDARD="SB_LVCMOS33"),
+        UARTResource(0,
+            rx="88", tx="85", rts="91", cts="94",
+            attrs=Attrs(IO_STANDARD="SB_LVCMOS33", PULLUP="1")
         ),
 
         Resource("sram", 0,

@@ -22,15 +22,9 @@ class ICEStickPlatform(LatticeICE40Platform):
         Resource("user_led", 3, Pins("96", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS33")),
         Resource("user_led", 4, Pins("95", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS33")),
 
-        Resource("serial", 0,
-            Subsignal("rx",  Pins("9", dir="i")),
-            Subsignal("tx",  Pins("8", dir="o")),
-            Subsignal("rts", Pins("7", dir="o")),
-            Subsignal("cts", Pins("4", dir="i")),
-            Subsignal("dtr", Pins("3", dir="o")),
-            Subsignal("dsr", Pins("2", dir="i")),
-            Subsignal("dcd", Pins("1", dir="i")),
-            Attrs(IO_STANDARD="SB_LVTTL", PULLUP="1")
+        UARTResource(0,
+            rx="9", tx="8", rts="7", cts="4", dtr="3", dsr="2", dcd="1",
+            attrs=Attrs(IO_STANDARD="SB_LVTTL", PULLUP="1")
         ),
 
         Resource("irda", 0,
