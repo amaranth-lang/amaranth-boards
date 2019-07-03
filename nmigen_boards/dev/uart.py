@@ -8,7 +8,7 @@ def UARTResource(number, *, rx, tx, rts=None, cts=None, dtr=None, dsr=None, dcd=
                  attrs=None):
     io = []
     io.append(Subsignal("rx", Pins(rx, dir="i")))
-    io.append(Subsignal("tx", Pins(rx, dir="o")))
+    io.append(Subsignal("tx", Pins(tx, dir="o")))
     if rts is not None:
         io.append(Subsignal("rts", Pins(rts, dir="o")))
     if cts is not None:
@@ -32,7 +32,7 @@ def IrDAResource(number, *, rx, tx, en=None, sd=None, attrs=None):
     assert (en is not None) ^ (sd is not None)
     io = []
     io.append(Subsignal("rx", Pins(rx, dir="i")))
-    io.append(Subsignal("tx", Pins(rx, dir="o")))
+    io.append(Subsignal("tx", Pins(tx, dir="o")))
     if en is not None:
         io.append(Subsignal("en", Pins(en, dir="o")))
     if sd is not None:
