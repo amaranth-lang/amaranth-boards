@@ -45,7 +45,7 @@ class TinyFPGABXPlatform(LatticeICE40Platform):
     def toolchain_program(self, products, name):
         tinyprog = os.environ.get("TINYPROG", "tinyprog")
         with products.extract("{}.bin".format(name)) as bitstream_filename:
-            subprocess.run([tinyprog, "-p", bitstream_filename], check=True)
+            subprocess.check_call([tinyprog, "-p", bitstream_filename])
 
 
 if __name__ == "__main__":

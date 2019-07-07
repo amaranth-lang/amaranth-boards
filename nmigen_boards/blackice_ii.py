@@ -71,7 +71,7 @@ class BlackIceIIPlatform(LatticeICE40Platform):
 
     def toolchain_program(self, products, name):
         with products.extract("{}.bin".format(name)) as bitstream_filename:
-            subprocess.run(["cp", bitstream_filename, "/dev/ttyACM0"], check=True)
+            subprocess.check_call(["cp", bitstream_filename, "/dev/ttyACM0"])
 
 
 if __name__ == "__main__":

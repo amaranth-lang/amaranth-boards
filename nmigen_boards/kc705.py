@@ -36,8 +36,10 @@ class KC705Platform(Xilinx7SeriesPlatform):
     def toolchain_program(self, products, name):
         openocd = os.environ.get("OPENOCD", "openocd")
         with products.extract("{}.bit".format(name)) as bitstream_filename:
-            subprocess.run([openocd, "-c",
-                            "source [find board/kc705.cfg]; init; pld load 0 {}; exit".format(bitstream_filename)], check=True)
+            subprocess.check_call([openocd,
+                "-c", "source [find board/kc705.cfg]; init; pld load 0 {}; exit"
+                      .format(bitstream_filename)
+            ])
 
 
 if __name__ == "__main__":

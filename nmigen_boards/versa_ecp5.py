@@ -171,10 +171,10 @@ class VersaECP5Platform(LatticeECP5Platform):
         openocd = os.environ.get("OPENOCD", "openocd")
         with products.extract("{}-openocd.cfg".format(name), "{}.svf".format(name)) \
                 as (config_filename, vector_filename):
-            subprocess.run([openocd,
+            subprocess.check_call([openocd,
                 "-f", config_filename,
                 "-c", "transport select jtag; init; svf -quiet {}; exit".format(vector_filename)
-            ], check=True)
+            ])
 
 
 if __name__ == "__main__":

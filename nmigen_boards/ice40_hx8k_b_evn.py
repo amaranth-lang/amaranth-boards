@@ -62,7 +62,7 @@ class ICE40HX8KBEVNPlatform(LatticeICE40Platform):
         iceprog = os.environ.get("ICEPROG", "iceprog")
         with products.extract("{}.bin".format(name)) as bitstream_filename:
             # TODO: this should be factored out and made customizable
-            subprocess.run([iceprog, "-S", bitstream_filename], check=True)
+            subprocess.check_call([iceprog, "-S", bitstream_filename])
 
 
 if __name__ == "__main__":

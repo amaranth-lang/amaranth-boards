@@ -48,7 +48,7 @@ class ICEStickPlatform(LatticeICE40Platform):
     def toolchain_program(self, products, name):
         iceprog = os.environ.get("ICEPROG", "iceprog")
         with products.extract("{}.bin".format(name)) as bitstream_filename:
-            subprocess.run([iceprog, bitstream_filename], check=True)
+            subprocess.check_call([iceprog, bitstream_filename])
 
 
 if __name__ == "__main__":
