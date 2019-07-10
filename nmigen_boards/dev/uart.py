@@ -4,7 +4,7 @@ from nmigen.build import *
 __all__ = ["UARTResource", "IrDAResource"]
 
 
-def UARTResource(number, *, rx, tx, rts=None, cts=None, dtr=None, dsr=None, dcd=None, ri=None,
+def UARTResource(*args, rx, tx, rts=None, cts=None, dtr=None, dsr=None, dcd=None, ri=None,
                  attrs=None):
     io = []
     io.append(Subsignal("rx", Pins(rx, dir="i")))
@@ -23,7 +23,7 @@ def UARTResource(number, *, rx, tx, rts=None, cts=None, dtr=None, dsr=None, dcd=
         io.append(Subsignal("ri", Pins(ri, dir="i")))
     if attrs is not None:
         io.append(attrs)
-    return Resource("uart", number, *io)
+    return Resource.family(*args, default_name="uart", ios=io)
 
 
 def IrDAResource(number, *, rx, tx, en=None, sd=None, attrs=None):
