@@ -8,10 +8,6 @@ class Blinky(Elaboratable):
     def elaborate(self, platform):
         m = Module()
 
-        clk = platform.request(platform.default_clk)
-        m.domains.sync = ClockDomain()
-        m.d.comb += ClockSignal().eq(clk.i)
-
         leds = []
         for n in itertools.count():
             try:
