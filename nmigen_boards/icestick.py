@@ -11,9 +11,10 @@ __all__ = ["ICEStickPlatform"]
 
 
 class ICEStickPlatform(LatticeICE40Platform):
-    device     = "iCE40HX1K"
-    package    = "TQ144"
-    resources  = [
+    device      = "iCE40HX1K"
+    package     = "TQ144"
+    default_clk = "clk12"
+    resources   = [
         Resource("clk12", 0, Pins("21", dir="i"),
                  Clock(12e6), Attrs(GLOBAL="1", IO_STANDARD="SB_LVCMOS33")),
 
@@ -38,7 +39,7 @@ class ICEStickPlatform(LatticeICE40Platform):
             attrs=Attrs(IO_STANDARD="SB_LVCMOS33")
         ),
     ]
-    connectors = [
+    connectors  = [
         Connector("pmod", 0, "78 79 80 81 - - 87 88 90 91 - -"),  # J2
 
         Connector("j", 1, "- - 112 113 114 115 116 117 118 119"), # J1
@@ -53,4 +54,4 @@ class ICEStickPlatform(LatticeICE40Platform):
 
 if __name__ == "__main__":
     from ._blinky import build_and_program
-    build_and_program(ICEStickPlatform, "clk12")
+    build_and_program(ICEStickPlatform)

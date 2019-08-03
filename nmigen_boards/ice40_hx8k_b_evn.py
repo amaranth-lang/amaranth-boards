@@ -10,9 +10,10 @@ __all__ = ["ICE40HX8KBEVNPlatform"]
 
 
 class ICE40HX8KBEVNPlatform(LatticeICE40Platform):
-    device     = "iCE40HX8K"
-    package    = "CT256"
-    resources  = [
+    device      = "iCE40HX8K"
+    package     = "CT256"
+    default_clk = "clk12"
+    resources   = [
         Resource("clk12", 0, Pins("J3", dir="i"),
                  Clock(12e6), Attrs(GLOBAL="1", IO_STANDARD="SB_LVCMOS33")),
 
@@ -35,7 +36,7 @@ class ICE40HX8KBEVNPlatform(LatticeICE40Platform):
             attrs=Attrs(IO_STANDARD="SB_LVCMOS33")
         ),
     ]
-    connectors = [
+    connectors  = [
         Connector("j", 1, # J1
             "A16 -   A15 B15 B13 B14 -   -   B12 B11"
             "A11 B10 A10 C9  -   -   A9  B9  B8  A7"
@@ -67,4 +68,4 @@ class ICE40HX8KBEVNPlatform(LatticeICE40Platform):
 
 if __name__ == "__main__":
     from ._blinky import build_and_program
-    build_and_program(ICE40HX8KBEVNPlatform, "clk12")
+    build_and_program(ICE40HX8KBEVNPlatform)

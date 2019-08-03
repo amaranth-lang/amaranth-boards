@@ -5,14 +5,10 @@ from nmigen.build import ResourceError
 
 
 class Blinky(Elaboratable):
-    def __init__(self, clk_name):
-        self.clk_name = clk_name
-
     def elaborate(self, platform):
         m = Module()
 
-        clk = platform.request(self.clk_name)
-        clk_freq = platform.get_clock_constraint(clk)
+        clk = platform.request(platform.default_clk)
         m.domains.sync = ClockDomain()
         m.d.comb += ClockSignal().eq(clk.i)
 
@@ -24,6 +20,7 @@ class Blinky(Elaboratable):
                 break
         leds = Cat(led.o for led in leds)
 
+        clk_freq = platform.default_clk_frequency
         ctr = Signal(max=int(clk_freq//2), reset=int(clk_freq//2) - 1)
         with m.If(ctr == 0):
             m.d.sync += ctr.eq(ctr.reset)
@@ -34,5 +31,5 @@ class Blinky(Elaboratable):
         return m
 
 
-def build_and_program(platform_cls, clk_name, **kwargs):
-    platform_cls().build(Blinky(clk_name), do_program=True, **kwargs)
+def build_and_program(platform_cls, **kwargs):
+    platform_cls().build(Blinky(), do_program=True, **kwargs)

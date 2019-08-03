@@ -10,10 +10,11 @@ __all__ = ["KC705Platform"]
 
 
 class KC705Platform(Xilinx7SeriesPlatform):
-    device     = "xc7k325t"
-    package    = "ffg900"
-    speed      = "2"
-    resources  = [
+    device      = "xc7k325t"
+    package     = "ffg900"
+    speed       = "2"
+    default_clk = "clk156"
+    resources   = [
         Resource("clk156", 0, DiffPairs("K28", "K29", dir="i"),
                  Clock(156e6), Attrs(IOSTANDARD="LVDS_25")),
 
@@ -31,7 +32,7 @@ class KC705Platform(Xilinx7SeriesPlatform):
             attrs=Attrs(IOSTANDARD="LVCMOS33")
         ),
     ]
-    connectors = []
+    connectors  = []
 
     def toolchain_program(self, products, name):
         openocd = os.environ.get("OPENOCD", "openocd")
@@ -44,4 +45,4 @@ class KC705Platform(Xilinx7SeriesPlatform):
 
 if __name__ == "__main__":
     from ._blinky import build_and_program
-    build_and_program(KC705Platform, "clk156")
+    build_and_program(KC705Platform)

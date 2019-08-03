@@ -10,9 +10,10 @@ __all__ = ["TinyFPGABXPlatform"]
 
 
 class TinyFPGABXPlatform(LatticeICE40Platform):
-    device     = "iCE40LP8K"
-    package    = "CM81"
-    resources  = [
+    device      = "iCE40LP8K"
+    package     = "CM81"
+    default_clk = "clk16"
+    resources   = [
         Resource("clk16", 0, Pins("B2", dir="i"),
                  Clock(16e6), Attrs(IO_STANDARD="SB_LVCMOS33")),
 
@@ -29,7 +30,7 @@ class TinyFPGABXPlatform(LatticeICE40Platform):
             cs="F7", clk="G7", mosi="G6", miso="H7", wp="H4", hold="J8",
             attrs=Attrs(IO_STANDARD="SB_LVCMOS33")),
     ]
-    connectors = [
+    connectors  = [
         Connector("gpio", 0,
             # Left side of the board
             #     1  2  3  4  5  6  7  8  9 10 11 12 13
@@ -50,4 +51,4 @@ class TinyFPGABXPlatform(LatticeICE40Platform):
 
 if __name__ == "__main__":
     from ._blinky import build_and_program
-    build_and_program(TinyFPGABXPlatform, "clk16")
+    build_and_program(TinyFPGABXPlatform)

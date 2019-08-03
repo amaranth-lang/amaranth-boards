@@ -10,9 +10,10 @@ __all__ = ["ICEBreakerPlatform"]
 
 
 class ICEBreakerPlatform(LatticeICE40Platform):
-    device     = "iCE40UP5K"
-    package    = "SG48"
-    resources  = [
+    device      = "iCE40UP5K"
+    package     = "SG48"
+    default_clk = "clk12"
+    resources   = [
         Resource("clk12", 0, Pins("35", dir="i"),
                  Clock(12e6), Attrs(GLOBAL="1", IO_STANDARD="SB_LVCMOS33")),
 
@@ -85,4 +86,4 @@ if __name__ == "__main__":
     from ._blinky import Blinky
     p = ICEBreakerPlatform()
     p.add_resources(p.break_off_pmod)
-    p.build(Blinky("clk12"), do_program=True)
+    p.build(Blinky(), do_program=True)

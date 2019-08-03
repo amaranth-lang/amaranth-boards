@@ -10,9 +10,10 @@ __all__ = ["ICE40HX1KBlinkEVNPlatform"]
 
 
 class ICE40HX1KBlinkEVNPlatform(LatticeICE40Platform):
-    device     = "iCE40HX1K"
-    package    = "VQ100"
-    resources  = [
+    device      = "iCE40HX1K"
+    package     = "VQ100"
+    default_clk = "clk3p3"
+    resources   = [
         Resource("clk3p3", 0, Pins("13", dir="i"), Clock(3.3e6),
                  Attrs(GLOBAL="1", IO_STANDARD="SB_LVCMOS33")),
 
@@ -31,7 +32,7 @@ class ICE40HX1KBlinkEVNPlatform(LatticeICE40Platform):
             attrs=Attrs(IO_STANDARD="SB_LVCMOS33")
         ),
     ]
-    connectors = [
+    connectors  = [
         Connector("pmod",  1, "10  9  8  7 - -  4  3  2  1 - -"), # J1
         Connector("pmod",  5, "40 42 62 64 - - 37 41 63 45 - -"), # J5
         Connector("pmod",  6, "25 24 21 20 - - 26 27 28 33 - -"), # J6
@@ -47,4 +48,4 @@ class ICE40HX1KBlinkEVNPlatform(LatticeICE40Platform):
 
 if __name__ == "__main__":
     from ._blinky import build_and_program
-    build_and_program(ICE40HX1KBlinkEVNPlatform, "clk3p3")
+    build_and_program(ICE40HX1KBlinkEVNPlatform)

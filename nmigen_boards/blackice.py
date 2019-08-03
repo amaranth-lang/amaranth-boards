@@ -10,9 +10,10 @@ __all__ = ["BlackIcePlatform"]
 
 
 class BlackIcePlatform(LatticeICE40Platform):
-    device     = "iCE40HX4K"
-    package    = "TQ144"
-    resources  = [
+    device      = "iCE40HX4K"
+    package     = "TQ144"
+    default_clk = "clk100"
+    resources   = [
         Resource("clk100", 0, Pins("129", dir="i"),
             Clock(100e6), Attrs(GLOBAL="1", IO_STANDARD="SB_LVCMOS33")
         ),
@@ -55,8 +56,7 @@ class BlackIcePlatform(LatticeICE40Platform):
             Attrs(IO_STANDARD="SB_LVCMOS33"),
         ),
     ]
-
-    connectors = [
+    connectors  = [
         Connector("pmod", 0, " 94  91  88  85 - -  95  93  90  87 - -"),  # PMOD1/2
         Connector("pmod", 1, "105 102  99  97 - - 104 101  98  96 - -"),  # PMOD3/4
         Connector("pmod", 2, "143 114 112 107 - - 144 113 110 106 - -"),  # PMOD5/6
@@ -73,6 +73,5 @@ class BlackIcePlatform(LatticeICE40Platform):
 
 
 if __name__ == "__main__":
-    from ._blinky import Blinky
-    p = BlackIcePlatform()
-    p.build(Blinky("clk100"), do_program=True)
+    from ._blinky import build_and_program
+    build_and_program(BlackIcePlatform)

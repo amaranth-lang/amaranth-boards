@@ -10,10 +10,11 @@ __all__ = ["VersaECP5Platform"]
 
 
 class VersaECP5Platform(LatticeECP5Platform):
-    device     = "LFE5UM-45F"
-    package    = "BG381"
-    speed      = "8"
-    resources  = [
+    device      = "LFE5UM-45F"
+    package     = "BG381"
+    speed       = "8"
+    default_clk = "clk100"
+    resources   = [
         Resource("rst", 0, PinsN("T1", dir="i"), Attrs(IO_TYPE="LVCMOS33")),
         Resource("clk100", 0, DiffPairs("P3", "P4", dir="i"),
                  Clock(100e6), Attrs(IO_TYPE="LVDS")),
@@ -179,4 +180,4 @@ class VersaECP5Platform(LatticeECP5Platform):
 
 if __name__ == "__main__":
     from ._blinky import build_and_program
-    build_and_program(VersaECP5Platform, "clk100")
+    build_and_program(VersaECP5Platform)
