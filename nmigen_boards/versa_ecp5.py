@@ -14,6 +14,7 @@ class VersaECP5Platform(LatticeECP5Platform):
     package     = "BG381"
     speed       = "8"
     default_clk = "clk100"
+    default_rst = "rst"
     resources   = [
         Resource("rst", 0, PinsN("T1", dir="i"), Attrs(IO_TYPE="LVCMOS33")),
         Resource("clk100", 0, DiffPairs("P3", "P4", dir="i"),
