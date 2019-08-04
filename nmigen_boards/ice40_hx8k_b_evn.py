@@ -38,25 +38,25 @@ class ICE40HX8KBEVNPlatform(LatticeICE40Platform):
     ]
     connectors  = [
         Connector("j", 1, # J1
-            "A16 -   A15 B15 B13 B14 -   -   B12 B11"
-            "A11 B10 A10 C9  -   -   A9  B9  B8  A7"
-            "B7  C7  -   -   A6  C6  B6  C5  A5  C4"
-            "-   -   B5  C3  B4  B3  A2  A1  -   -"),
+            "A16 -   A15 B15 B13 B14 -   -   B12 B11 "
+            "A11 B10 A10 C9  -   -   A9  B9  B8  A7  "
+            "B7  C7  -   -   A6  C6  B6  C5  A5  C4  "
+            "-   -   B5  C3  B4  B3  A2  A1  -   -   "),
         Connector("j", 2, # J2
-            "-   -   -   R15 P16 P15 -   -   N16 M15"
-            "M16 L16 K15 K16 -   -   K14 J14 G14 F14"
-            "J15 H14 -   -   H16 G15 G16 F15 F16 E14"
-            "-   -   E16 D15 D16 D14 C16 B16 -   -"),
+            "-   -   -   R15 P16 P15 -   -   N16 M15 "
+            "M16 L16 K15 K16 -   -   K14 J14 G14 F14 "
+            "J15 H14 -   -   H16 G15 G16 F15 F16 E14 "
+            "-   -   E16 D15 D16 D14 C16 B16 -   -   "),
         Connector("j", 3, # J3
-            "R16 -   T15 T16 T13 T14 -   -   N12 P13"
-            "N10 M11 T11 P10 -   -   T10 R10 P8  P9"
-            "T9  R9  -   -   T7  T8  T6  R6  T5  R5"
-            "-   -   R3  R4  R2  T3  T1  T2  -   -"),
+            "R16 -   T15 T16 T13 T14 -   -   N12 P13 "
+            "N10 M11 T11 P10 -   -   T10 R10 P8  P9  "
+            "T9  R9  -   -   T7  T8  T6  R6  T5  R5  "
+            "-   -   R3  R4  R2  T3  T1  T2  -   -   "),
         Connector("j", 4, # J4
-            "-   -   -   R1  P1  P2  -   -   N3  N2"
-            "M2  M1  L3  L1  -   -   K3  K1  J2  J1"
-            "H2  J3  -   -   G2  H1  F2  G1  E2  F1"
-            "-   -   D1  D2  C1  C2  B1  B2  -   -"),
+            "-   -   -   R1  P1  P2  -   -   N3  N2  "
+            "M2  M1  L3  L1  -   -   K3  K1  J2  J1  "
+            "H2  J3  -   -   G2  H1  F2  G1  E2  F1  "
+            "-   -   D1  D2  C1  C2  B1  B2  -   -   "),
     ]
 
     def toolchain_program(self, products, name):

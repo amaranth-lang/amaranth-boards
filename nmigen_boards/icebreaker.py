@@ -36,9 +36,9 @@ class ICEBreakerPlatform(LatticeICE40Platform):
         ),
     ]
     connectors = [
-        Connector("pmod", 0, "4 2 47 45 - -  3 48 46 44 - -"),  # PMOD1A
+        Connector("pmod", 0, " 4  2 47 45 - -  3 48 46 44 - -"),  # PMOD1A
         Connector("pmod", 1, "43 38 34 31 - - 42 36 32 28 - -"), # PMOD1B
-        Connector("pmod", 2, "27 25 21 19 - -  26 23 20 18 - -"), # PMOD2
+        Connector("pmod", 2, "27 25 21 19 - - 26 23 20 18 - -"), # PMOD2
     ]
     # The attached LED/button section can be either used standalone or as a PMOD.
     # Attach to platform using:
