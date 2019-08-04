@@ -41,19 +41,11 @@ class BlackIcePlatform(LatticeICE40Platform):
             attrs=Attrs(IO_STANDARD="SB_LVCMOS33", PULLUP="1")
         ),
 
-        Resource("sram", 0,
-            Subsignal("address", Pins(
-                "137 138 139 141 142 42 43 44 73 74 75 76 115 116 117 118 119 78",
-                dir="o"
-            )),
-            Subsignal("data", Pins(
-                "135 134 130 128 125 124 122 121 61 60 56 55 52 49 48 47",
-                dir="io"
-            )),
-            Subsignal("oe", PinsN("45", dir="o")),
-            Subsignal("we", PinsN("120", dir="o")),
-            Subsignal("cs", PinsN("136", dir="o")),
-            Attrs(IO_STANDARD="SB_LVCMOS33"),
+        SRAMResource(0,
+            cs="136", oe="45", we="120",
+            a="137 138 139 141 142 42 43 44 73 74 75 76 115 116 117 118 119 78",
+            d="135 134 130 128 125 124 122 121 61 60 56 55 52 49 48 47",
+            attrs=Attrs(IO_STANDARD="SB_LVCMOS33"),
         ),
     ]
     connectors  = [
