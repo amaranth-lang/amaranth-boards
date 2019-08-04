@@ -10,5 +10,5 @@ class VersaECP55GPlatform(VersaECP5Platform):
 
 
 if __name__ == "__main__":
-    from ._blinky import build_and_program
-    build_and_program(VersaECP55GPlatform)
+    from ._blinky import Blinky
+    VersaECP55GPlatform().build(Blinky(), do_program=True)

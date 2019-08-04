@@ -73,5 +73,5 @@ class BlackIcePlatform(LatticeICE40Platform):
 
 
 if __name__ == "__main__":
-    from ._blinky import build_and_program
-    build_and_program(BlackIcePlatform)
+    from ._blinky import Blinky
+    BlackIcePlatform().build(Blinky(), do_program=True)

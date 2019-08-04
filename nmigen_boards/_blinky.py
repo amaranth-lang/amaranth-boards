@@ -25,7 +25,3 @@ class Blinky(Elaboratable):
             m.d.sync += ctr.eq(ctr - 1)
 
         return m
-
-
-def build_and_program(platform_cls, **kwargs):
-    platform_cls().build(Blinky(), do_program=True, **kwargs)

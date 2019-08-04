@@ -44,5 +44,5 @@ class KC705Platform(Xilinx7SeriesPlatform):
 
 
 if __name__ == "__main__":
-    from ._blinky import build_and_program
-    build_and_program(KC705Platform)
+    from ._blinky import Blinky
+    KC705Platform().build(Blinky(), do_program=True)

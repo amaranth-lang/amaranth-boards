@@ -53,5 +53,5 @@ class ICEStickPlatform(LatticeICE40Platform):
 
 
 if __name__ == "__main__":
-    from ._blinky import build_and_program
-    build_and_program(ICEStickPlatform)
+    from ._blinky import Blinky
+    ICEStickPlatform().build(Blinky(), do_program=True)
