@@ -6,9 +6,9 @@ __all__ = ["SRAMResource"]
 
 def SRAMResource(*args, cs, oe, we, a, d, dm=None, attrs=None):
     io = []
-    io.append(Subsignal("cs", PinsN(cs, dir="o")))
-    io.append(Subsignal("oe", PinsN(oe, dir="o")))
-    io.append(Subsignal("we", PinsN(we, dir="o")))
+    io.append(Subsignal("cs", PinsN(cs, dir="o", assert_width=1)))
+    io.append(Subsignal("oe", PinsN(oe, dir="o", assert_width=1)))
+    io.append(Subsignal("we", PinsN(we, dir="o", assert_width=1)))
     io.append(Subsignal("a", Pins(a, dir="o")))
     io.append(Subsignal("d", Pins(d, dir="io")))
     if dm is not None:
