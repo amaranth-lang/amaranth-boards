@@ -17,9 +17,9 @@ class AtlysPlatform(XilinxSpartan6Platform):
     package    = "csg324"
     speed      = "3"
 
-    def __init__(self, JP12="2V5"):
-        super().__init__()
-        
+    def __init__(self, *, JP12="2V5", **kwargs):
+        super().__init__(**kwargs)
+
         assert JP12 in ["2V5", "3V3"]
         self._JP12 = JP12
 
