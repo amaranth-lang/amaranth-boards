@@ -15,7 +15,7 @@ class ICEBreakerPlatform(LatticeICE40Platform):
     default_clk = "clk12"
     resources   = [
         Resource("clk12", 0, Pins("35", dir="i"),
-                 Clock(12e6), Attrs(GLOBAL="1", IO_STANDARD="SB_LVCMOS33")),
+                 Clock(12e6), Attrs(GLOBAL=True, IO_STANDARD="SB_LVCMOS33")),
 
         Resource("user_led",  0, PinsN("11", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS33")),
         Resource("user_led",  1, PinsN("37", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS33")),
@@ -27,7 +27,7 @@ class ICEBreakerPlatform(LatticeICE40Platform):
 
         UARTResource(0,
             rx="6", tx="9",
-            attrs=Attrs(IO_STANDARD="SB_LVTTL", PULLUP="1")
+            attrs=Attrs(IO_STANDARD="SB_LVTTL", PULLUP=1)
         ),
 
         *SPIFlashResources(0,

@@ -15,7 +15,7 @@ class BlackIceIIPlatform(LatticeICE40Platform):
     default_clk = "clk100"
     resources   = [
         Resource("clk100", 0, Pins("129", dir="i"),
-            Clock(100e6), Attrs(GLOBAL="1", IO_STANDARD="SB_LVCMOS33")
+            Clock(100e6), Attrs(GLOBAL=True, IO_STANDARD="SB_LVCMOS33")
         ),
 
         Resource("user_led", 0, Pins("71", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS33")),
@@ -38,7 +38,7 @@ class BlackIceIIPlatform(LatticeICE40Platform):
 
         UARTResource(0,
             rx="88", tx="85", rts="91", cts="94",
-            attrs=Attrs(IO_STANDARD="SB_LVCMOS33", PULLUP="1")
+            attrs=Attrs(IO_STANDARD="SB_LVCMOS33", PULLUP=1)
         ),
 
         SRAMResource(0,

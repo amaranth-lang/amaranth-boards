@@ -15,7 +15,7 @@ class ICE40HX8KBEVNPlatform(LatticeICE40Platform):
     default_clk = "clk12"
     resources   = [
         Resource("clk12", 0, Pins("J3", dir="i"),
-                 Clock(12e6), Attrs(GLOBAL="1", IO_STANDARD="SB_LVCMOS33")),
+                 Clock(12e6), Attrs(GLOBAL=True, IO_STANDARD="SB_LVCMOS33")),
 
         Resource("user_led", 0, Pins("C3", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS33")), # D2
         Resource("user_led", 1, Pins("B3", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS33")), # D3
@@ -28,7 +28,7 @@ class ICE40HX8KBEVNPlatform(LatticeICE40Platform):
 
         UARTResource(0,
             rx="B10", tx="B12", rts="B13", cts="A15", dtr="A16", dsr="B14", dcd="B15",
-            attrs=Attrs(IO_STANDARD="SB_LVCMOS33", PULLUP="1")
+            attrs=Attrs(IO_STANDARD="SB_LVCMOS33", PULLUP=1)
         ),
 
         *SPIFlashResources(0,

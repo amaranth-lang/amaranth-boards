@@ -15,7 +15,7 @@ class FomuHackerPlatform(LatticeICE40Platform):
     default_clk = "clk48"
     resources   = [
         Resource("clk48", 0, Pins("F5", dir="i"),
-                 Clock(48e6), Attrs(GLOBAL="1", IO_STANDARD="SB_LVCMOS33")),
+                 Clock(48e6), Attrs(GLOBAL=True, IO_STANDARD="SB_LVCMOS33")),
 
         Resource("user_led", 0, PinsN("A5", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS33")),
         Resource("rgb_led", 0,

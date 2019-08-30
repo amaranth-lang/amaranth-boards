@@ -15,7 +15,7 @@ class ICE40HX1KBlinkEVNPlatform(LatticeICE40Platform):
     default_clk = "clk3p3"
     resources   = [
         Resource("clk3p3", 0, Pins("13", dir="i"), Clock(3.3e6),
-                 Attrs(GLOBAL="1", IO_STANDARD="SB_LVCMOS33")),
+                 Attrs(GLOBAL=True, IO_STANDARD="SB_LVCMOS33")),
 
         Resource("user_led", 0, Pins("59", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS33")),
         Resource("user_led", 1, Pins("56", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS33")),

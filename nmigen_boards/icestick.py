@@ -16,7 +16,7 @@ class ICEStickPlatform(LatticeICE40Platform):
     default_clk = "clk12"
     resources   = [
         Resource("clk12", 0, Pins("21", dir="i"),
-                 Clock(12e6), Attrs(GLOBAL="1", IO_STANDARD="SB_LVCMOS33")),
+                 Clock(12e6), Attrs(GLOBAL=True, IO_STANDARD="SB_LVCMOS33")),
 
         Resource("user_led", 0, Pins("99", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS33")),
         Resource("user_led", 1, Pins("98", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS33")),
@@ -26,7 +26,7 @@ class ICEStickPlatform(LatticeICE40Platform):
 
         UARTResource(0,
             rx="9", tx="8", rts="7", cts="4", dtr="3", dsr="2", dcd="1",
-            attrs=Attrs(IO_STANDARD="SB_LVTTL", PULLUP="1")
+            attrs=Attrs(IO_STANDARD="SB_LVTTL", PULLUP=1)
         ),
 
         IrDAResource(0,
