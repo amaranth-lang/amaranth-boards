@@ -1,3 +1,7 @@
+# Python
 *.pyc
+*.eggs
 *.egg-info
+
+# misc user-created
 /build
