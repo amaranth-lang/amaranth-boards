@@ -35,13 +35,13 @@ class NumatoMimasPlatform(XilinxSpartan6Platform):
         Resource("user_led", 7, Pins("P111", dir="o"),
                  Attrs(IOSTANDARD="LVCMOS33")),
 
-        Resource("user_sw", 0, Pins("P124", dir="i"),
+        Resource("user_btn", 0, Pins("P124", dir="i"),
                  Attrs(IOSTANDARD="LVCMOS33", PULLUP="TRUE")),
-        Resource("user_sw", 1, Pins("P123", dir="i"),
+        Resource("user_btn", 1, Pins("P123", dir="i"),
                  Attrs(IOSTANDARD="LVCMOS33", PULLUP="TRUE")),
-        Resource("user_sw", 2, Pins("P121", dir="i"),
+        Resource("user_btn", 2, Pins("P121", dir="i"),
                  Attrs(IOSTANDARD="LVCMOS33", PULLUP="TRUE")),
-        Resource("user_sw", 3, Pins("P120", dir="i"),
+        Resource("user_btn", 3, Pins("P120", dir="i"),
                  Attrs(IOSTANDARD="LVCMOS33", PULLUP="TRUE")),
     ]
     connectors  = [
