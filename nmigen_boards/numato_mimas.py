@@ -43,6 +43,11 @@ class NumatoMimasPlatform(XilinxSpartan6Platform):
                  Attrs(IOSTANDARD="LVCMOS33", PULLUP="TRUE")),
         Resource("user_btn", 3, Pins("P120", dir="i"),
                  Attrs(IOSTANDARD="LVCMOS33", PULLUP="TRUE")),
+
+        *SPIFlashResources(0,
+            cs="P38", clk="P70", mosi="P64", miso="65",
+            attrs=Attrs(IOSTANDARD="LVCMOS33")
+        ),
     ]
     connectors  = [
         Connector("p", 1,
