@@ -15,20 +15,20 @@ class TinyFPGABXPlatform(LatticeICE40Platform):
     default_clk = "clk16"
     resources   = [
         Resource("clk16", 0, Pins("B2", dir="i"),
-                 Clock(16e6), Attrs(IO_STANDARD="SB_LVCMOS33")),
+                 Clock(16e6), Attrs(IO_STANDARD="SB_LVCMOS")),
 
-        Resource("user_led", 0, Pins("B3", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS33")),
+        Resource("user_led", 0, Pins("B3", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS")),
 
         Resource("usb", 0,
             Subsignal("d_p",    Pins("B4", dir="io")),
             Subsignal("d_n",    Pins("A4", dir="io")),
             Subsignal("pullup", Pins("A3", dir="o")),
-            Attrs(IO_STANDARD="SB_LVCMOS33")
+            Attrs(IO_STANDARD="SB_LVCMOS")
         ),
 
         *SPIFlashResources(0,
             cs="F7", clk="G7", mosi="G6", miso="H7", wp="H4", hold="J8",
-            attrs=Attrs(IO_STANDARD="SB_LVCMOS33")
+            attrs=Attrs(IO_STANDARD="SB_LVCMOS")
         ),
     ]
     connectors  = [

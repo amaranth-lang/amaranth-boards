@@ -15,26 +15,26 @@ class FomuHackerPlatform(LatticeICE40Platform):
     default_clk = "clk48"
     resources   = [
         Resource("clk48", 0, Pins("F5", dir="i"),
-                 Clock(48e6), Attrs(GLOBAL=True, IO_STANDARD="SB_LVCMOS33")),
+                 Clock(48e6), Attrs(GLOBAL=True, IO_STANDARD="SB_LVCMOS")),
 
-        Resource("user_led", 0, PinsN("A5", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS33")),
+        Resource("user_led", 0, PinsN("A5", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS")),
         Resource("rgb_led", 0,
             Subsignal("r", PinsN("C5")),
             Subsignal("g", PinsN("B5")),
             Subsignal("b", PinsN("A5")),
-            Attrs(IO_STANDARD="SB_LVCMOS33"),
+            Attrs(IO_STANDARD="SB_LVCMOS"),
         ),
 
         Resource("usb", 0,
             Subsignal("d_p", Pins("A4")),
             Subsignal("d_n", Pins("A2")),
             Subsignal("pullup", Pins("D5")),
-            Attrs(IO_STANDARD="SB_LVCMOS33"),
+            Attrs(IO_STANDARD="SB_LVCMOS"),
         ),
 
         *SPIFlashResources(0,
             cs="C1", clk="D1", mosi="F1", miso="E1",
-            attrs=Attrs(IO_STANDARD="SB_LVCMOS33"),
+            attrs=Attrs(IO_STANDARD="SB_LVCMOS"),
         ),
     ]
 
