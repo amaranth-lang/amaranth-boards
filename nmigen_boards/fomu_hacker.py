@@ -50,5 +50,5 @@ class FomuHackerPlatform(LatticeICE40Platform):
 
 
 if __name__ == "__main__":
-    from ._blinky import Blinky
+    from .test.blinky import *
     FomuHackerPlatform().build(Blinky(), do_program=True)

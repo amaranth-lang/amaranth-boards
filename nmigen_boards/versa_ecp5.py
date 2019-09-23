@@ -172,5 +172,5 @@ class VersaECP5Platform(LatticeECP5Platform):
 
 
 if __name__ == "__main__":
-    from ._blinky import Blinky
+    from .test.blinky import *
     VersaECP5Platform().build(Blinky(), do_program=True)

@@ -82,7 +82,7 @@ class ICEBreakerPlatform(LatticeICE40Platform):
 
 
 if __name__ == "__main__":
-    from ._blinky import Blinky
+    from .test.blinky import *
     p = ICEBreakerPlatform()
     p.add_resources(p.break_off_pmod)
     p.build(Blinky(), do_program=True)

@@ -218,7 +218,7 @@ class MercuryPlatform(XilinxSpartan3APlatform):
 
 
 if __name__ == "__main__":
-    from ._blinky import Blinky
+    from .test.blinky import *
     plat = MercuryPlatform()
     plat.add_resources(plat.leds)
     plat.build(Blinky(), do_program=True)

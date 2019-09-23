@@ -47,5 +47,5 @@ class NumatoMimasPlatform(XilinxSpartan6Platform):
 
 
 if __name__ == "__main__":
-    from ._blinky import Blinky
+    from .test.blinky import *
     NumatoMimasPlatform().build(Blinky())

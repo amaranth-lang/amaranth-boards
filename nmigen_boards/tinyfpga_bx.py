@@ -52,5 +52,5 @@ class TinyFPGABXPlatform(LatticeICE40Platform):
 
 
 if __name__ == "__main__":
-    from ._blinky import Blinky
+    from .test.blinky import *
     TinyFPGABXPlatform().build(Blinky(), do_program=True)

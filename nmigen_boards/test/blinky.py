@@ -4,6 +4,9 @@ from nmigen import *
 from nmigen.build import ResourceError
 
 
+__all__ = ["Blinky"]
+
+
 class Blinky(Elaboratable):
     def elaborate(self, platform):
         m = Module()

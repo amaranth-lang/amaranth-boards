@@ -44,5 +44,5 @@ class ICE40HX1KBlinkEVNPlatform(LatticeICE40Platform):
 
 
 if __name__ == "__main__":
-    from ._blinky import Blinky
+    from .test.blinky import *
     ICE40HX1KBlinkEVNPlatform().build(Blinky(), do_program=True)
