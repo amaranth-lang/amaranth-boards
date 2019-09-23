@@ -18,23 +18,15 @@ class BlackIceIIPlatform(LatticeICE40Platform):
             Clock(100e6), Attrs(GLOBAL=True, IO_STANDARD="SB_LVCMOS")
         ),
 
-        Resource("user_led", 0, Pins("71", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS")),
-        Resource("user_led", 1, Pins("67", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS")),
-        Resource("user_led", 2, Pins("68", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS")),
-        Resource("user_led", 3, Pins("70", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS")),
+        *LEDResources(pins="71 67 68 70", attrs=Attrs(IO_STANDARD="SB_LVCMOS")),
         # Color aliases
-        Resource("user_ledb", 0, Pins("71", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS")),
-        Resource("user_ledg", 0, Pins("67", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS")),
-        Resource("user_ledo", 0, Pins("68", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS")),
-        Resource("user_ledr", 0, Pins("70", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS")),
+        Resource("led_b", 0, Pins("71", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS")),
+        Resource("led_g", 0, Pins("67", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS")),
+        Resource("led_o", 0, Pins("68", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS")),
+        Resource("led_r", 0, Pins("70", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS")),
 
-        Resource("user_btn", 0, PinsN("63", dir="i"), Attrs(IO_STANDARD="SB_LVCMOS")),
-        Resource("user_btn", 1, PinsN("64", dir="i"), Attrs(IO_STANDARD="SB_LVCMOS")),
-
-        Resource("user_sw", 0, PinsN("37", dir="i"), Attrs(IO_STANDARD="SB_LVCMOS")),
-        Resource("user_sw", 1, PinsN("38", dir="i"), Attrs(IO_STANDARD="SB_LVCMOS")),
-        Resource("user_sw", 2, PinsN("39", dir="i"), Attrs(IO_STANDARD="SB_LVCMOS")),
-        Resource("user_sw", 3, PinsN("41", dir="i"), Attrs(IO_STANDARD="SB_LVCMOS")),
+        *ButtonResources(pins="63 64",       invert=True, attrs=Attrs(IO_STANDARD="SB_LVCMOS")),
+        *SwitchResources(pins="37 38 39 41", invert=True, attrs=Attrs(IO_STANDARD="SB_LVCMOS")),
 
         UARTResource(0,
             rx="88", tx="85", rts="91", cts="94",

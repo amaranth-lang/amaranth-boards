@@ -17,13 +17,12 @@ class ICEBreakerPlatform(LatticeICE40Platform):
         Resource("clk12", 0, Pins("35", dir="i"),
                  Clock(12e6), Attrs(GLOBAL=True, IO_STANDARD="SB_LVCMOS")),
 
-        Resource("user_led",  0, PinsN("11", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS")),
-        Resource("user_led",  1, PinsN("37", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS")),
-        # Color-specific aliases
-        Resource("user_ledr", 0, PinsN("11", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS")),
-        Resource("user_ledg", 0, PinsN("37", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS")),
+        *LEDResources(pins="11 37", invert=True, attrs=Attrs(IO_STANDARD="SB_LVCMOS")),
+        # Semantic aliases
+        Resource("led_r", 0, PinsN("11", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS")),
+        Resource("led_g", 0, PinsN("37", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS")),
 
-        Resource("user_btn",  0, PinsN("10", dir="i"), Attrs(IO_STANDARD="SB_LVCMOS")),
+        *ButtonResources(pins="10", invert=True, attrs=Attrs(IO_STANDARD="SB_LVCMOS")),
 
         UARTResource(0,
             rx="6", tx="9",

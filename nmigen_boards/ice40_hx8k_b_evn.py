@@ -17,14 +17,10 @@ class ICE40HX8KBEVNPlatform(LatticeICE40Platform):
         Resource("clk12", 0, Pins("J3", dir="i"),
                  Clock(12e6), Attrs(GLOBAL=True, IO_STANDARD="SB_LVCMOS")),
 
-        Resource("user_led", 0, Pins("C3", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS")), # D2
-        Resource("user_led", 1, Pins("B3", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS")), # D3
-        Resource("user_led", 2, Pins("C4", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS")), # D4
-        Resource("user_led", 3, Pins("C5", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS")), # D5
-        Resource("user_led", 4, Pins("A1", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS")), # D6
-        Resource("user_led", 5, Pins("A2", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS")), # D7
-        Resource("user_led", 6, Pins("B4", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS")), # D8
-        Resource("user_led", 7, Pins("B5", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS")), # D9
+        *LEDResources(
+            pins="C3 B3 C4 C5 A1 A2 B4 B5",
+            attrs=Attrs(IO_STANDARD="SB_LVCMOS")
+        ), # D2..D9
 
         UARTResource(0,
             rx="B10", tx="B12", rts="B13", cts="A15", dtr="A16", dsr="B14", dcd="B15",

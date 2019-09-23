@@ -22,14 +22,8 @@ class VersaECP5Platform(LatticeECP5Platform):
         Resource("pclk", 0, DiffPairs("A4", "A5", dir="i"),
                  Attrs(IO_TYPE="LVDS")),
 
-        Resource("user_led", 0, PinsN("E16", dir="o"), Attrs(IO_TYPE="LVCMOS25")),
-        Resource("user_led", 1, PinsN("D17", dir="o"), Attrs(IO_TYPE="LVCMOS25")),
-        Resource("user_led", 2, PinsN("D18", dir="o"), Attrs(IO_TYPE="LVCMOS25")),
-        Resource("user_led", 3, PinsN("E18", dir="o"), Attrs(IO_TYPE="LVCMOS25")),
-        Resource("user_led", 4, PinsN("F17", dir="o"), Attrs(IO_TYPE="LVCMOS25")),
-        Resource("user_led", 5, PinsN("F18", dir="o"), Attrs(IO_TYPE="LVCMOS25")),
-        Resource("user_led", 6, PinsN("E17", dir="o"), Attrs(IO_TYPE="LVCMOS25")),
-        Resource("user_led", 7, PinsN("F16", dir="o"), Attrs(IO_TYPE="LVCMOS25")),
+        *LEDResources(pins="E16 D17 D18 E18 F17 F18 E17 F16",
+                      attrs=Attrs(IO_TYPE="LVCMOS25")),
 
         Resource("alnum_led", 0,
             Subsignal("a", PinsN("M20", dir="o")),
@@ -50,14 +44,10 @@ class VersaECP5Platform(LatticeECP5Platform):
             Attrs(IO_TYPE="LVCMOS25")
         ),
 
-        Resource("user_sw", 0, PinsN("H2",  dir="i"), Attrs(IO_TYPE="LVCMOS15")),
-        Resource("user_sw", 1, PinsN("K3",  dir="i"), Attrs(IO_TYPE="LVCMOS15")),
-        Resource("user_sw", 2, PinsN("G3",  dir="i"), Attrs(IO_TYPE="LVCMOS15")),
-        Resource("user_sw", 3, PinsN("F2",  dir="i"), Attrs(IO_TYPE="LVCMOS15")),
-        Resource("user_sw", 4, PinsN("J18", dir="i"), Attrs(IO_TYPE="LVCMOS25")),
-        Resource("user_sw", 5, PinsN("K18", dir="i"), Attrs(IO_TYPE="LVCMOS25")),
-        Resource("user_sw", 6, PinsN("K19", dir="i"), Attrs(IO_TYPE="LVCMOS25")),
-        Resource("user_sw", 7, PinsN("K20", dir="i"), Attrs(IO_TYPE="LVCMOS25")),
+        *SwitchResources(pins={0: "H2",  1: "K3",  2: "G3",  3: "F2" },
+                         attrs=Attrs(IO_TYPE="LVCMOS15")),
+        *SwitchResources(pins={4: "J18", 5: "K18", 6: "K19", 7: "K20"},
+                         attrs=Attrs(IO_TYPE="LVCMOS15")),
 
         UARTResource(0,
             rx="C11", tx="A11",

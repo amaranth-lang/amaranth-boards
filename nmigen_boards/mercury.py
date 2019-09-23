@@ -87,15 +87,15 @@ class MercuryPlatform(XilinxSpartan3APlatform):
 
     # Some default useful extensions. Attach to platform using:
     # p.add_resources(p.leds)
-    # pmod_btn = plat.request("user_led")
+    # pmod_btn = plat.request("led")
     leds = [
-        Resource("user_led", 0, Pins("1", dir="o", conn=("led", 0)),
+        Resource("led", 0, Pins("1", dir="o", conn=("led", 0)),
                  Attrs(IOSTANDARD="LVTTL")),
-        Resource("user_led", 1, Pins("2", dir="o", conn=("led", 0)),
+        Resource("led", 1, Pins("2", dir="o", conn=("led", 0)),
                  Attrs(IOSTANDARD="LVTTL")),
-        Resource("user_led", 2, Pins("3", dir="o", conn=("led", 0)),
+        Resource("led", 2, Pins("3", dir="o", conn=("led", 0)),
                  Attrs(IOSTANDARD="LVTTL")),
-        Resource("user_led", 3, Pins("4", dir="o", conn=("led", 0)),
+        Resource("led", 3, Pins("4", dir="o", conn=("led", 0)),
                  Attrs(IOSTANDARD="LVTTL")),
     ]
 
@@ -128,33 +128,33 @@ class MercuryPlatform(XilinxSpartan3APlatform):
 
     # The remaining peripherals only make sense w/ the Baseboard installed.
     # See: http://www.micro-nova.com/mercury-baseboard/
-    _user_sw = [
-        Resource("user_sw", 0, Pins("1", dir="i", conn=("gpio", 0)),
+    _switches = [
+        Resource("switch", 0, Pins("1", dir="i", conn=("gpio", 0)),
                  Attrs(IOSTANDARD="LVTTL")),
-        Resource("user_sw", 1, Pins("2", dir="i", conn=("gpio", 0)),
+        Resource("switch", 1, Pins("2", dir="i", conn=("gpio", 0)),
                  Attrs(IOSTANDARD="LVTTL")),
-        Resource("user_sw", 2, Pins("3", dir="i", conn=("gpio", 0)),
+        Resource("switch", 2, Pins("3", dir="i", conn=("gpio", 0)),
                  Attrs(IOSTANDARD="LVTTL")),
-        Resource("user_sw", 3, Pins("4", dir="i", conn=("gpio", 0)),
+        Resource("switch", 3, Pins("4", dir="i", conn=("gpio", 0)),
                  Attrs(IOSTANDARD="LVTTL")),
-        Resource("user_sw", 4, Pins("5", dir="i", conn=("gpio", 0)),
+        Resource("switch", 4, Pins("5", dir="i", conn=("gpio", 0)),
                  Attrs(IOSTANDARD="LVTTL")),
-        Resource("user_sw", 5, Pins("6", dir="i", conn=("gpio", 0)),
+        Resource("switch", 5, Pins("6", dir="i", conn=("gpio", 0)),
                  Attrs(IOSTANDARD="LVTTL")),
-        Resource("user_sw", 6, Pins("7", dir="i", conn=("gpio", 0)),
+        Resource("switch", 6, Pins("7", dir="i", conn=("gpio", 0)),
                  Attrs(IOSTANDARD="LVTTL")),
-        Resource("user_sw", 7, Pins("8", dir="i", conn=("gpio", 0)),
+        Resource("switch", 7, Pins("8", dir="i", conn=("gpio", 0)),
                  Attrs(IOSTANDARD="LVTTL"))
     ]
 
-    _user_btn = [
-        Resource("user_btn", 1, Pins("1", dir="i", conn=("input", 0)),
+    _buttons = [
+        Resource("button", 1, Pins("1", dir="i", conn=("input", 0)),
                  Attrs(IOSTANDARD="LVTTL")),
-        Resource("user_btn", 2, Pins("2", dir="i", conn=("input", 0)),
+        Resource("button", 2, Pins("2", dir="i", conn=("input", 0)),
                  Attrs(IOSTANDARD="LVTTL")),
-        Resource("user_btn", 3, Pins("3", dir="i", conn=("input", 0)),
+        Resource("button", 3, Pins("3", dir="i", conn=("input", 0)),
                  Attrs(IOSTANDARD="LVTTL")),
-        Resource("user_btn", 4, Pins("4", dir="i", conn=("input", 0)),
+        Resource("button", 4, Pins("4", dir="i", conn=("input", 0)),
                  Attrs(IOSTANDARD="LVTTL"))
     ]
 
@@ -207,9 +207,8 @@ class MercuryPlatform(XilinxSpartan3APlatform):
         )
     ]
 
-    baseboard_sram    = _user_btn + _vga + _extclk + _ps2
-    baseboard_no_sram = _user_btn + _vga + _extclk + _ps2 + \
-                        _user_sw + _sevenseg + _audio
+    baseboard_sram    = _buttons + _vga + _extclk + _ps2
+    baseboard_no_sram = baseboard_sram + _switches + _sevenseg + _audio
 
     def toolchain_program(self, products, name):
         # https://github.com/cr1901/mercpcl

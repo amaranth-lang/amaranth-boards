@@ -13,9 +13,9 @@ class AtlysPlatform(XilinxSpartan6Platform):
     """Platform file for Digilent Atlys Spartan 6 board.
     https://reference.digilentinc.com/reference/programmable-logic/atlys/start"""
 
-    device     = "xc6slx45"
-    package    = "csg324"
-    speed      = "3"
+    device  = "xc6slx45"
+    package = "csg324"
+    speed   = "3"
 
     def __init__(self, *, JP12="2V5", **kwargs):
         super().__init__(**kwargs)
@@ -28,35 +28,36 @@ class AtlysPlatform(XilinxSpartan6Platform):
 
     default_clk = "clk100"
     resources   = [
-        Resource("clk100"  , 0, Pins("L15",  dir="i"), Attrs(IOSTANDARD="LVCMOS33"), Clock(100e6)), # GCLK
+        Resource("clk100", 0, Pins("L15",  dir="i"),
+                 Clock(100e6), Attrs(IOSTANDARD="LVCMOS33")), # GCLK
 
-        Resource("user_led", 0, Pins("U18",  dir="o"), Attrs(IOSTANDARD="LVCMOS33")),       # LD0
-        Resource("user_led", 1, Pins("M14",  dir="o"), Attrs(IOSTANDARD="LVCMOS33")),       # LD1
-        Resource("user_led", 2, Pins("N14",  dir="o"), Attrs(IOSTANDARD="LVCMOS33")),       # LD2
-        Resource("user_led", 3, Pins("L14",  dir="o"), Attrs(IOSTANDARD="LVCMOS33")),       # LD3
-        Resource("user_led", 4, Pins("M13",  dir="o"), Attrs(IOSTANDARD="LVCMOS33")),       # LD4
-        Resource("user_led", 5, Pins("D4",   dir="o"), Attrs(IOSTANDARD="LVCMOS33")),       # LD5
-        Resource("user_led", 6, Pins("P16",  dir="o"), Attrs(IOSTANDARD="LVCMOS33")),       # LD6
-        Resource("user_led", 7, Pins("N12",  dir="o"), Attrs(IOSTANDARD=bank2_iostandard)), # LD7
+        Resource("led",    0, Pins("U18",  dir="o"), Attrs(IOSTANDARD="LVCMOS33")),       # LD0
+        Resource("led",    1, Pins("M14",  dir="o"), Attrs(IOSTANDARD="LVCMOS33")),       # LD1
+        Resource("led",    2, Pins("N14",  dir="o"), Attrs(IOSTANDARD="LVCMOS33")),       # LD2
+        Resource("led",    3, Pins("L14",  dir="o"), Attrs(IOSTANDARD="LVCMOS33")),       # LD3
+        Resource("led",    4, Pins("M13",  dir="o"), Attrs(IOSTANDARD="LVCMOS33")),       # LD4
+        Resource("led",    5, Pins("D4",   dir="o"), Attrs(IOSTANDARD="LVCMOS33")),       # LD5
+        Resource("led",    6, Pins("P16",  dir="o"), Attrs(IOSTANDARD="LVCMOS33")),       # LD6
+        Resource("led",    7, Pins("N12",  dir="o"), Attrs(IOSTANDARD=bank2_iostandard)), # LD7
 
-        Resource("user_btn", 0, PinsN("T15", dir="i"), Attrs(IOSTANDARD=bank2_iostandard)), # RESET
-        Resource("reset"   , 0, PinsN("T15", dir="i"), Attrs(IOSTANDARD=bank2_iostandard)), # RESET
-        Resource("user_btn", 1, Pins("N4",   dir="i"), Attrs(IOSTANDARD="LVCMOS18")),       # BTNU
-        Resource("user_btn", 2, Pins("P4",   dir="i"), Attrs(IOSTANDARD="LVCMOS18")),       # BTNL
-        Resource("user_btn", 3, Pins("P3",   dir="i"), Attrs(IOSTANDARD="LVCMOS18")),       # BTND
-        Resource("user_btn", 4, Pins("F6",   dir="i"), Attrs(IOSTANDARD="LVCMOS18")),       # BTNR
-        Resource("user_btn", 5, Pins("F5",   dir="i"), Attrs(IOSTANDARD="LVCMOS18")),       # BTNC
+        Resource("button", 0, PinsN("T15", dir="i"), Attrs(IOSTANDARD=bank2_iostandard)), # RESET
+        Resource("reset",  0, PinsN("T15", dir="i"), Attrs(IOSTANDARD=bank2_iostandard)), # RESET
+        Resource("button", 1, Pins("N4",   dir="i"), Attrs(IOSTANDARD="LVCMOS18")),       # BTNU
+        Resource("button", 2, Pins("P4",   dir="i"), Attrs(IOSTANDARD="LVCMOS18")),       # BTNL
+        Resource("button", 3, Pins("P3",   dir="i"), Attrs(IOSTANDARD="LVCMOS18")),       # BTND
+        Resource("button", 4, Pins("F6",   dir="i"), Attrs(IOSTANDARD="LVCMOS18")),       # BTNR
+        Resource("button", 5, Pins("F5",   dir="i"), Attrs(IOSTANDARD="LVCMOS18")),       # BTNC
 
-        Resource("user_sw" , 0, Pins("A10",  dir="i"), Attrs(IOSTANDARD="LVCMOS33")),       # SW0
-        Resource("user_sw" , 1, Pins("D14",  dir="i"), Attrs(IOSTANDARD="LVCMOS33")),       # SW1
-        Resource("user_sw" , 2, Pins("C14",  dir="i"), Attrs(IOSTANDARD="LVCMOS33")),       # SW2
-        Resource("user_sw" , 3, Pins("P15",  dir="i"), Attrs(IOSTANDARD="LVCMOS33")),       # SW3
-        Resource("user_sw" , 4, Pins("P12",  dir="i"), Attrs(IOSTANDARD=bank2_iostandard)), # SW4
-        Resource("user_sw" , 5, Pins("R5",   dir="i"), Attrs(IOSTANDARD=bank2_iostandard)), # SW5
-        Resource("user_sw" , 6, Pins("T5",   dir="i"), Attrs(IOSTANDARD=bank2_iostandard)), # SW6
-        Resource("user_sw" , 7, Pins("E4",   dir="i"), Attrs(IOSTANDARD="LVCMOS18")),       # SW7
+        Resource("switch", 0, Pins("A10",  dir="i"), Attrs(IOSTANDARD="LVCMOS33")),       # SW0
+        Resource("switch", 1, Pins("D14",  dir="i"), Attrs(IOSTANDARD="LVCMOS33")),       # SW1
+        Resource("switch", 2, Pins("C14",  dir="i"), Attrs(IOSTANDARD="LVCMOS33")),       # SW2
+        Resource("switch", 3, Pins("P15",  dir="i"), Attrs(IOSTANDARD="LVCMOS33")),       # SW3
+        Resource("switch", 4, Pins("P12",  dir="i"), Attrs(IOSTANDARD=bank2_iostandard)), # SW4
+        Resource("switch", 5, Pins("R5",   dir="i"), Attrs(IOSTANDARD=bank2_iostandard)), # SW5
+        Resource("switch", 6, Pins("T5",   dir="i"), Attrs(IOSTANDARD=bank2_iostandard)), # SW6
+        Resource("switch", 7, Pins("E4",   dir="i"), Attrs(IOSTANDARD="LVCMOS18")),       # SW7
 
-        UARTResource(0, rx="A16", tx="B16", attrs=Attrs(IOSTANDARD="LVCMOS33")),            # J17/UART
+        UARTResource(0, rx="A16", tx="B16", attrs=Attrs(IOSTANDARD="LVCMOS33")), # J17/UART
 
         Resource("ps2", 0, # PS/2 keyboard interface converted from J13 "HOST" USB connector
             Subsignal("clk",    Pins("P17", dir="i")),

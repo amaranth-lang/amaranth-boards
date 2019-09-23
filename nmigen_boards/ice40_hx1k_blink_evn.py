@@ -17,15 +17,12 @@ class ICE40HX1KBlinkEVNPlatform(LatticeICE40Platform):
         Resource("clk3p3", 0, Pins("13", dir="i"), Clock(3.3e6),
                  Attrs(GLOBAL=True, IO_STANDARD="SB_LVCMOS")),
 
-        Resource("user_led", 0, Pins("59", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS")),
-        Resource("user_led", 1, Pins("56", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS")),
-        Resource("user_led", 2, Pins("53", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS")),
-        Resource("user_led", 3, Pins("51", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS")),
+        *LEDResources(pins="59 56 53 51", attrs=Attrs(IO_STANDARD="SB_LVCMOS")),
 
-        Resource("user_btn", 0, Pins("60"), Attrs(IO_STANDARD="SB_LVCMOS")),
-        Resource("user_btn", 1, Pins("57"), Attrs(IO_STANDARD="SB_LVCMOS")),
-        Resource("user_btn", 2, Pins("54"), Attrs(IO_STANDARD="SB_LVCMOS")),
-        Resource("user_btn", 3, Pins("52"), Attrs(IO_STANDARD="SB_LVCMOS")),
+        Resource("touch", 0, Pins("60"), Attrs(IO_STANDARD="SB_LVCMOS")),
+        Resource("touch", 1, Pins("57"), Attrs(IO_STANDARD="SB_LVCMOS")),
+        Resource("touch", 2, Pins("54"), Attrs(IO_STANDARD="SB_LVCMOS")),
+        Resource("touch", 3, Pins("52"), Attrs(IO_STANDARD="SB_LVCMOS")),
 
         *SPIFlashResources(0,
             cs="49", clk="48", mosi="45", miso="46",

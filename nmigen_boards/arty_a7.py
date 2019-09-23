@@ -15,50 +15,18 @@ class ArtyA7Platform(Xilinx7SeriesPlatform):
     speed       = "1L"
     default_clk = "clk100"
     resources   = [
-        Resource("clk100", 0, Pins("E3", dir="i"), Clock(100e6), Attrs(IOSTANDARD="LVCMOS33")),
+        Resource("clk100", 0, Pins("E3", dir="i"),
+                 Clock(100e6), Attrs(IOSTANDARD="LVCMOS33")),
 
-        Resource("user_led", 0, Pins("H5",  dir="o"), Attrs(IOSTANDARD="LVCMOS33")),
-        Resource("user_led", 1, Pins("J5",  dir="o"), Attrs(IOSTANDARD="LVCMOS33")),
-        Resource("user_led", 2, Pins("T9",  dir="o"), Attrs(IOSTANDARD="LVCMOS33")),
-        Resource("user_led", 3, Pins("T10", dir="o"), Attrs(IOSTANDARD="LVCMOS33")),
+        *LEDResources(pins="H5 J5 T9 T10", attrs=Attrs(IOSTANDARD="LVCMOS33")),
 
-        Resource("rgb_led", 0,
-            Subsignal("r", Pins("G6", dir="o")),
-            Subsignal("g", Pins("F6", dir="o")),
-            Subsignal("b", Pins("E1", dir="o")),
-            Attrs(IOSTANDARD="LVCMOS33")
-        ),
+        RGBLEDResource(0, r="G6", g="F6", b="E1", attrs=Attrs(IOSTANDARD="LVCMOS33")),
+        RGBLEDResource(1, r="G3", g="J4", b="G4", attrs=Attrs(IOSTANDARD="LVCMOS33")),
+        RGBLEDResource(2, r="J3", g="J2", b="H4", attrs=Attrs(IOSTANDARD="LVCMOS33")),
+        RGBLEDResource(3, r="K1", g="H6", b="K2", attrs=Attrs(IOSTANDARD="LVCMOS33")),
 
-        Resource("rgb_led", 1,
-            Subsignal("r", Pins("G3", dir="o")),
-            Subsignal("g", Pins("J4", dir="o")),
-            Subsignal("b", Pins("G4", dir="o")),
-            Attrs(IOSTANDARD="LVCMOS33")
-        ),
-
-        Resource("rgb_led", 2,
-            Subsignal("r", Pins("J3", dir="o")),
-            Subsignal("g", Pins("J2", dir="o")),
-            Subsignal("b", Pins("H4", dir="o")),
-            Attrs(IOSTANDARD="LVCMOS33")
-        ),
-
-        Resource("rgb_led", 3,
-            Subsignal("r", Pins("K1", dir="o")),
-            Subsignal("g", Pins("H6", dir="o")),
-            Subsignal("b", Pins("K2", dir="o")),
-            Attrs(IOSTANDARD="LVCMOS33")
-        ),
-
-        Resource("user_sw", 0, Pins("A8" , dir="i"), Attrs(IOSTANDARD="LVCMOS33")),
-        Resource("user_sw", 1, Pins("C11", dir="i"), Attrs(IOSTANDARD="LVCMOS33")),
-        Resource("user_sw", 2, Pins("C10", dir="i"), Attrs(IOSTANDARD="LVCMOS33")),
-        Resource("user_sw", 3, Pins("A10", dir="i"), Attrs(IOSTANDARD="LVCMOS33")),
-
-        Resource("user_btn", 0, Pins("D9", dir="i"), Attrs(IOSTANDARD="LVCMOS33")),
-        Resource("user_btn", 1, Pins("C9", dir="i"), Attrs(IOSTANDARD="LVCMOS33")),
-        Resource("user_btn", 2, Pins("B9", dir="i"), Attrs(IOSTANDARD="LVCMOS33")),
-        Resource("user_btn", 3, Pins("B8", dir="i"), Attrs(IOSTANDARD="LVCMOS33")),
+        *ButtonResources(pins="D9  C9  B9  B8 ", attrs=Attrs(IOSTANDARD="LVCMOS33")),
+        *SwitchResources(pins="A8  C11 C10 A10", attrs=Attrs(IOSTANDARD="LVCMOS33")),
 
         UARTResource(0,
             rx="A9", tx="D10",

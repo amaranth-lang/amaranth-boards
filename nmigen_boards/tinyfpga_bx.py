@@ -17,7 +17,7 @@ class TinyFPGABXPlatform(LatticeICE40Platform):
         Resource("clk16", 0, Pins("B2", dir="i"),
                  Clock(16e6), Attrs(IO_STANDARD="SB_LVCMOS")),
 
-        Resource("user_led", 0, Pins("B3", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS")),
+        *LEDResources(pins="B3", attrs=Attrs(IO_STANDARD="SB_LVCMOS")),
 
         Resource("usb", 0,
             Subsignal("d_p",    Pins("B4", dir="io")),

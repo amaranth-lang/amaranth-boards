@@ -11,7 +11,7 @@ class Blinky(Elaboratable):
         leds = []
         for n in itertools.count():
             try:
-                leds.append(platform.request("user_led", n))
+                leds.append(platform.request("led", n))
             except ResourceError:
                 break
         leds = Cat(led.o for led in leds)

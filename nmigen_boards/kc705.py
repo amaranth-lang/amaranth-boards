@@ -18,14 +18,8 @@ class KC705Platform(Xilinx7SeriesPlatform):
         Resource("clk156", 0, DiffPairs("K28", "K29", dir="i"),
                  Clock(156e6), Attrs(IOSTANDARD="LVDS_25")),
 
-        Resource("user_led", 0, Pins("AB8", dir="o"), Attrs(IOSTANDARD="LVCMOS15")),
-        Resource("user_led", 1, Pins("AA8", dir="o"), Attrs(IOSTANDARD="LVCMOS15")),
-        Resource("user_led", 2, Pins("AC9", dir="o"), Attrs(IOSTANDARD="LVCMOS15")),
-        Resource("user_led", 3, Pins("AB9", dir="o"), Attrs(IOSTANDARD="LVCMOS15")),
-        Resource("user_led", 4, Pins("AE26", dir="o"), Attrs(IOSTANDARD="LVCMOS15")),
-        Resource("user_led", 5, Pins("G19", dir="o"), Attrs(IOSTANDARD="LVCMOS15")),
-        Resource("user_led", 6, Pins("E18", dir="o"), Attrs(IOSTANDARD="LVCMOS15")),
-        Resource("user_led", 7, Pins("F16", dir="o"), Attrs(IOSTANDARD="LVCMOS15")),
+        *LEDResources(pins="AB8 AA8 AC9 AB9 AE26 G19 E18 F16",
+                      attrs=Attrs(IOSTANDARD="LVCMOS15")),
 
         UARTResource(0,
             rx="M19", tx="K24",

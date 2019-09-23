@@ -17,12 +17,10 @@ class FomuHackerPlatform(LatticeICE40Platform):
         Resource("clk48", 0, Pins("F5", dir="i"),
                  Clock(48e6), Attrs(GLOBAL=True, IO_STANDARD="SB_LVCMOS")),
 
-        Resource("user_led", 0, PinsN("A5", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS")),
-        Resource("rgb_led", 0,
-            Subsignal("r", PinsN("C5")),
-            Subsignal("g", PinsN("B5")),
-            Subsignal("b", PinsN("A5")),
-            Attrs(IO_STANDARD="SB_LVCMOS"),
+        *LEDResources(pins="A5", invert=True, attrs=Attrs(IO_STANDARD="SB_LVCMOS")),
+        RGBLEDResource(0,
+            r="C5", g="B5", b="A5", invert=True,
+            attrs=Attrs(IO_STANDARD="SB_LVCMOS")
         ),
 
         Resource("usb", 0,
