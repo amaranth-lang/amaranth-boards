@@ -1,7 +1,7 @@
 from nmigen.build import *
 
 
-__all__ = ["UserLEDResource"]
+__all__ = ["LEDResources", "RGBLEDResource", "ButtonResources", "SwitchResources"]
 
 
 def _SplitResources(*args, pins, invert=False, attrs=None, default_name, dir):
