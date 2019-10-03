@@ -90,7 +90,7 @@ def SRAMResource(*args, cs, oe=None, we, a, d, dm=None, attrs=None):
     io.append(Subsignal("a", Pins(a, dir="o")))
     io.append(Subsignal("d", Pins(d, dir="io")))
     if dm is not None:
-        io.append(Subsignal("dm", PinsN(dm, dir="o"))) # dm="LB# UB#"
+        io.append(Subsignal("dm", Pins(dm, dir="o"))) # dm="LB# UB#"
     if attrs is not None:
         io.append(attrs)
     return Resource.family(*args, default_name="sram", ios=io)
