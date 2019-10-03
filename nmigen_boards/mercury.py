@@ -4,6 +4,7 @@ import subprocess
 from nmigen.build import *
 from nmigen.vendor.xilinx_spartan_3_6 import *
 from .dev import *
+from .dev.user import Display7SegResource
 
 
 __all__ = ["MercuryPlatform"]
@@ -176,18 +177,14 @@ class MercuryPlatform(XilinxSpartan3APlatform):
     ]
 
     _sevenseg = [
-        Resource("sevenseg", 0,
-             Subsignal("a", PinsN("13", dir="o", conn=("gpio", 0))),
-             Subsignal("b", PinsN("14", dir="o", conn=("gpio", 0))),
-             Subsignal("c", PinsN("15", dir="o", conn=("gpio", 0))),
-             Subsignal("d", PinsN("16", dir="o", conn=("gpio", 0))),
-             Subsignal("e", PinsN("17", dir="o", conn=("gpio", 0))),
-             Subsignal("f", PinsN("18", dir="o", conn=("gpio", 0))),
-             Subsignal("g", PinsN("19", dir="o", conn=("gpio", 0))),
-             Subsignal("dp", PinsN("20", dir="o", conn=("gpio", 0))),
-             Subsignal("en", Pins("9 10 11 12", dir="o",
-                                  conn=("gpio", 0))),
-             Attrs(IOSTANDARD="LVTTL")
+        Display7SegResource(0,
+            a="gpio_0:13", b="gpio_0:14", c="gpio_0:15", d="gpio_0:16",
+            e="gpio_0:17", f="gpio_0:18", g="gpio_0:19", dp="gpio_0:20",
+            invert=True, attrs=Attrs(IOSTANDARD="LVTTL")
+        ),
+        Resource("display_7seg_ctrl", 0,
+            Subsignal("en", Pins("9 10 11 12", dir="o", conn=("gpio", 0))),
+            Attrs(IOSTANDARD="LVTTL")
         )
     ]
 
