@@ -59,7 +59,8 @@ def SDCardResources(*args, clk, cmd, dat0, dat1=None, dat2=None, dat3=None,
 
     io_1bit = list(io_native)
     io_1bit.append(Subsignal("dat", Pins(dat0, dir="io", assert_width=1)))
-    if dat3 is not None: # works as electronic card detect
+    if dat3 is not None:
+        # DAT3 has a pullup and works as electronic card detect
         io_1bit.append(Subsignal("ecd", Pins(dat3, dir="i", assert_width=1)))
     resources.append(Resource.family(*args, default_name="sd_card", ios=io_1bit,
                                      name_suffix="1bit"))
@@ -73,7 +74,8 @@ def SDCardResources(*args, clk, cmd, dat0, dat1=None, dat2=None, dat3=None,
 
     if dat3 is not None:
         io_spi = list(io_common)
-        io_spi.append(Subsignal("cs", PinsN(dat3, dir="io"))) # doubles as electronic card detect
+        # DAT3/CS# has a pullup and doubles as electronic card detect
+        io_spi.append(Subsignal("cs", PinsN(dat3, dir="io", assert_width=1)))
         io_spi.append(Subsignal("clk", Pins(clk, dir="o", assert_width=1)))
         io_spi.append(Subsignal("mosi", Pins(cmd, dir="o", assert_width=1)))
         io_spi.append(Subsignal("miso", Pins(dat0, dir="i", assert_width=1)))
