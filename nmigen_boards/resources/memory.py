@@ -1,7 +1,7 @@
 from nmigen.build import *
 
 
-__all__ = ["SPIFlashResources", "SDCardResources", "SRAMResource"]
+__all__ = ["SPIFlashResources", "SDCardResources", "SRAMResource", "SDRAMResource"]
 
 
 def SPIFlashResources(*args, cs, clk, mosi, miso, wp=None, hold=None, attrs=None):
@@ -94,3 +94,22 @@ def SRAMResource(*args, cs, oe=None, we, a, d, dm=None, attrs=None):
     if attrs is not None:
         io.append(attrs)
     return Resource.family(*args, default_name="sram", ios=io)
+
+
+def SDRAMResource(*args, clk, cke=None, cs, we, ras, cas, ba, a, dq, dqm, attrs=None):
+    io = []
+    io.append(Subsignal("clk", Pins(clk, dir="o", assert_width=1)))
+    if cke is not None:
+        io.append(Subsignal("clk_en", Pins(cke, dir="o", assert_width=1)))
+    io.append(Subsignal("cs",  PinsN(cs,  dir="o", assert_width=1)))
+    io.append(Subsignal("we",  PinsN(we,  dir="o", assert_width=1)))
+    io.append(Subsignal("ras", PinsN(ras, dir="o", assert_width=1)))
+    io.append(Subsignal("cas", PinsN(cas, dir="o", assert_width=1)))
+    io.append(Subsignal("ba", Pins(ba, dir="o")))
+    io.append(Subsignal("a",  Pins(a,  dir="o")))
+    io.append(Subsignal("dq", Pins(dq, dir="io")))
+    if dqm is not None:
+        io.append(Subsignal("dqm", Pins(dqm, dir="o")))
+    if attrs is not None:
+        io.append(attrs)
+    return Resource.family(*args, default_name="sdram", ios=io)
