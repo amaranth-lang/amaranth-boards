@@ -1,7 +1,10 @@
 from nmigen.build import *
 
 
-__all__ = ["SPIFlashResources", "SDCardResources", "SRAMResource", "SDRAMResource"]
+__all__ = [
+    "SPIFlashResources", "SDCardResources",
+    "SRAMResource", "SDRAMResource", "NORFlashResources",
+]
 
 
 def SPIFlashResources(*args, cs, clk, mosi, miso, wp=None, hold=None, attrs=None):
@@ -113,3 +116,42 @@ def SDRAMResource(*args, clk, cke=None, cs, we, ras, cas, ba, a, dq, dqm, attrs=
     if attrs is not None:
         io.append(attrs)
     return Resource.family(*args, default_name="sdram", ios=io)
+
+
+def NORFlashResources(*args, rst=None, byte=None, cs, oe, we, wp, by, a, dq, attrs=None):
+    resources = []
+
+    io_common = []
+    if rst is not None:
+        io_common.append(Subsignal("rst", Pins(rst, dir="o", assert_width=1)))
+    io_common.append(Subsignal("cs", PinsN(cs, dir="o", assert_width=1)))
+    io_common.append(Subsignal("oe", PinsN(oe, dir="o", assert_width=1)))
+    io_common.append(Subsignal("we", PinsN(we, dir="o", assert_width=1)))
+    io_common.append(Subsignal("wp", PinsN(wp, dir="o", assert_width=1)))
+    io_common.append(Subsignal("rdy", Pins(by, dir="i", assert_width=1)))
+
+    if byte is None:
+        io_8bit = list(io_common)
+        io_8bit.append(Subsignal("a", Pins(a, dir="o")))
+        io_8bit.append(Subsignal("dq", Pins(dq, dir="io", assert_width=8)))
+        resources.append(Resource.family(*args, default_name="nor_flash", ios=io_8bit,
+                                         name_suffix="8bit"))
+    else:
+        *dq_0_14, dq15_am1 = dq.split()
+
+        # If present in a requested resource, this pin needs to be strapped correctly.
+        io_common.append(Subsignal("byte", PinsN(byte, dir="o", assert_width=1)))
+
+        io_8bit = list(io_common)
+        io_8bit.append(Subsignal("a", Pins(" ".join((dq15_am1, a)), dir="o")))
+        io_8bit.append(Subsignal("dq", Pins(" ".join(dq_0_14[:8]), dir="io", assert_width=8)))
+        resources.append(Resource.family(*args, default_name="nor_flash", ios=io_8bit,
+                                         name_suffix="8bit"))
+
+        io_16bit = list(io_common)
+        io_16bit.append(Subsignal("a", Pins(a, dir="o")))
+        io_16bit.append(Subsignal("dq", Pins(dq, dir="io", assert_width=16)))
+        resources.append(Resource.family(*args, default_name="nor_flash", ios=io_16bit,
+                                         name_suffix="16bit"))
+
+    return resources
