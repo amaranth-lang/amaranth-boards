@@ -1,10 +1,7 @@
 from nmigen.build import *
 
 
-__all__ = [
-    "LEDResources", "RGBLEDResource", "ButtonResources", "SwitchResources",
-    "Display7SegResource",
-]
+__all__ = ["LEDResources", "RGBLEDResource", "ButtonResources", "SwitchResources"]
 
 
 def _SplitResources(*args, pins, invert=False, attrs=None, default_name, dir):
@@ -44,19 +41,3 @@ def ButtonResources(*args, **kwargs):
 
 def SwitchResources(*args, **kwargs):
     return _SplitResources(*args, **kwargs, default_name="switch", dir="i")
-
-
-def Display7SegResource(*args, a, b, c, d, e, f, g, dp=None, invert=False, attrs=None):
-    ios = []
-    ios.append(Subsignal("a", Pins(a, dir="o", invert=invert, assert_width=1)))
-    ios.append(Subsignal("b", Pins(b, dir="o", invert=invert, assert_width=1)))
-    ios.append(Subsignal("c", Pins(c, dir="o", invert=invert, assert_width=1)))
-    ios.append(Subsignal("d", Pins(d, dir="o", invert=invert, assert_width=1)))
-    ios.append(Subsignal("e", Pins(e, dir="o", invert=invert, assert_width=1)))
-    ios.append(Subsignal("f", Pins(f, dir="o", invert=invert, assert_width=1)))
-    ios.append(Subsignal("g", Pins(g, dir="o", invert=invert, assert_width=1)))
-    if dp is not None:
-        ios.append(Subsignal("dp", Pins(dp, dir="o", assert_width=1)))
-    if attrs is not None:
-        ios.append(attrs)
-    return Resource.family(*args, default_name="display_7seg", ios=ios)
