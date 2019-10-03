@@ -24,7 +24,7 @@ class DE0Platform(AlteraPlatform):
             pins="J1 J2 J3 H1 F2 E1 C1 C2 B2 B1",
             attrs=Attrs(io_standard="3.3-V LVTTL")),
         *ButtonResources(
-            pins="H2 G3 F1",
+            pins="H2 G3 F1", invert=True,
             attrs=Attrs(io_standard="3.3-V LVTTL")),
         *SwitchResources(
             pins="J6 H5 H6 G4 G5 J7 H7 E3 E4 D2",
