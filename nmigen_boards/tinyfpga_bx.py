@@ -3,7 +3,7 @@ import subprocess
 
 from nmigen.build import *
 from nmigen.vendor.lattice_ice40 import *
-from .dev import *
+from .resources import *
 
 
 __all__ = ["TinyFPGABXPlatform"]

@@ -3,8 +3,7 @@ import subprocess
 
 from nmigen.build import *
 from nmigen.vendor.xilinx_spartan_3_6 import *
-from .dev import *
-from .dev.display import Display7SegResource
+from .resources import *
 
 
 __all__ = ["MercuryPlatform"]

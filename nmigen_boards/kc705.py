@@ -3,7 +3,7 @@ import subprocess
 
 from nmigen.build import *
 from nmigen.vendor.xilinx_7series import *
-from .dev import *
+from .resources import *
 
 
 __all__ = ["KC705Platform"]
