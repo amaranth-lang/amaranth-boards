@@ -11,7 +11,7 @@ __all__ = ["DE0Platform"]
 
 class DE0Platform(AlteraPlatform):
     device      = "EP3C16" # Cyclone III 15K LEs
-    package     = "F484"   # FBGA-484 UBGA-672
+    package     = "F484"   # FBGA-484
     speed       = "C6"
     default_clk = "clk50"
     resources   = [
