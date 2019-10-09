@@ -2,14 +2,14 @@ import os
 import subprocess
 
 from nmigen.build import *
-from nmigen.vendor.altera import *
+from nmigen.vendor.intel import *
 from .resources import *
 
 
 __all__ = ["DE0CVPlatform"]
 
 
-class DE0CVPlatform(AlteraPlatform):
+class DE0CVPlatform(IntelPlatform):
     device      = "5CEBA4" # Cyclone V 49K LEs
     package     = "F23"    # FBGA-484
     speed       = "C7"
@@ -25,7 +25,7 @@ class DE0CVPlatform(AlteraPlatform):
                  Clock(50e6), Attrs(io_standard="3.3-V LVTTL")),
 
         *LEDResources(
-            pins="AA2 AA1 W2 Y3 N2 N1 U2 U1 L2 L1",
+            pins="AA2 AA1 W2 Y3 N2 N1 U2 U1 L2 L1", invert=True,
             attrs=Attrs(io_standard="3.3-V LVTTL")),
         *ButtonResources(
             pins="U7 W9 M7 M6", invert=True,

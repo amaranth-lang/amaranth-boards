@@ -2,14 +2,14 @@ import os
 import subprocess
 
 from nmigen.build import *
-from nmigen.vendor.altera import *
+from nmigen.vendor.intel import *
 from .resources import *
 
 
 __all__ = ["DE0Platform"]
 
 
-class DE0Platform(AlteraPlatform):
+class DE0Platform(IntelPlatform):
     device      = "EP3C16" # Cyclone III 15K LEs
     package     = "F484"   # FBGA-484
     speed       = "C6"
