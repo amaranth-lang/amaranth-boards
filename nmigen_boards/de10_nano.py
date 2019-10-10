@@ -82,7 +82,7 @@ class DE10NanoPlatform(IntelPlatform):
         quartus_pgm = os.environ.get("QUARTUS_PGM", "quartus_pgm")
         with products.extract("{}.sof".format(name)) as bitstream_filename:
             subprocess.check_call([quartus_pgm, "--haltcc", "--mode", "JTAG",
-                                   "--operation", "P;" + bitstream_filename])
+                                   "--operation", "P;" + bitstream_filename + "@2"])
 
 
 if __name__ == "__main__":
