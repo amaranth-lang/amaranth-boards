@@ -34,7 +34,7 @@ class MercuryPlatform(XilinxSpartan3APlatform):
         Resource("clk50", 0, Pins("P43", dir="i"),
                  Attrs(IOSTANDARD="LVCMOS33"), Clock(50e6)),
 
-        Resource("user_btn", 0, Pins("P41", dir="i"),
+        Resource("button", 0, Pins("P41", dir="i"),
                  Attrs(IOSTANDARD="LVTTL")),
 
         # The serial interface and flash memory have a shared SPI bus.
