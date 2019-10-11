@@ -44,35 +44,22 @@ class ICEBreakerPlatform(LatticeICE40Platform):
     # p.add_resources(p.break_off_pmod)
     # pmod_btn = plat.request("user_btn")
     break_off_pmod = [
-         Resource("user_btn", 1, Pins("9", dir="i", conn=("pmod", 2)),
-                  Attrs(IO_STANDARD="SB_LVCMOS")),
-         Resource("user_btn", 2, Pins("4", dir="i", conn=("pmod", 2)),
-                  Attrs(IO_STANDARD="SB_LVCMOS")),
-         Resource("user_btn", 3, Pins("10", dir="i", conn=("pmod", 2)),
-                  Attrs(IO_STANDARD="SB_LVCMOS")),
+        *LEDResources(pins={2: "7", 3: "1", 4: "2", 5: "8", 6: "3"}, conn=("pmod", 2),
+                      attrs=Attrs(IO_STANDARD="SB_LVCMOS")),
+        # Semantic aliases
+        Resource("led_r", 1, Pins("7", dir="o", conn=("pmod", 2)),
+                 Attrs(IO_STANDARD="SB_LVCMOS")),
+        Resource("led_g", 1, Pins("1", dir="o", conn=("pmod", 2)),
+                 Attrs(IO_STANDARD="SB_LVCMOS")),
+        Resource("led_g", 2, Pins("2", dir="o", conn=("pmod", 2)),
+                 Attrs(IO_STANDARD="SB_LVCMOS")),
+        Resource("led_g", 3, Pins("8", dir="o", conn=("pmod", 2)),
+                 Attrs(IO_STANDARD="SB_LVCMOS")),
+        Resource("led_g", 4, Pins("3", dir="o", conn=("pmod", 2)),
+                 Attrs(IO_STANDARD="SB_LVCMOS")),
 
-         Resource("user_led", 2, Pins("7", dir="o", conn=("pmod", 2)),
-                  Attrs(IO_STANDARD="SB_LVCMOS")),
-         Resource("user_led", 3, Pins("1", dir="o", conn=("pmod", 2)),
-                  Attrs(IO_STANDARD="SB_LVCMOS")),
-         Resource("user_led", 4, Pins("2", dir="o", conn=("pmod", 2)),
-                  Attrs(IO_STANDARD="SB_LVCMOS")),
-         Resource("user_led", 5, Pins("8", dir="o", conn=("pmod", 2)),
-                  Attrs(IO_STANDARD="SB_LVCMOS")),
-         Resource("user_led", 6, Pins("3", dir="o", conn=("pmod", 2)),
-                  Attrs(IO_STANDARD="SB_LVCMOS")),
-
-         # Color-specific aliases
-         Resource("user_ledr", 1, Pins("7", dir="o", conn=("pmod", 2)),
-                  Attrs(IO_STANDARD="SB_LVCMOS")),
-         Resource("user_ledg", 1, Pins("1", dir="o", conn=("pmod", 2)),
-                  Attrs(IO_STANDARD="SB_LVCMOS")),
-         Resource("user_ledg", 2, Pins("2", dir="o", conn=("pmod", 2)),
-                  Attrs(IO_STANDARD="SB_LVCMOS")),
-         Resource("user_ledg", 3, Pins("8", dir="o", conn=("pmod", 2)),
-                  Attrs(IO_STANDARD="SB_LVCMOS")),
-         Resource("user_ledg", 4, Pins("3", dir="o", conn=("pmod", 2)),
-                  Attrs(IO_STANDARD="SB_LVCMOS"))
+        *ButtonResources(pins={1: "9", 2: "4", 3: "10"}, conn=("pmod", 2),
+                         attrs=Attrs(IO_STANDARD="SB_LVCMOS")),
     ]
 
     def toolchain_program(self, products, name):
