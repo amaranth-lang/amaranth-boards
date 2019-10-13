@@ -106,18 +106,18 @@ def SRAMResource(*args, cs, oe=None, we, a, d, dm=None,
 def SDRAMResource(*args, clk, cke=None, cs, we, ras, cas, ba, a, dq, dqm=None,
                   conn=None, attrs=None):
     io = []
-    io.append(Subsignal("clk", Pins(clk, dir="o", conn=conn, conn=None, assert_width=1)))
+    io.append(Subsignal("clk", Pins(clk, dir="o", conn=conn, assert_width=1)))
     if cke is not None:
-        io.append(Subsignal("clk_en", Pins(cke, dir="o", conn=conn, conn=None, assert_width=1)))
-    io.append(Subsignal("cs",  PinsN(cs,  dir="o", conn=conn, conn=None, assert_width=1)))
-    io.append(Subsignal("we",  PinsN(we,  dir="o", conn=conn, conn=None, assert_width=1)))
-    io.append(Subsignal("ras", PinsN(ras, dir="o", conn=conn, conn=None, assert_width=1)))
-    io.append(Subsignal("cas", PinsN(cas, dir="o", conn=conn, conn=None, assert_width=1)))
-    io.append(Subsignal("ba", Pins(ba, dir="o", conn=conn, conn=None)))
-    io.append(Subsignal("a",  Pins(a,  dir="o", conn=conn, conn=None)))
-    io.append(Subsignal("dq", Pins(dq, dir="io", conn=conn, conn=None)))
+        io.append(Subsignal("clk_en", Pins(cke, dir="o", conn=conn, assert_width=1)))
+    io.append(Subsignal("cs",  PinsN(cs,  dir="o", conn=conn, assert_width=1)))
+    io.append(Subsignal("we",  PinsN(we,  dir="o", conn=conn, assert_width=1)))
+    io.append(Subsignal("ras", PinsN(ras, dir="o", conn=conn, assert_width=1)))
+    io.append(Subsignal("cas", PinsN(cas, dir="o", conn=conn, assert_width=1)))
+    io.append(Subsignal("ba", Pins(ba, dir="o", conn=conn)))
+    io.append(Subsignal("a",  Pins(a,  dir="o", conn=conn)))
+    io.append(Subsignal("dq", Pins(dq, dir="io", conn=conn)))
     if dqm is not None:
-        io.append(Subsignal("dqm", Pins(dqm, dir="o", conn=conn, conn=None))) # dqm="LDQM# UDQM#"
+        io.append(Subsignal("dqm", Pins(dqm, dir="o", conn=conn))) # dqm="LDQM# UDQM#"
     if attrs is not None:
         io.append(attrs)
     return Resource.family(*args, default_name="sdram", ios=io)
