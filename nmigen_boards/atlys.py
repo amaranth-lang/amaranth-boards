@@ -27,9 +27,11 @@ class AtlysPlatform(XilinxSpartan6Platform):
         return "LVCMOS25" if self._JP12 == "2V5" else "LVCMOS33"
 
     default_clk = "clk100"
+    default_rst = "rst"
     resources   = [
+        Resource("rst",    0, PinsN("T15", dir="i"), Attrs(IOSTANDARD=bank2_iostandard)), # RESET
         Resource("clk100", 0, Pins("L15",  dir="i"),
-                 Clock(100e6), Attrs(IOSTANDARD="LVCMOS33")), # GCLK
+                 Clock(100e6), Attrs(IOSTANDARD="LVCMOS33")),                             # GCLK
 
         Resource("led",    0, Pins("U18",  dir="o"), Attrs(IOSTANDARD="LVCMOS33")),       # LD0
         Resource("led",    1, Pins("M14",  dir="o"), Attrs(IOSTANDARD="LVCMOS33")),       # LD1
@@ -40,13 +42,11 @@ class AtlysPlatform(XilinxSpartan6Platform):
         Resource("led",    6, Pins("P16",  dir="o"), Attrs(IOSTANDARD="LVCMOS33")),       # LD6
         Resource("led",    7, Pins("N12",  dir="o"), Attrs(IOSTANDARD=bank2_iostandard)), # LD7
 
-        Resource("button", 0, PinsN("T15", dir="i"), Attrs(IOSTANDARD=bank2_iostandard)), # RESET
-        Resource("reset",  0, PinsN("T15", dir="i"), Attrs(IOSTANDARD=bank2_iostandard)), # RESET
-        Resource("button", 1, Pins("N4",   dir="i"), Attrs(IOSTANDARD="LVCMOS18")),       # BTNU
-        Resource("button", 2, Pins("P4",   dir="i"), Attrs(IOSTANDARD="LVCMOS18")),       # BTNL
-        Resource("button", 3, Pins("P3",   dir="i"), Attrs(IOSTANDARD="LVCMOS18")),       # BTND
-        Resource("button", 4, Pins("F6",   dir="i"), Attrs(IOSTANDARD="LVCMOS18")),       # BTNR
-        Resource("button", 5, Pins("F5",   dir="i"), Attrs(IOSTANDARD="LVCMOS18")),       # BTNC
+        Resource("button", 0, Pins("N4",   dir="i"), Attrs(IOSTANDARD="LVCMOS18")),       # BTNU
+        Resource("button", 1, Pins("P4",   dir="i"), Attrs(IOSTANDARD="LVCMOS18")),       # BTNL
+        Resource("button", 2, Pins("P3",   dir="i"), Attrs(IOSTANDARD="LVCMOS18")),       # BTND
+        Resource("button", 3, Pins("F6",   dir="i"), Attrs(IOSTANDARD="LVCMOS18")),       # BTNR
+        Resource("button", 4, Pins("F5",   dir="i"), Attrs(IOSTANDARD="LVCMOS18")),       # BTNC
 
         Resource("switch", 0, Pins("A10",  dir="i"), Attrs(IOSTANDARD="LVCMOS33")),       # SW0
         Resource("switch", 1, Pins("D14",  dir="i"), Attrs(IOSTANDARD="LVCMOS33")),       # SW1
