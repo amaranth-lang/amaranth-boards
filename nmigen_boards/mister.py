@@ -88,7 +88,7 @@ class MisterPlatform(IntelPlatform):
         Resource("toslink", 0, Pins("9", dir="o", conn=("gpio", 1))),
 
         *SDCardResources(0,
-            clk="13", cmd="6", 
+            clk="13", cmd="8", 
             dat0="16", dat1="18", dat2="4", dat3="6",
             conn=("gpio", 1), attrs=Attrs(io_standard="3.3-V LVTTL")),
 
