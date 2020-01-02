@@ -336,8 +336,8 @@ class Genesys2Platform(Xilinx7SeriesPlatform):
             *SwitchResources(pins="G19 G25 H24 K19 N19 P19",
                              attrs=lvcmos_vadj),
             *SwitchResources(pins={
-                7: "P26",
-                8: "P27"}, attrs=Attrs(IOSTANDARD="LVCMOS33"))]
+                6: "P26",
+                7: "P27"}, attrs=Attrs(IOSTANDARD="LVCMOS33"))]
         super().__init__()
 
     def toolchain_prepare(self, fragment, name, **kwargs):
