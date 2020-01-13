@@ -31,7 +31,7 @@ class Blinky(Elaboratable):
             inverts[index] ^= switch
 
         clk_freq = platform.default_clk_frequency
-        timer = Signal(max=int(clk_freq//2), reset=int(clk_freq//2) - 1)
+        timer = Signal(range(int(clk_freq//2)), reset=int(clk_freq//2) - 1)
         flops = Signal(len(leds))
 
         m.d.comb += Cat(leds).eq(flops ^ Cat(inverts))
