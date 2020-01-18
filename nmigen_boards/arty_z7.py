@@ -49,9 +49,9 @@ class ArtyZ720Platform(Xilinx7SeriesPlatform):
         Resource("hdmi_rx", 0,                                  # J10
             Subsignal("cec", Pins("H17", dir="io")),
             Subsignal("clk", DiffPairs("N18", "P19", dir="i"),
-                Attrs(IO_TYPE="TMDS_33")),
+                Attrs(IOSTANDARD="TMDS_33")),
             Subsignal("d",   DiffPairs("V20 T20 N20", "W20 U20 P20", dir="i"),
-                Attrs(IO_TYPE="TMDS_33")),
+                Attrs(IOSTANDARD="TMDS_33")),
             Subsignal("hpd", Pins("T19", dir="o")),
             Subsignal("scl", Pins("U14", dir="io")),
             Subsignal("sda", Pins("U15", dir="io")),
@@ -60,9 +60,9 @@ class ArtyZ720Platform(Xilinx7SeriesPlatform):
         Resource("hdmi_tx", 0,                                  # J11
             Subsignal("cec", Pins("G15", dir="io")),
             Subsignal("clk", DiffPairs("L16", "L17", dir="o"),
-                Attrs(IO_TYPE="TMDS_33")),
+                Attrs(IOSTANDARD="TMDS_33")),
             Subsignal("d",   DiffPairs("K17 K19 J18", "K18 J19 H18", dir="o"),
-                Attrs(IO_TYPE="TMDS_33")),
+                Attrs(IOSTANDARD="TMDS_33")),
             Subsignal("hpd", PinsN("R19", dir="i")),
             Subsignal("scl", Pins("M17", dir="io")),
             Subsignal("sda", Pins("M18", dir="io")),
