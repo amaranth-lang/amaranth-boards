@@ -35,12 +35,10 @@ class FomuPVTPlatform(LatticeICE40Platform):
             attrs=Attrs(IO_STANDARD="SB_LVCMOS"),
         ),
 
-        Resource("touch", 0,
-            Subsignal("TOUCH_1", Pins("E4")),
-            Subsignal("TOUCH_2", Pins("D5")),
-            Subsignal("TOUCH_3", Pins("E5")),
-            Subsignal("TOUCH_4", Pins("F5")),
-        ),
+        Resource("touch", 0, Pins("E4")),
+        Resource("touch", 1, Pins("D5")),
+        Resource("touch", 2, Pins("E5")),
+        Resource("touch", 3, Pins("F5")),
     ]
 
     connectors = []
