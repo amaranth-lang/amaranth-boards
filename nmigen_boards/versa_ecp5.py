@@ -47,7 +47,7 @@ class VersaECP5Platform(LatticeECP5Platform):
         *SwitchResources(pins={0: "H2",  1: "K3",  2: "G3",  3: "F2" },
                          attrs=Attrs(IO_TYPE="LVCMOS15")),
         *SwitchResources(pins={4: "J18", 5: "K18", 6: "K19", 7: "K20"},
-                         attrs=Attrs(IO_TYPE="LVCMOS15")),
+                         attrs=Attrs(IO_TYPE="LVCMOS25")),
 
         UARTResource(0,
             rx="C11", tx="A11",
