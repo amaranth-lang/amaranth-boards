@@ -23,7 +23,7 @@ setup(
     install_requires=["setuptools", "nmigen"],
     packages=find_packages(),
     project_urls={
-        "Source Code": "https://github.com/m-labs/nmigen-boards",
-        "Bug Tracker": "https://github.com/m-labs/nmigen-boards/issues",
+        "Source Code": "https://github.com/nmigen/nmigen-boards",
+        "Bug Tracker": "https://github.com/nmigen/nmigen-boards/issues",
     },
 )
