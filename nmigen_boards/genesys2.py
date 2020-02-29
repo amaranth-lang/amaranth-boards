@@ -364,7 +364,7 @@ class Genesys2Platform(Xilinx7SeriesPlatform):
             source [find interface/ftdi/digilent-hs1.cfg]
             # fix channel
             ftdi_channel 1
-            adapter_khz 6000
+            adapter_khz 2500
             transport select jtag
             source [find cpld/xilinx-xc7.cfg]
             source [find cpld/jtagspi.cfg]
