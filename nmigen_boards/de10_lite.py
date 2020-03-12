@@ -68,16 +68,13 @@ class DE10LitePlatform(IntelPlatform):
             Subsignal("hs", Pins("N3", dir="o")),
             Subsignal("vs", Pins("N1", dir="o")),
             Attrs(io_standard="3.3-V LVTTL"))
-
-
     ]
     connectors  = [
         Connector("gpio", 0,
-            "V10 W10 V9 W9 V8 W8 V7 W7 W6 V5 W5 AA15 AA14 W13 W12 AB13 AB12 Y11 AB11 W11 AB10 AA10 AA9 Y8 AA8 Y7 AA7 Y6 AA6 Y5 AA5 Y4 AB3 Y3 AB2 AA2"
-            ),
+            "V10 W10 V9 W9 V8 W8 V7 W7 W6 V5 W5 AA15 AA14 W13 W12 AB13 AB12 Y11 AB11 W11 AB10 "
+            "AA10 AA9 Y8 AA8 Y7 AA7 Y6 AA6 Y5 AA5 Y4 AB3 Y3 AB2 AA2"),
         Connector("gpio", 5,
-            "AB5 AB6 AB7 AB8 AB9 Y10 AA11 AA12 AB17 AA17 AB19 AA19 Y19 AB20 AB21 AA20 F16"
-            ),
+            "AB5 AB6 AB7 AB8 AB9 Y10 AA11 AA12 AB17 AA17 AB19 AA19 Y19 AB20 AB21 AA20 F16"),
     ]
 
     def toolchain_program(self, products, name):
