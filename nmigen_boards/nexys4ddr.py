@@ -14,9 +14,12 @@ class Nexys4DDRPlatform(Xilinx7SeriesPlatform):
     package     = "csg324"
     speed       = "1"
     default_clk = "clk100"
+    default_rst = "rst"
     resources   = [
         Resource("clk100", 0,
             Pins("E3", dir="i"), Clock(100e6), Attrs(IOSTANDARD="LVCMOS33")),
+        Resource("rst", 0,
+            PinsN("C12", dir="i"), Attrs(IOSTANDARD="LVCMOS33")),
 
         *SwitchResources(
             pins="J15 L16 M13 R15 R17 T18 U18 R13 T8  U8  R16 T13 H6  U12 U11 V10",
