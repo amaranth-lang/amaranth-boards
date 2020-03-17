@@ -14,6 +14,7 @@ class Nexys4DDRPlatform(Xilinx7SeriesPlatform):
     package     = "csg324"
     speed       = "1"
     default_clk = "clk100"
+    default_rst = "button_reset"
     resources   = [
         Resource("clk100", 0,
             Pins("E3", dir="i"), Clock(100e6), Attrs(IOSTANDARD="LVCMOS33")),
