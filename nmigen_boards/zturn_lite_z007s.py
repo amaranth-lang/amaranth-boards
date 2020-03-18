@@ -37,7 +37,7 @@ class ZTurnLiteZ007SPlatform(Xilinx7SeriesPlatform):
             "L19 H16 "
             "L20 H17 "
             "-   -   "
-            "-   K16 "
+            "K16 L14 "
             "J16 L15 "
             "M17 M14 "
             "M18 M15 "
