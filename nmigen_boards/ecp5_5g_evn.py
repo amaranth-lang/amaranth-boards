@@ -15,16 +15,63 @@ class ECP55GEVNPlatform(LatticeECP5Platform):
     speed       = "8"
     default_clk = "clk12"
     default_rst = "rst"
+    
+    def __init__(self, *, VCCIO1="2V5", VCCIO6="3V3", **kwargs):
+        """
+        The switches and LEDs are connected over resistors to VCCIO6 for SW4 and SW5 switch 1-3 and VCCIO1 for the LEDs and SW5 switch 4-8.
+        VCCIO1 is connected by default to 2.5 V over R100 (can be set to 3.3 V by disconnecting R100 and connecting R105)
+        VCCIO6 is connected to 3.3 V by default over R99 (can be switched to 2.5 V with R104, see page 51 in the ECP5 evaluation board datasheet)
+        """
+        assert VCCIO1 in ["3V3", "2V5"]
+        assert VCCIO6 in ["3V3", "2V5"]
+        self._VCCIO1 = "LVCMOS25" if VCCIO1 == "2V5" else "LVCMOS33"
+        self._VCCIO6 = "LVCMOS25" if VCCIO6 == "2V5" else "LVCMOS33"
+    
+    def bank1_iostandard(self):
+        return self._VCCIO1
+    
+    def bank6_iostandard(self):
+        return self._VCCIO6
+    
     resources   = [
         Resource("rst", 0, PinsN("G2", dir="i"), Attrs(IO_TYPE="LVCMOS33")),
         Resource("clk12", 0, Pins("A10", dir="i"),
                  Clock(12e6), Attrs(IO_TYPE="LVCMOS33")),
-
-        *LEDResources(pins="A13 A12 B19 A18 B18 C17 A17 B17",
-                      attrs=Attrs(IO_TYPE="LVCMOS33")),
-        *SwitchResources(pins="P4", invert=True,
-                         attrs=Attrs(IO_TYPE="LVCMOS33")),
-
+        
+        
+        *LEDResources(pins="A13 A12 B19 A18 B18 C17 A17 B17", invert=True,
+                      attrs=Attrs(IO_TYPE=bank1_iostandard)),
+        
+        *ButtonResources(pins="P4", invert=True,
+                         attrs=Attrs(IO_TYPE=bank6_iostandard)),
+        
+        *SwitchResources(pins={1: "J1", 2: "H1", 3: "K1"}, invert=True,
+                         attrs=Attrs(IO_TYPE=bank6_iostandard)),
+        
+        *SwitchResources(pins={4: "E15", 5: "D16", 6: "B16", 7: "C16", 8: "A16"}, invert=True,
+                         attrs=Attrs(IO_TYPE=bank1_iostandard)),
+        
+        # SERDES
+        Resource("serdes", 0,
+            Subsignal("tx", DiffPairs("W4", "W5", dir="o")),
+            Subsignal("rx", DiffPairs("Y5", "Y6", dir="i")),
+        ),
+        Resource("serdes", 1,
+            Subsignal("tx", DiffPairs("W8", "W9", dir="o")),
+            Subsignal("rx", DiffPairs("Y7", "Y8", dir="i")),
+        ),
+        Resource("serdes", 2,
+            Subsignal("tx", DiffPairs("W13", "W14", dir="o")),
+            Subsignal("rx", DiffPairs("Y14", "Y15", dir="i")),
+        ),
+        Resource("serdes", 3,
+            Subsignal("tx", DiffPairs("W17", "W18", dir="o")),
+            Subsignal("rx", DiffPairs("Y16", "Y17", dir="i")),
+        ),
+        
+        Resource("serdes_clk", 0, DiffPairs("Y11", "Y12", dir="o")),
+        Resource("serdes_clk", 1, DiffPairs("Y19", "W20", dir="o")), # 200 MHz
+        
         # TODO: add other resources
     ]
     connectors  = [
