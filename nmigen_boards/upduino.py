@@ -3,7 +3,7 @@ import subprocess
 
 from nmigen.build import *
 from nmigen.vendor.lattice_ice40 import *
-from nmigen_boards.resources import *
+from .resources import *
 
 ######################################################
 # Board definition file for Gnarly Grey"s "Upduino". #
@@ -45,3 +45,7 @@ class UpduinoPlatform(LatticeICE40Platform):
         iceprog = os.environ.get("ICEPROG", "iceprog")
         with products.extract("{}.bin".format(name)) as bitstream_fn:
             subprocess.check_call([iceprog, bitstream_fn])
+
+if __name__ == "__main__":
+    from .test.blinky import *
+    ICEStickPlatform().build(Blinky(), do_program=True)
