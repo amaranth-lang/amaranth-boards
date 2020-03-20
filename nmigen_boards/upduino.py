@@ -48,4 +48,4 @@ class UpduinoPlatform(LatticeICE40Platform):
 
 if __name__ == "__main__":
     from .test.blinky import *
-    ICEStickPlatform().build(Blinky(), do_program=True)
+    UpduinoPlatform().build(Blinky(), do_program=True)
