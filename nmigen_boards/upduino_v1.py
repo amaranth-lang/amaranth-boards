@@ -1,15 +1,12 @@
-import os
-import subprocess
-
 from nmigen.build import *
 from nmigen.vendor.lattice_ice40 import *
 from .resources import *
 
 
-__all__ = ["UpduinoPlatform"]
+__all__ = ["UpduinoV1Platform"]
 
 
-class UpduinoPlatform(LatticeICE40Platform):
+class UpduinoV1Platform(LatticeICE40Platform):
     device      = "iCE40UP5K"
     package     = "SG48"
     default_clk = "SB_HFOSC"
@@ -36,12 +33,4 @@ class UpduinoPlatform(LatticeICE40Platform):
         Connector("j", 1, "12 21 13 19 18 11 9 6 44 4 3 48 45 47 46 2")
     ]
 
-    def toolchain_program(self, products, name):
-        iceprog = os.environ.get("ICEPROG", "iceprog")
-        with products.extract("{}.bin".format(name)) as bitstream_fn:
-            subprocess.check_call([iceprog, bitstream_fn])
-
-
-if __name__ == "__main__":
-    from .test.blinky import *
-    UpduinoPlatform().build(Blinky(), do_program=True)
+    # This board doesn't have an integrated programmer.
