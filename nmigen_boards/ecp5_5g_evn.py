@@ -79,7 +79,29 @@ class ECP55GEVNPlatform(LatticeECP5Platform):
         # TODO: add other resources
     ]
     connectors  = [
-        # TODO: add connectors
+        # Expansion connectors
+        Connector("J", 39, "- - - D15 B15 C15 B13 B20 D11 E11 B12 C12 D12 E12 C13 D13 E13 A14 A9 B10 - - - - - - - - E7 - A11 - A19 - - - - - - -"),
+        Connector("J", 40, "K2 - A15 F1 H2 G1 J4 J5 J3 K3 L4 L5 M4 N5 N4 P5 N3 M3 - - K5 - M5 - L3 - N2 M1 L2 - L1 N1 C14 - P1 E14 D14 - K4 -"),
+        # Arduino
+        Connector("J", 6, "K16 J16 H17 J17 H18 H16 - G18 G16 F17"),
+        Connector("J", 3, "F19 F20 E20 E19 D19 D20 C20 K17"),
+        Connector("J", 7, "C18 - D17 - - - - -"),
+        Connector("J", 4, "F18 E17 E18 D18 F16 E16"),
+        # Raspberry Pi
+        Connector("JP", 8, "- - T17 - U16 - U17 P18 - N20 N19 T16 M18 - N17 P17 - M17 U20 - T19 N18 R20 U19 - R18 L18 L17 U18 - T18 T20 P20 - R17 P19 N16 P16 - R16"),
+        # GPIO
+        Connector("J", 5, "- - H20 G19 - - K18 J18 - - K19 J19 - - K20 J20 - - G20 - - -"), # Contains 4 differential pairs
+        Connector("J", 8, "- - L19 M19 L20 M20 L16 -"),
+        Connector("J", 32, "- - - - A5 A4 - - C5 B5 - - B4 C4 - - B3 A3 - - D5 E4 - - D3 C3 - - E3 F4 - - F5 E5 - - B1 A2 - -"), # Contains 9 differential pairs
+        Connector("J", 33, "- - - - C2 B2 - - D1 C1 - - E1 D2 - - G5 H4 - - H3 H5 - - F3 G3 - - E2 F2 - -"), # Contains 7 differential pairs
+        # Mic
+        Connector("J", 30, "- B6 D9 C9 E9 D10 A6 E10 - -"),
+        # PMOD
+        Connector("J", 31, "C6 C7 E8 D8 - - C8 B8 A7 A8 - -"),
+        # JTAG
+        Connector("J", 1, "- V4 R5 - - U5 - T5"),
+        # Parallel configuration
+        Connector("J", 38, "W3 R2 T3 Y3 R1 V3 T1 V2 U1 W2 V1 T2 W1 U2 Y2 R2 U3 R3 - -"), # Connect pin 2 / R2 with jumper when needed
     ]
 
     @property
