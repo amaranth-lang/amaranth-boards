@@ -90,7 +90,7 @@ class ECP55GEVNPlatform(LatticeECP5Platform):
         # Raspberry Pi
         Connector("JP", 8, "- - T17 - U16 - U17 P18 - N20 N19 T16 M18 - N17 P17 - M17 U20 - T19 N18 R20 U19 - R18 L18 L17 U18 - T18 T20 P20 - R17 P19 N16 P16 - R16"),
         # GPIO
-        Connector("J", 5, "- - H20 G19 - - K18 J18 - - K19 J10 - - K20 J20 - - G20 - - -"), # Contains 4 differential pairs
+        Connector("J", 5, "- - H20 G19 - - K18 J18 - - K19 J19 - - K20 J20 - - G20 - - -"), # Contains 4 differential pairs
         Connector("J", 8, "- - L19 M19 L20 M20 L16 -"),
         Connector("J", 32, "- - - - A5 A4 - - C5 B5 - - B4 C4 - - B3 A3 - - D5 E4 - - D3 C3 - - E3 F4 - - F5 E5 - - B1 A2 - -"), # Contains 9 differential pairs
         Connector("J", 33, "- - - - C2 B2 - - D1 C1 - - E1 D2 - - G5 H4 - - H3 H5 - - F3 G3 - - E2 F2 - -"), # Contains 7 differential pairs
@@ -102,7 +102,6 @@ class ECP55GEVNPlatform(LatticeECP5Platform):
         Connector("J", 1, "- V4 R5 - - U5 - T5"),
         # Parallel configuration
         Connector("J", 38, "W3 R2 T3 Y3 R1 V3 T1 V2 U1 W2 V1 T2 W1 U2 Y2 R2 U3 R3 - -"), # Connect pin 2 / R2 with jumper when needed
-        # TODO: Check for correctness
     ]
 
     @property
