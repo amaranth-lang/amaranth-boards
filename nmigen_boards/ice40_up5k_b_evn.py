@@ -18,7 +18,7 @@ class ICE40UP5KBEVNPlatform(LatticeICE40Platform):
         Resource("clk12", 0, Pins("35", dir="i"),
                  Clock(12e6), Attrs(GLOBAL=True, IO_STANDARD="SB_LVCMOS")),
 
-        # 3 LEDs are present in an RGB common-cathode package.
+        # 3 LEDs are present in an RGB common-anode package.
         *LEDResources(
             pins="39 40 41", invert=True,
             attrs=Attrs(IO_STANDARD="SB_LVCMOS")
