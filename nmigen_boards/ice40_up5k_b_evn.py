@@ -31,7 +31,9 @@ class ICE40UP5KBEVNPlatform(LatticeICE40Platform):
                  Attrs(IO_STANDARD="SB_LVCMOS")),
 
         # 4 DIP switches are available, requiring internal pull-ups.
-        *SwitchResources(pins="23 25 34 43",
+        # The switches' "ON" label points to the position which
+        # connects them to ground, so invert the inputs.
+        *SwitchResources(pins="23 25 34 43", invert=True,
                          attrs=Attrs(IO_STANDARD="SB_LVCMOS", PULLUP=1)
         ),
 
