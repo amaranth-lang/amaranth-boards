@@ -4,32 +4,55 @@ import subprocess
 from nmigen.build import Resource, Pins, PinsN, DiffPairs, Subsignal, Attrs, \
     Clock, Connector
 from nmigen.vendor.xilinx_7series import Xilinx7SeriesPlatform
-from .resources import LEDResources, ButtonResources, SwitchResources
+from .resources import LEDResources, ButtonResources, SwitchResources, \
+    UARTResource, SDCardResources
 
 __all__ = ["Genesys2Platform"]
 
 
 class Genesys2Platform(Xilinx7SeriesPlatform):
+    """Platform file for Diglient Genesys2 Kitex-7 board.
+    https://reference.digilentinc.com/reference/programmable-logic/genesys-2/start"""
+
     device = "xc7k325t"
     package = "ffg900"
     speed = "2"
-    default_clk = "sysclk"
-    default_rst = "cpu_reset"
+    default_clk = "clk"
+    default_rst = "rst"
+
+    def __init__(self, JP6="2V5"):
+        super().__init__()
+
+        assert JP6 in ["1V2", "1V8", "2V5", "3V3"]
+        self._JP6 = JP6
+
+    def bank15_16_17_iostandard(self):
+        return "LVCMOS" + self._JP6
+
     resources = [
-        Resource("sysclk", 0, DiffPairs(p="AD12 ", n="AD11", dir="i"),
+        *ButtonResources(pins={
+                "w": "M20",
+                "e": "C19",
+                "n": "B19",
+                "s": "M19",
+                "c": "E18"}, attrs=Attrs(IOSTANDARD=bank15_16_17_iostandard)),
+        *SwitchResources(pins="G19 G25 H24 K19 N19 P19",
+                         attrs=Attrs(IOSTANDARD=bank15_16_17_iostandard)),
+        *SwitchResources(pins={
+                6: "P26",
+                7: "P27"}, attrs=Attrs(IOSTANDARD="LVCMOS33")),
+        Resource("clk", 0, DiffPairs(p="AD12 ", n="AD11", dir="i"),
                  Clock(200e6), Attrs(IOSTANDARD="LVDS")),
-        Resource("cpu_reset", 0, PinsN("R19", dir="i"),
+        Resource("rst", 0, PinsN("R19", dir="i"),
                  Attrs(IOSTANDARD="LVCMOS33")),
         *LEDResources(pins="T28 V19 U30 U29 V20 V26 W24 W23",
                       attrs=Attrs(IOSTANDARD="LVCMOS33")),
         Resource("fan", 0,
                  Subsignal("pwm", Pins("W19", dir="o")),
-                 Subsignal("tack", Pins("V21", dir="i")),
+                 Subsignal("tach", Pins("V21", dir="i")),
                  Attrs(IOSTANDARD="LVCMOS33")),
-        Resource("serial", 0,
-                 Subsignal("rx", Pins("Y20", dir="i")),
-                 Subsignal("tx", Pins("AE20", dir="o")),
-                 Attrs(IOSTANDARD="LVCMOS33")),
+        UARTResource(0, rx="Y20", tx="AE20",
+                     attrs=Attrs(IOSTANDARD="LVCMOS33")),
         Resource("i2c", 0,
                  Subsignal("scl", Pins("AE30", dir="io")),
                  Subsignal("sda", Pins("AF30", dir="io")),
@@ -122,13 +145,11 @@ class Genesys2Platform(Xilinx7SeriesPlatform):
                  Subsignal("hsync", PinsN("AF20", dir="o")),
                  Subsignal("vsync", PinsN("AG23", dir="o")),
                  Attrs(IOSTANDARD="LVCMOS33")),
-        Resource("mmc", 0,
-                 Subsignal("dat", Pins("R26 R30 P29 T30", dir="io")),
-                 Subsignal("cmd", Pins("R29", dir="o")),
-                 Subsignal("clk", Pins("R28", dir="o")),
-                 Subsignal("reset", Pins("AE24", dir="o")),
-                 Subsignal("cd", PinsN("P28", dir="i")),
-                 Attrs(IOSTANDARD="LVCMOS33")),
+        *SDCardResources(0, clk="R28", cmd="R29", dat0="R26", dat1="R30",
+                        dat2="P29", dat3="T30", cd="P28",
+                        attrs=Attrs(IOSTANDARD="LVCMOS33")),
+        Resource("sd_card_reset", 0,
+                 Pins("AE24", dir="o"), Attrs(IOSTANDARD="LVCMOS33")),
         Resource("usb_otg", 0,
                  Subsignal("d", Pins("AE14 AE15 AC15 AC16"
                                      "AB15 AA15 AD14 AC14", dir="io")),
@@ -321,24 +342,6 @@ class Genesys2Platform(Xilinx7SeriesPlatform):
                    "ha23_p": "G18",
                    "ha23_n": "F18"})]
 
-    def __init__(self, vadj: float = 2.5) -> None:
-        if vadj not in [1.2, 1.8, 2.5, 3.3]:
-            raise ValueError("Unknown vadj of {!r}".format(vadj))
-
-        lvcmos_vadj = Attrs(IOSTANDARD="LVCMOS{}".format(int(vadj * 10)))
-        self.resources = Genesys2Platform.resources + [
-            *ButtonResources(pins={
-                "w": "M20",
-                "e": "C19",
-                "n": "B19",
-                "s": "M19",
-                "c": "E18"}, attrs=lvcmos_vadj),
-            *SwitchResources(pins="G19 G25 H24 K19 N19 P19",
-                             attrs=lvcmos_vadj),
-            *SwitchResources(pins={
-                6: "P26",
-                7: "P27"}, attrs=Attrs(IOSTANDARD="LVCMOS33"))]
-        super().__init__()
 
     def toolchain_prepare(self, fragment, name, **kwargs):
         overrides = {
@@ -364,7 +367,7 @@ class Genesys2Platform(Xilinx7SeriesPlatform):
             source [find interface/ftdi/digilent-hs1.cfg]
             # fix channel
             ftdi_channel 1
-            adapter_khz 2500
+            adapter_khz 25000
             transport select jtag
             source [find cpld/xilinx-xc7.cfg]
             source [find cpld/jtagspi.cfg]
