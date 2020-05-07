@@ -20,5 +20,5 @@ class TinyFPGAAX1Platform(LatticeMachXO2Platform):
              "-  -  -  -  4  5  8  9  10 11 12 "
         ),
     ]
-
+    resources = []
     # This board doesn't have an integrated programmer.
