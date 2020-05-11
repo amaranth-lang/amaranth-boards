@@ -1,11 +1,10 @@
 import os
 import subprocess
 
-from nmigen.build import Resource, Pins, PinsN, DiffPairs, Subsignal, Attrs, \
-    Clock, Connector
-from nmigen.vendor.xilinx_7series import Xilinx7SeriesPlatform
-from .resources import LEDResources, ButtonResources, SwitchResources, \
-    UARTResource, SDCardResources
+from nmigen.build import *
+from nmigen.vendor.xilinx_7series import *
+from .resources import *
+
 
 __all__ = ["Genesys2Platform"]
 
@@ -30,6 +29,10 @@ class Genesys2Platform(Xilinx7SeriesPlatform):
         return "LVCMOS" + self._JP6
 
     resources = [
+        Resource("rst", 0, PinsN("R19", dir="i"),
+                 Attrs(IOSTANDARD="LVCMOS33")),
+        Resource("clk", 0, DiffPairs(p="AD12 ", n="AD11", dir="i"),
+                 Clock(200e6), Attrs(IOSTANDARD="LVDS")),
         *ButtonResources(pins={
                 "w": "M20",
                 "e": "C19",
@@ -41,102 +44,91 @@ class Genesys2Platform(Xilinx7SeriesPlatform):
         *SwitchResources(pins={
                 6: "P26",
                 7: "P27"}, attrs=Attrs(IOSTANDARD="LVCMOS33")),
-        Resource("clk", 0, DiffPairs(p="AD12 ", n="AD11", dir="i"),
-                 Clock(200e6), Attrs(IOSTANDARD="LVDS")),
-        Resource("rst", 0, PinsN("R19", dir="i"),
-                 Attrs(IOSTANDARD="LVCMOS33")),
         *LEDResources(pins="T28 V19 U30 U29 V20 V26 W24 W23",
                       attrs=Attrs(IOSTANDARD="LVCMOS33")),
         Resource("fan", 0,
                  Subsignal("pwm", Pins("W19", dir="o")),
                  Subsignal("tach", Pins("V21", dir="i")),
                  Attrs(IOSTANDARD="LVCMOS33")),
-        UARTResource(0, rx="Y20", tx="AE20",
+        UARTResource(0, rx="Y20", tx="Y23",
                      attrs=Attrs(IOSTANDARD="LVCMOS33")),
         Resource("i2c", 0,
                  Subsignal("scl", Pins("AE30", dir="io")),
                  Subsignal("sda", Pins("AF30", dir="io")),
                  Attrs(IOSTANDARD="LVCMOS33")),
-        Resource("ddram", 0,
+        Resource("ddr3", 0,
+                 Subsignal("rst", PinsN("AG5", dir="o"),
+                           Attrs(IOSTANDARD="SSTL15")),
+                 Subsignal("clk",
+                           DiffPairs(p="AB9", n="AC9", dir="o"),
+                           Attrs(IOSTANDARD="DIFF_SSTL15_DCI")),
+                 Subsignal("clk_en", Pins("AJ9", dir="o")),
+                 Subsignal("cs", PinsN("AH12", dir="o")),
+                 Subsignal("we", PinsN("AG13", dir="o")),
+                 Subsignal("ras", PinsN("AE11", dir="o")),
+                 Subsignal("cas", PinsN("AF11", dir="o")),
                  Subsignal("a", Pins(
                      "AC12 AE8 AD8 AC10 AD9 AA13 AA10 AA11 "
-                     "Y10 Y11 AB8 AA8 AB12 AA12 AH9 AG9", dir="o"),
-                     Attrs(IOSTANDARD="SSTL15_DCI")),
-                 Subsignal("ba", Pins("AE9 AB10 AC11", dir="o"),
-                           Attrs(IOSTANDARD="SSTL15_DCI")),
-                 Subsignal("ras_n", Pins("AE11", dir="o"),
-                           Attrs(IOSTANDARD="SSTL15_DCI")),
-                 Subsignal("cas_n", Pins("AF11", dir="o"),
-                           Attrs(IOSTANDARD="SSTL15_DCI")),
-                 Subsignal("we_n", Pins("AG13", dir="o"),
-                           Attrs(IOSTANDARD="SSTL15_DCI")),
-                 Subsignal("dm", Pins("AD4 AF3 AH4 AF8", dir="o"),
-                           Attrs(IOSTANDARD="SSTL15_DCI")),
+                     "Y10 Y11 AB8 AA8 AB12 AA12 AH9 AG9", dir="o")),
+                 Subsignal("ba", Pins("AE9 AB10 AC11", dir="o")),
+                 Subsignal("dqs",
+                           DiffPairs(p="AD2 AG4 AG2 AH7",
+                                     n="AD1 AG3 AH1 AJ7", dir="io"),
+                           Attrs(IOSTANDARD="DIFF_SSTL15_DCI", ODT="RTT_40")),
                  Subsignal("dq", Pins(
                      "AD3 AC2 AC1 AC5 AC4 AD6 AE6 AC7 "
                      "AF2 AE1 AF1 AE4 AE3 AE5 AF5 AF6 "
                      "AJ4 AH6 AH5 AH2 AJ2 AJ1 AK1 AJ3 "
                      "AF7 AG7 AJ6 AK6 AJ8 AK8 AK5 AK4", dir="io"),
-                     Attrs(IOSTANDARD="SSTL15_DCI", ODT="RTT_40")),
-                 Subsignal("dqs",
-                           DiffPairs(p="AD2 AG4 AG2 AH7",
-                                     n="AD1 AG3 AH1 AJ7", dir="io"),
-                           Attrs(IOSTANDARD="DIFF_SSTL15_DCI",
-                                 ODT="RTT_40")),
-                 Subsignal("clk",
-                           DiffPairs(p="AB9", n="AC9", dir="o"),
-                           Attrs(IOSTANDARD="DIFF_SSTL15_DCI")),
-                 Subsignal("cke", Pins("AJ9", dir="o"),
-                           Attrs(IOSTANDARD="SSTL15_DCI")),
-                 Subsignal("odt", Pins("AK9", dir="o"),
-                           Attrs(IOSTANDARD="SSTL15_DCI")),
-                 Subsignal("reset", PinsN("AG5", dir="o"),
-                           Attrs(IOSTANDARD="SSTL15")),
-                 Attrs(SLEW="FAST", OUTPUT_IMPEDANCE="RDRV_40_40")),
-        Resource("audio", 0,
-                 Subsignal("adc_sdata", Pins("AH19", dir="o")),
-                 Subsignal("dac_sdata", Pins("AJ19", dir="i")),
-                 Subsignal("bclk", Pins("AG18", dir="o")),
-                 Subsignal("lrclk", Pins("AJ18", dir="o")),
-                 Subsignal("mclk", Pins("AK19", dir="o")),
+                     Attrs(ODT="RTT_40")),
+                 Subsignal("dm", Pins("AD4 AF3 AH4 AF8", dir="o")),
+                 Subsignal("odt", Pins("AK9", dir="o")),
+                 Attrs(IOSTANDARD="SSTL15_DCI", SLEW="FAST",
+                       OUTPUT_IMPEDANCE="RDRV_40_40")),
+        Resource("audio_i2c", 0,  # ADAU1761 I2C
                  Subsignal("scl", Pins("AE19", dir="io")),
                  Subsignal("sda", Pins("AF18", dir="io")),
+                 Subsignal("adr", Pins("AD19 AG19", dir="o")),
                  Attrs(IOSTANDARD="LVCMOS18")),
-        Resource("oled", 0,
-                 Subsignal("data_cmd", PinsN("AC17", dir="o"),
-                           Attrs(IOSTANDARD="LVCMOS18")),
-                 Subsignal("reset", PinsN("AB17", dir="o"),
-                           Attrs(IOSTANDARD="LVCMOS18")),
-                 Subsignal("clk", Pins("AF17", dir="o"),
-                           Attrs(IOSTANDARD="LVCMOS18")),
-                 Subsignal("mosi", Pins("Y15", dir="o"),
-                           Attrs(IOSTANDARD="LVCMOS18")),
-                 Subsignal("vdd", PinsN("AG17", dir="o"),
-                           Attrs(IOSTANDARD="LVCMOS18")),
-                 Subsignal("oled_vbat", Pins("AB22", dir="o"),
-                           Attrs(IOSTANDARD="LVCMOS33"))),
-        Resource("hdmi", 0,
-                 Subsignal("tx_clk",
-                           DiffPairs(p="AA20", n="AB20", dir="o"),
-                           Attrs(IOSTANDARD="TMDS_33")),
-                 Subsignal("tx",
+        Resource("audio_i2s", 0,  # ADAU1761 ADC, I2S
+                 Subsignal("clk", Pins("AG18", dir="o")), # BCLK
+                 Subsignal("sd_adc", Pins("AH19", dir="o")), # ADC_SDATA
+                 Subsignal("sd_dac", Pins("AJ19", dir="i")),  # DAC_SDATA
+                 Subsignal("ws", Pins("AJ18", dir="o")), # LRCLK
+                 Attrs(IOSTANDARD="LVCMOS18")),
+        Resource("audio_clk", 0,  # ADAU1761 MCLK
+                 Pins("AK19", dir="o"), Attrs(IOSTANDARD="LVCMOS18")),
+        SPIResource(0,  # OLED, SSD1306, 128 x 32
+                    cs="dummy-cs0", clk="AF17", mosi="Y15",
+                    miso="dummy-miso0", reset="AB17",
+                    attrs=Attrs(IOSTANDARD="LVCMOS18")),
+        Resource("oled", 0,  # OLED, UG-2832HSWEG04
+                 Subsignal("dc", Pins("AC17", dir="o")),
+                 Subsignal("vdd_en", PinsN("AG17", dir="o")),
+                 Subsignal("vbat_en", PinsN("AB22", dir="o"),
+                           Attrs(IOSTANDARD="LVCMOS33")),
+                 Attrs(IOSTANDARD="LVCMOS18")),
+        Resource("hdmi", 0,  # HDMI TX, connector J4
+                 Subsignal("scl", Pins("AF27", dir="io"),
+                           Attrs(IOSTANDARD="LVCMOS33")),
+                 Subsignal("sda", Pins("AF26", dir="io"),
+                           Attrs(IOSTANDARD="LVCMOS33")),
+                 Subsignal("clk",
+                           DiffPairs(p="AA20", n="AB20", dir="o")),
+                 Subsignal("d",
                            DiffPairs(p="AC20 AA22 AB24",
-                                     n="AC21 AA23 AC25", dir="o"),
-                           Attrs(IOSTANDARD="TMDS_33")),
-                 Subsignal("tx_scl", Pins("AF27", dir="io"),
+                                     n="AC21 AA23 AC25", dir="o")),
+                 Attrs(IOSTANDARD="TMDS_33")),
+        Resource("hdmi", 1,  # HDMI RX, connector J5
+                 Subsignal("scl", Pins("AJ28", dir="io"),
                            Attrs(IOSTANDARD="LVCMOS33")),
-                 Subsignal("tx_sda", Pins("AF26", dir="io"),
+                 Subsignal("sda", Pins("AJ29", dir="io"),
                            Attrs(IOSTANDARD="LVCMOS33")),
-                 Subsignal("rx_clk",
-                           DiffPairs(p="AE28", n="AF28", dir="i")),
+                 Subsignal("clk", DiffPairs(p="AE28", n="AF28", dir="i")),
                  Subsignal("rx",
                            DiffPairs(p="AJ26 AG27 AH26",
-                                     n="AK26 AG28 AH27", dir="i"),
-                           Attrs(IOSTANDARD="TMDS_33")),
-                 Subsignal("rx_scl", Pins("AJ28", dir="io"),
-                           Attrs(IOSTANDARD="LVCMOS33")),
-                 Subsignal("rx_sda", Pins("AJ29", dir="io"),
-                           Attrs(IOSTANDARD="LVCMOS33"))),
+                                     n="AK26 AG28 AH27", dir="i")),
+                 Attrs(IOSTANDARD="TMDS_33")),
         Resource("vga", 0,
                  Subsignal("r", Pins("AK25 AG25 AH25 AK24 AJ24", dir="o")),
                  Subsignal("g", Pins("AJ23 AJ22 AH22 AK21 AJ21 AK23",
@@ -146,41 +138,33 @@ class Genesys2Platform(Xilinx7SeriesPlatform):
                  Subsignal("vsync", PinsN("AG23", dir="o")),
                  Attrs(IOSTANDARD="LVCMOS33")),
         *SDCardResources(0, clk="R28", cmd="R29", dat0="R26", dat1="R30",
-                        dat2="P29", dat3="T30", cd="P28",
-                        attrs=Attrs(IOSTANDARD="LVCMOS33")),
-        Resource("sd_card_reset", 0,
+                         dat2="P29", dat3="T30", cd="P28",
+                         attrs=Attrs(IOSTANDARD="LVCMOS33")),
+        Resource("sd_card_rst", 0,
                  Pins("AE24", dir="o"), Attrs(IOSTANDARD="LVCMOS33")),
-        Resource("usb_otg", 0,
-                 Subsignal("d", Pins("AE14 AE15 AC15 AC16"
-                                     "AB15 AA15 AD14 AC14", dir="io")),
+        Resource("ulpi", 0,
+                 Subsignal("rst", PinsN("AB14", dir="o")),
                  Subsignal("clk", Pins("AD18", dir="i")),
+                 Subsignal("d", Pins("AE14 AE15 AC15 AC16 "
+                                     "AB15 AA15 AD14 AC14", dir="io")),
                  Subsignal("dir", Pins("Y16", dir="i")),
                  Subsignal("stp", Pins("AA17", dir="o")),
                  Subsignal("nxt", Pins("AA16", dir="i")),
-                 Subsignal("vbusoc", PinsN("AF16", dir="i")),
-                 Subsignal("reset", PinsN("AB14", dir="o")),
                  Attrs(IOSTANDARD="LVCMOS18")),
-        Resource("eth_clocks", 0,
-                 Subsignal("tx_clk", Pins("AE10", dir="o")),
-                 Subsignal("rx_clk", Pins("AG10", dir="i")),
-                 Attrs(IOSTANDARD="LVCMOS18")),
-        Resource("eth", 0,
+        Resource("vusb_oc", 0,
+                 PinsN("AF16", dir="i"), Attrs(IOSTANDARD="LVCMOS18")),
+        Resource("eth_rgmii", 0,
                  Subsignal("rst", PinsN("AH24", dir="o"),
-                           Attrs(IOSTANDARD="LVCMOS18")),
-                 Subsignal("int", PinsN("AK16", dir="i"),
-                           Attrs(IOSTANDARD="LVCMOS18")),
-                 Subsignal("rx_ctl", Pins("AH11", dir="i"),
-                           Attrs(IOSTANDARD="LVXMOS15")),
-                 Subsignal("rx_data", Pins("AJ14 AH14 AK13 AJ13", dir="i"),
-                           Attrs(IOSTANDARD="LVCMOS15")),
-                 Subsignal("tx_ctl", Pins("AK14", dir="o"),
-                           Attrs(IOSTANDARD="LVCMOS15")),
-                 Subsignal("tx_data", Pins("AJ12 AK11 AJ11 AK10", dir="o"),
-                           Attrs(IOSTANDARD="LVCMOS15")),
-                 Subsignal("mdc", Pins("AF12", dir="o"),
-                           Attrs(IOSTANDARD="LVCMOS15")),
-                 Subsignal("mdio", Pins("AG12", dir="io"),
-                           Attrs(IOSTANDARD="LVCMOS15")))]
+                           Attrs(IOSTANDARD="LVCMOS33")),
+                 Subsignal("mdc", Pins("AF12", dir="o")),
+                 Subsignal("mdio", Pins("AG12", dir="io")),
+                 Subsignal("tx_clk", Pins("AE10", dir="o")),
+                 Subsignal("tx_ctl", Pins("AK14", dir="o")),
+                 Subsignal("tx_data", Pins("AJ12 AK11 AJ11 AK10", dir="o")),
+                 Subsignal("rx_clk", Pins("AG10", dir="i")),
+                 Subsignal("rx_ctl", Pins("AH11", dir="i")),
+                 Subsignal("rx_data", Pins("AJ14 AH14 AK13 AJ13", dir="i")),
+                 Attrs(IOSTANDARD="LVCMOS15"))]
 
     connectors = [
         Connector("pmod", 0,  # JA
@@ -341,7 +325,6 @@ class Genesys2Platform(Xilinx7SeriesPlatform):
                    "ha21_n": "F28",
                    "ha23_p": "G18",
                    "ha23_n": "F18"})]
-
 
     def toolchain_prepare(self, fragment, name, **kwargs):
         overrides = {
