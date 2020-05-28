@@ -16,8 +16,6 @@ class Genesys2Platform(Xilinx7SeriesPlatform):
     device = "xc7k325t"
     package = "ffg900"
     speed = "2"
-    default_clk = "clk"
-    default_rst = "rst"
 
     def __init__(self, JP6="2V5"):
         super().__init__()
@@ -28,6 +26,8 @@ class Genesys2Platform(Xilinx7SeriesPlatform):
     def bank15_16_17_iostandard(self):
         return "LVCMOS" + self._JP6
 
+    default_rst = "rst"
+    default_clk = "clk"
     resources = [
         Resource("rst", 0, PinsN("R19", dir="i"),
                  Attrs(IOSTANDARD="LVCMOS33")),
