@@ -44,7 +44,8 @@ class DE0Platform(IntelPlatform):
 
         UARTResource(0,
             rx="U22", tx="U21", rts="V22", cts="V21",
-            attrs=Attrs(io_standard="3.3-V LVTTL")),
+            attrs=Attrs(io_standard="3.3-V LVTTL"),
+            role="dce"),
 
         Resource("display_hd44780", 0,
             Subsignal("e", Pins("E21", dir="o")),
