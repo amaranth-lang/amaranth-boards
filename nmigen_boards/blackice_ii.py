@@ -30,7 +30,8 @@ class BlackIceIIPlatform(LatticeICE40Platform):
 
         UARTResource(0,
             rx="88", tx="85", rts="91", cts="94",
-            attrs=Attrs(IO_STANDARD="SB_LVCMOS", PULLUP=1)
+            attrs=Attrs(IO_STANDARD="SB_LVCMOS", PULLUP=1),
+            role="dce"
         ),
 
         SRAMResource(0,
