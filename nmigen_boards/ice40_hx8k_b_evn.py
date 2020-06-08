@@ -23,8 +23,9 @@ class ICE40HX8KBEVNPlatform(LatticeICE40Platform):
         ), # D2..D9
 
         UARTResource(0,
-            rx="B10", tx="B12", rts="A15", cts="B13", dtr="B14", dsr="A16", dcd="B15",
-            attrs=Attrs(IO_STANDARD="SB_LVCMOS", PULLUP=1)
+            rx="B10", tx="B12", rts="B13", cts="A15", dtr="A16", dsr="B14", dcd="B15",
+            attrs=Attrs(IO_STANDARD="SB_LVCMOS", PULLUP=1),
+            role="dce"
         ),
 
         *SPIFlashResources(0,
