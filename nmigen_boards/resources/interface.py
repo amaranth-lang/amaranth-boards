@@ -5,22 +5,30 @@ __all__ = ["UARTResource", "IrDAResource", "SPIResource"]
 
 
 def UARTResource(*args, rx, tx, rts=None, cts=None, dtr=None, dsr=None, dcd=None, ri=None,
-                 conn=None, attrs=None):
+                 conn=None, attrs=None, role=None):
+    assert role in ("dce", "dte")
+    if role == "dte":
+        dce_to_dte = "i"
+        dte_to_dce = "o"
+    else:
+        dce_to_dte = "o"
+        dte_to_dce = "i"
+
     io = []
     io.append(Subsignal("rx", Pins(rx, dir="i", conn=conn, assert_width=1)))
     io.append(Subsignal("tx", Pins(tx, dir="o", conn=conn, assert_width=1)))
     if rts is not None:
-        io.append(Subsignal("rts", Pins(rts, dir="o", conn=conn, assert_width=1)))
+        io.append(Subsignal("rts", Pins(rts, dir=dte_to_dce, conn=conn, assert_width=1)))
     if cts is not None:
-        io.append(Subsignal("cts", Pins(cts, dir="i", conn=conn, assert_width=1)))
+        io.append(Subsignal("cts", Pins(cts, dir=dce_to_dte, conn=conn, assert_width=1)))
     if dtr is not None:
-        io.append(Subsignal("dtr", Pins(dtr, dir="o", conn=conn, assert_width=1)))
+        io.append(Subsignal("dtr", Pins(dtr, dir=dte_to_dce, conn=conn, assert_width=1)))
     if dsr is not None:
-        io.append(Subsignal("dsr", Pins(dsr, dir="i", conn=conn, assert_width=1)))
+        io.append(Subsignal("dsr", Pins(dsr, dir=dce_to_dte, conn=conn, assert_width=1)))
     if dcd is not None:
-        io.append(Subsignal("dcd", Pins(dcd, dir="i", conn=conn, assert_width=1)))
+        io.append(Subsignal("dcd", Pins(dcd, dir=dce_to_dte, conn=conn, assert_width=1)))
     if ri is not None:
-        io.append(Subsignal("ri", Pins(ri, dir="i", conn=conn, assert_width=1)))
+        io.append(Subsignal("ri", Pins(ri, dir=dce_to_dte, conn=conn, assert_width=1)))
     if attrs is not None:
         io.append(attrs)
     return Resource.family(*args, default_name="uart", ios=io)
