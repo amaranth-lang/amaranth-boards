@@ -21,7 +21,8 @@ class ICEStickPlatform(LatticeICE40Platform):
 
         UARTResource(0,
             rx="9", tx="8", rts="7", cts="4", dtr="3", dsr="2", dcd="1",
-            attrs=Attrs(IO_STANDARD="SB_LVTTL", PULLUP=1)
+            attrs=Attrs(IO_STANDARD="SB_LVTTL", PULLUP=1),
+            role="dce"
         ),
 
         IrDAResource(0,
