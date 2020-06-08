@@ -100,8 +100,9 @@ class Nexys4DDRPlatform(Xilinx7SeriesPlatform):
             Attrs(IOSTANDARD="LVCMOS33")),
 
         UARTResource(0,
-            rx="C4", tx="D4", rts="D3", cts="E5",
-            attrs=Attrs(IOSTANDARD="LVCMOS33")),
+            rx="C4", tx="D4", rts="E5", cts="D3",
+            attrs=Attrs(IOSTANDARD="LVCMOS33"),
+            role="dce"),
 
         Resource("ps2_host", 0,
             Subsignal("clk", Pins("F4", dir="i")),
