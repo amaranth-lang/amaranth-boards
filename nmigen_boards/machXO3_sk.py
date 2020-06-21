@@ -9,7 +9,7 @@ from .resources import *
 __all__ = ["MachXO3SKPlatform"]
 
 
-class MachXO3SKPlatform(LatticeMachXO2Platform):
+class MachXO3SKPlatform(LatticeMachXO3LPlatform):
     device      = "LCMXO3LF-6900C"
     package     = "BG256"
     speed       = "5"
