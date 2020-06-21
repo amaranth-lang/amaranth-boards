@@ -2,7 +2,7 @@ import os
 import subprocess
 
 from nmigen.build import *
-from nmigen.vendor.lattice_machxo2 import *
+from nmigen.vendor.lattice_machxo_2_3l import *
 from .resources import *
 
 
