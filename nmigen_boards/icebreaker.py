@@ -26,7 +26,8 @@ class ICEBreakerPlatform(LatticeICE40Platform):
 
         UARTResource(0,
             rx="6", tx="9",
-            attrs=Attrs(IO_STANDARD="SB_LVTTL", PULLUP=1)
+            attrs=Attrs(IO_STANDARD="SB_LVTTL", PULLUP=1),
+            role="dce"
         ),
 
         *SPIFlashResources(0,
