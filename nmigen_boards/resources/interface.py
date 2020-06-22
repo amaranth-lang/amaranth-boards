@@ -6,7 +6,8 @@ __all__ = ["UARTResource", "IrDAResource", "SPIResource"]
 
 def UARTResource(*args, rx, tx, rts=None, cts=None, dtr=None, dsr=None, dcd=None, ri=None,
                  conn=None, attrs=None, role=None):
-    assert role in ("dce", "dte")
+    if any(line is not None for line in (rts, cts, dtr, dsr, dcd, ri)):
+        assert role in ("dce", "dte")
     if role == "dte":
         dce_to_dte = "i"
         dte_to_dce = "o"
