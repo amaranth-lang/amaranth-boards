@@ -73,7 +73,7 @@ class DE0CVPlatform(IntelPlatform):
         ),
 
         *SDCardResources(0,
-            clk="H11", cmd="B11", dat0="K9", dat1="D12", dat2="E12", dat3="C11", wp="W20",
+            clk="H11", cmd="B11", dat0="K9", dat1="D12", dat2="E12", dat3="C11",
             attrs=Attrs(io_standard="3.3-V LVTTL")),
 
         SDRAMResource(0,
