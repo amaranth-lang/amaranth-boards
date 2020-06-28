@@ -47,6 +47,10 @@ class ECP55GEVNPlatform(LatticeECP5Platform):
         Resource("clk12", 0, Pins("A10", dir="i"),
                  Clock(12e6), Attrs(IO_TYPE="LVCMOS33")),
 
+        # By default this CLK is not populated, see User Manual Section 4.
+        Resource("extclk", 0, Pins("B11", dir="i"),
+                 Attrs(IO_TYPE="LVCMOS33")),
+
         *LEDResources(pins="A13 A12 B19 A18 B18 C17 A17 B17", invert=True,
                       attrs=Attrs(IO_TYPE=bank1_iostandard)),
         *ButtonResources(pins="P4", invert=True,
@@ -55,6 +59,20 @@ class ECP55GEVNPlatform(LatticeECP5Platform):
                          attrs=Attrs(IO_TYPE=bank6_iostandard)),
         *SwitchResources(pins={4: "E15", 5: "D16", 6: "B16", 7: "C16", 8: "A16"}, invert=True,
                          attrs=Attrs(IO_TYPE=bank1_iostandard)),
+
+        # In order to use the UART as a UART you need to swap two resistor jumpers,
+        # and potentially reconfigure the onboard FTDI chip, see section 6.2 in the
+        # User Manual for hardware instructions, and
+        # https://github.com/trabucayre/fixFT2232_ecp5evn to reconfigure the FTDI.
+        UARTResource(0,
+            rx="P2", tx="P3",
+            attrs=Attrs(IO_TYPE=bank6_iostandard, PULLMODE="UP")
+        ),
+
+        *SPIFlashResources(0,
+            cs="R2", clk="U3", miso="V2", mosi="W2", wp="Y2", hold="W1",
+            attrs=Attrs(IO_STANDARD="LVCMOS33")
+        ),
 
         Resource("serdes", 0,
             Subsignal("tx", DiffPairs("W4", "W5", dir="o")),
