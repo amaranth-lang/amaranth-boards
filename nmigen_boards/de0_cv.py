@@ -77,8 +77,8 @@ class DE0CVPlatform(IntelPlatform):
             attrs=Attrs(io_standard="3.3-V LVTTL")),
 
         SDRAMResource(0,
-            clk="AB11", cke="R6", cs="G7", we="AB5", ras="AB6", cas="V6",
-            ba="B5 A4", a="W8 T8 U11 Y10 N6 AB10 P12 P7 P8 R5 U8 P6 R7",
+            clk="AB11", cke="R6", cs="U6", we="AB5", ras="AB6", cas="V6",
+            ba="T7 AB7", a="W8 T8 U11 Y10 N6 AB10 P12 P7 P8 R5 U8 P6 R7",
             dq="Y9 T10 R9 Y11 R10 R11 R12 AA12 AA9 AB8 AA8 AA7 V10 V9 U10 T9", dqm="U12 N8",
             attrs=Attrs(io_standard="3.3-V LVCMOS")),
     ]
