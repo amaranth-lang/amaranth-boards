@@ -12,8 +12,7 @@ __all__ = ["KCU105Platform"]
 class KCU105Platform(XilinxUltraScalePlatform):
     device      = "xcku040"
     package     = "ffva1156"
-    speed       = "2"
-    grade       = "e"
+    speed       = "2-e"
     default_clk = "clk125"
     resources   = [
         Resource("clk125", 0, DiffPairs("G10", "F10", dir="i"),
