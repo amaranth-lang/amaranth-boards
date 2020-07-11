@@ -20,7 +20,11 @@ class Blinky(Elaboratable):
                     break
             return resources
 
+        rgb_leds = [res for res in get_all_resources("rgb_led")]
         leds     = [res.o for res in get_all_resources("led")]
+        leds.extend([led.r.o for led in rgb_leds])
+        leds.extend([led.g.o for led in rgb_leds])
+        leds.extend([led.b.o for led in rgb_leds])
         buttons  = [res.i for res in get_all_resources("button")]
         switches = [res.i for res in get_all_resources("switch")]
 
