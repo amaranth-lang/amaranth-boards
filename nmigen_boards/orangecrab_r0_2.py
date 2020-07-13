@@ -17,7 +17,7 @@ class OrangeCrabR0_2Platform(LatticeECP5Platform):
     default_clk = "clk"
     resources   = [
         Resource("clk", 0, Pins("A9", dir="i"),
-                 Clock(48e6), Attrs(IO_STANDARD="LVCMOS33")),
+                 Clock(48e6), Attrs(IO_TYPE="LVCMOS33")),
 
         # Used to reload FPGA configuration.
         # Can enter USB bootloader by assigning button 0 to program.
@@ -33,7 +33,7 @@ class OrangeCrabR0_2Platform(LatticeECP5Platform):
 
         *SPIFlashResources(0,
             cs="U17", clk="U16", miso="T18", mosi="U18", wp="R18", hold="N18",
-            attrs=Attrs(IO_STANDARD="LVCMOS33"),
+            attrs=Attrs(IO_TYPE="LVCMOS33"),
         ),
 
         Resource("ddr3", 0,
