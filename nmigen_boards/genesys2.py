@@ -99,8 +99,8 @@ class Genesys2Platform(Xilinx7SeriesPlatform):
         Resource("audio_clk", 0,  # ADAU1761 MCLK
                  Pins("AK19", dir="o"), Attrs(IOSTANDARD="LVCMOS18")),
         SPIResource(0,  # OLED, SSD1306, 128 x 32
-                    cs="dummy-cs0", clk="AF17", mosi="Y15",
-                    miso="dummy-miso0", reset="AB17",
+                    cs="dummy-cs0", clk="AF17", copi="Y15",
+                    cipo="dummy-cipo0", reset="AB17",
                     attrs=Attrs(IOSTANDARD="LVCMOS18")),
         Resource("oled", 0,  # OLED, UG-2832HSWEG04
                  Subsignal("dc", Pins("AC17", dir="o")),

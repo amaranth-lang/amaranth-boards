@@ -7,7 +7,7 @@ __all__ = [
 ]
 
 
-def SPIFlashResources(*args, cs, clk, mosi, miso, wp=None, hold=None,
+def SPIFlashResources(*args, cs, clk, copi, cipo, wp=None, hold=None,
                       conn=None, attrs=None):
     resources = []
 
@@ -18,8 +18,8 @@ def SPIFlashResources(*args, cs, clk, mosi, miso, wp=None, hold=None,
     io_all.append(Subsignal("clk", Pins(clk, dir="o", conn=conn, assert_width=1)))
 
     io_1x = list(io_all)
-    io_1x.append(Subsignal("mosi", Pins(mosi, dir="o", conn=conn, assert_width=1)))
-    io_1x.append(Subsignal("miso", Pins(miso, dir="i", conn=conn, assert_width=1)))
+    io_1x.append(Subsignal("copi", Pins(copi, dir="o", conn=conn, assert_width=1)))
+    io_1x.append(Subsignal("cipo", Pins(cipo, dir="i", conn=conn, assert_width=1)))
     if wp is not None and hold is not None:
         io_1x.append(Subsignal("wp",   PinsN(wp,   dir="o", conn=conn, assert_width=1)))
         io_1x.append(Subsignal("hold", PinsN(hold, dir="o", conn=conn, assert_width=1)))
@@ -27,14 +27,14 @@ def SPIFlashResources(*args, cs, clk, mosi, miso, wp=None, hold=None,
                                      name_suffix="1x"))
 
     io_2x = list(io_all)
-    io_2x.append(Subsignal("dq", Pins(" ".join([mosi, miso]), dir="io", conn=conn,
+    io_2x.append(Subsignal("dq", Pins(" ".join([copi, cipo]), dir="io", conn=conn,
                                       assert_width=2)))
     resources.append(Resource.family(*args, default_name="spi_flash", ios=io_2x,
                                      name_suffix="2x"))
 
     if wp is not None and hold is not None:
         io_4x = list(io_all)
-        io_4x.append(Subsignal("dq", Pins(" ".join([mosi, miso, wp, hold]), dir="io", conn=conn,
+        io_4x.append(Subsignal("dq", Pins(" ".join([copi, cipo, wp, hold]), dir="io", conn=conn,
                                           assert_width=4)))
         resources.append(Resource.family(*args, default_name="spi_flash", ios=io_4x,
                                          name_suffix="4x"))
@@ -78,8 +78,8 @@ def SDCardResources(*args, clk, cmd, dat0, dat1=None, dat2=None, dat3=None, cd=N
         # DAT3/CS# has a pullup and doubles as electronic card detect
         io_spi.append(Subsignal("cs", PinsN(dat3, dir="io", conn=conn, assert_width=1)))
         io_spi.append(Subsignal("clk", Pins(clk, dir="o", conn=conn, assert_width=1)))
-        io_spi.append(Subsignal("mosi", Pins(cmd, dir="o", conn=conn, assert_width=1)))
-        io_spi.append(Subsignal("miso", Pins(dat0, dir="i", conn=conn, assert_width=1)))
+        io_spi.append(Subsignal("copi", Pins(cmd, dir="o", conn=conn, assert_width=1)))
+        io_spi.append(Subsignal("cipo", Pins(dat0, dir="i", conn=conn, assert_width=1)))
         resources.append(Resource.family(*args, default_name="sd_card", ios=io_spi,
                                          name_suffix="spi"))
 

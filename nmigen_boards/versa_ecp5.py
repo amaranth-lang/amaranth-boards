@@ -55,7 +55,7 @@ class VersaECP5Platform(LatticeECP5Platform):
         ),
 
         *SPIFlashResources(0,
-            cs="R2", clk="U3", miso="W2", mosi="V2", wp="Y2", hold="W1",
+            cs="R2", clk="U3", cipo="W2", copi="V2", wp="Y2", hold="W1",
             attrs=Attrs(IO_STANDARD="LVCMOS33")
         ),
 

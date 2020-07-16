@@ -128,8 +128,8 @@ class ArtyZ720Platform(Xilinx7SeriesPlatform):
         }),
 
         Connector("ck_spi", 0, {
-            "miso": "W15",
-            "mosi": "T12",
+            "cipo": "W15",
+            "copi": "T12",
             "sck": "H15",
             "ss": "F16"
         }),
