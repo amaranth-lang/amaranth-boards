@@ -116,7 +116,7 @@ class _ECPIX5Platform(LatticeECP5Platform):
         Connector("pmod", 1, "U23 V23 U22 V21 - - W25 W24 W23 W22 - -"),
         Connector("pmod", 2, "J24 H22 E21 D18 - - K22 J21 H21 D22 - -"),
         Connector("pmod", 3, " E4  F4  E6  H4 - -  F3  D4  D5  F5 - -"),
-        Connector("pmod", 4, "E26 D25 F26 F25 - - A25 A24 C26 C25 - -"),
+        Connector("pmod", 4, "E26 D25 F26 F25 - - C26 C25 A25 A24 - -"),
         Connector("pmod", 5, "D19 C21 B21 C22 - - D21 A21 A22 A23 - -"),
         Connector("pmod", 6, "C16 B17 C18 B19 - - A17 A18 A19 C19 - -"),
         Connector("pmod", 7, "D14 B14 E14 B16 - - C14 A14 A15 A16 - -"),
