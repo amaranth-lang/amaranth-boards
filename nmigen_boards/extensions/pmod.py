@@ -26,8 +26,8 @@ def PmodSPIType2Resource(name, number, *, pmod, extras=None):
     return Resource(name, number,
         Subsignal("cs_n",  Pins("1", dir="o", conn=("pmod", pmod))),
         Subsignal("clk",   Pins("2", dir="o", conn=("pmod", pmod))),
-        Subsignal("mosi",  Pins("3", dir="o", conn=("pmod", pmod))),
-        Subsignal("miso",  Pins("4", dir="i", conn=("pmod", pmod))),
+        Subsignal("copi",  Pins("3", dir="o", conn=("pmod", pmod))),
+        Subsignal("cipo",  Pins("4", dir="i", conn=("pmod", pmod))),
         extras=extras
     )
 
@@ -36,8 +36,8 @@ def PmodSPIType2AResource(name, number, *, pmod, extras=None):
     return Resource(name, number,
         Subsignal("cs_n",  Pins("1", dir="o", conn=("pmod", pmod))),
         Subsignal("clk",   Pins("2", dir="o", conn=("pmod", pmod))),
-        Subsignal("mosi",  Pins("3", dir="o", conn=("pmod", pmod))),
-        Subsignal("miso",  Pins("4", dir="i", conn=("pmod", pmod))),
+        Subsignal("copi",  Pins("3", dir="o", conn=("pmod", pmod))),
+        Subsignal("cipo",  Pins("4", dir="i", conn=("pmod", pmod))),
         Subsignal("int",   Pins("7", dir="i", conn=("pmod", pmod))),
         Subsignal("reset", Pins("8", dir="o", conn=("pmod", pmod))),
         extras=extras

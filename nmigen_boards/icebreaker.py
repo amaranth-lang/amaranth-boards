@@ -30,7 +30,7 @@ class ICEBreakerPlatform(LatticeICE40Platform):
         ),
 
         *SPIFlashResources(0,
-            cs="16", clk="15", mosi="14", miso="17", wp="12", hold="13",
+            cs="16", clk="15", copi="14", cipo="17", wp="12", hold="13",
             attrs=Attrs(IO_STANDARD="SB_LVCMOS")
         ),
     ]

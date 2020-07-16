@@ -27,7 +27,7 @@ class TinyFPGABXPlatform(LatticeICE40Platform):
         ),
 
         *SPIFlashResources(0,
-            cs="F7", clk="G7", mosi="G6", miso="H7", wp="H4", hold="J8",
+            cs="F7", clk="G7", copi="G6", cipo="H7", wp="H4", hold="J8",
             attrs=Attrs(IO_STANDARD="SB_LVCMOS")
         ),
     ]

@@ -31,7 +31,7 @@ class FomuHackerPlatform(LatticeICE40Platform):
         ),
 
         *SPIFlashResources(0,
-            cs="C1", clk="D1", mosi="F1", miso="E1",
+            cs="C1", clk="D1", copi="F1", cipo="E1",
             attrs=Attrs(IO_STANDARD="SB_LVCMOS"),
         ),
     ]

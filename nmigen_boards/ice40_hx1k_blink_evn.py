@@ -25,7 +25,7 @@ class ICE40HX1KBlinkEVNPlatform(LatticeICE40Platform):
         Resource("touch", 3, Pins("52"), Attrs(IO_STANDARD="SB_LVCMOS")),
 
         *SPIFlashResources(0,
-            cs="49", clk="48", mosi="45", miso="46",
+            cs="49", clk="48", copi="45", cipo="46",
             attrs=Attrs(IO_STANDARD="SB_LVCMOS")
         ),
     ]

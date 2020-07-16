@@ -53,28 +53,28 @@ def IrDAResource(number, *, rx, tx, en=None, sd=None,
     return Resource("irda", number, *io)
 
 
-def SPIResource(*args, cs, clk, mosi, miso, int=None, reset=None,
-                conn=None, attrs=None, role="host"):
-    assert role in ("host", "device")
+def SPIResource(*args, cs, clk, copi, cipo, int=None, reset=None,
+                conn=None, attrs=None, role="controller"):
+    assert role in ("controller", "peripheral")
 
     io = []
-    if role == "host":
+    if role == "controller":
         io.append(Subsignal("cs", PinsN(cs, dir="o", conn=conn)))
         io.append(Subsignal("clk", Pins(clk, dir="o", conn=conn, assert_width=1)))
-        io.append(Subsignal("mosi", Pins(mosi, dir="o", conn=conn, assert_width=1)))
-        io.append(Subsignal("miso", Pins(miso, dir="i", conn=conn, assert_width=1)))
-    else:  # device
+        io.append(Subsignal("copi", Pins(copi, dir="o", conn=conn, assert_width=1)))
+        io.append(Subsignal("cipo", Pins(cipo, dir="i", conn=conn, assert_width=1)))
+    else:  # peripheral
         io.append(Subsignal("cs", PinsN(cs, dir="i", conn=conn, assert_width=1)))
         io.append(Subsignal("clk", Pins(clk, dir="i", conn=conn, assert_width=1)))
-        io.append(Subsignal("mosi", Pins(mosi, dir="i", conn=conn, assert_width=1)))
-        io.append(Subsignal("miso", Pins(miso, dir="oe", conn=conn, assert_width=1)))
+        io.append(Subsignal("copi", Pins(copi, dir="i", conn=conn, assert_width=1)))
+        io.append(Subsignal("cipo", Pins(cipo, dir="oe", conn=conn, assert_width=1)))
     if int is not None:
-        if role == "host":
+        if role == "controller":
             io.append(Subsignal("int", Pins(int, dir="i", conn=conn)))
         else:
             io.append(Subsignal("int", Pins(int, dir="oe", conn=conn, assert_width=1)))
     if reset is not None:
-        if role == "host":
+        if role == "controller":
             io.append(Subsignal("reset", Pins(reset, dir="o", conn=conn)))
         else:
             io.append(Subsignal("reset", Pins(reset, dir="i", conn=conn, assert_width=1)))

@@ -40,19 +40,19 @@ class MercuryPlatform(XilinxSpartan3APlatform):
         # The serial interface and flash memory have a shared SPI bus.
         # FPGA is secondary.
         SPIResource("spi_serial", 0, role="device",
-            cs="P39", clk="P53", mosi="P46", miso="P51",
+            cs="P39", clk="P53", copi="P46", cipo="P51",
             attrs=Attrs(IOSTANDARD="LVTTL"),
         ),
 
         # FPGA is primary.
         *SPIFlashResources(0,
-            cs="P27", clk="P53", mosi="P46", miso="P51",
+            cs="P27", clk="P53", copi="P46", cipo="P51",
             attrs=Attrs(IOSTANDARD="LVTTL")
         ),
 
         # ADC over SPI- FPGA is primary.
         SPIResource("spi_adc", 0, role="host",
-            cs="P12", clk="P9", mosi="P10", miso="P21",
+            cs="P12", clk="P9", copi="P10", cipo="P21",
             attrs=Attrs(IOSTANDARD="LVTTL"),
         ),
 

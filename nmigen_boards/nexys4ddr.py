@@ -75,8 +75,8 @@ class Nexys4DDRPlatform(Xilinx7SeriesPlatform):
         Resource("accelerometer", 0,                        # ADXL362
             Subsignal("cs",   PinsN("D15",    dir="o")),
             Subsignal("clk",  Pins("F15",     dir="o")),
-            Subsignal("mosi", Pins("F14",     dir="o")),
-            Subsignal("miso", Pins("E15",     dir="i")),
+            Subsignal("copi", Pins("F14",     dir="o")),
+            Subsignal("cipo", Pins("E15",     dir="i")),
             Subsignal("int",  Pins("B13 C16", dir="i"),
                 Attrs(IOSTANDARD="LVCMOS33", PULLUP="TRUE")),
             Attrs(IOSTANDARD="LVCMOS33")),
@@ -123,7 +123,7 @@ class Nexys4DDRPlatform(Xilinx7SeriesPlatform):
             Attrs(IOSTANDARD="LVCMOS33")),
 
         *SPIFlashResources(0,
-            cs="L13", clk="E9", mosi="K17", miso="K18", wp="L14", hold="M14",
+            cs="L13", clk="E9", copi="K17", cipo="K18", wp="L14", hold="M14",
             attrs=Attrs(IOSTANDARD="LVCMOS33")),
 
         Resource("ddr2", 0,                                 # MT47H64M16HR-25:H

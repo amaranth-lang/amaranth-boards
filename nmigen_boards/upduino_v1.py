@@ -22,7 +22,7 @@ class UpduinoV1Platform(LatticeICE40Platform):
                  Attrs(IO_STANDARD="SB_LVCMOS")),
 
         *SPIFlashResources(0,
-            cs="16", clk="15", miso="17", mosi="14",
+            cs="16", clk="15", cipo="17", copi="14",
             attrs=Attrs(IO_STANDARD="SB_LVCMOS")
         ),
     ]
