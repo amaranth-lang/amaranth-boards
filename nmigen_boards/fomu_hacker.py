@@ -23,11 +23,8 @@ class FomuHackerPlatform(LatticeICE40Platform):
             attrs=Attrs(IO_STANDARD="SB_LVCMOS")
         ),
 
-        Resource("usb", 0,
-            Subsignal("d_p", Pins("A4")),
-            Subsignal("d_n", Pins("A2")),
-            Subsignal("pullup", Pins("D5")),
-            Attrs(IO_STANDARD="SB_LVCMOS"),
+        DirectUSBResource(0, d_p="A4", d_n="A2", pullup="D5",
+            attrs=Attrs(IO_STANDARD="SB_LVCMOS"),
         ),
 
         *SPIFlashResources(0,

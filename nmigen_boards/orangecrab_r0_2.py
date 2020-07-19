@@ -71,17 +71,12 @@ class OrangeCrabR0_2Platform(LatticeECP5Platform):
             Attrs(IO_TYPE="LVCMOS33")
         ),
 
-        *SDCardResources(0, 
+        *SDCardResources(0,
             dat0="J1", dat1="K3", dat2="L3", dat3="M1", clk="K1", cmd="K2", cd="L1",
             attrs=Attrs(IO_TYPE="LVCMOS33", SLEWRATE="FAST")
         ),
 
-        Resource("usb", 0,
-            Subsignal("d_p",    Pins("N1", dir="io")),
-            Subsignal("d_m",    Pins("M2", dir="io")),
-            Subsignal("pullup", Pins("N2", dir="o")),
-            Attrs(IO_TYPE="LVCMOS33")
-        ),
+        DirectUSBResource(0, d_p="N1", d_n="M2", pullup="N2", attrs=Attrs(IO_TYPE="LVCMOS33"))
     ]
     connectors = [
         Connector("io", 0, {

@@ -23,12 +23,9 @@ class FomuPVTPlatform(LatticeICE40Platform):
             attrs=Attrs(IO_STANDARD="SB_LVCMOS")
         ),
 
-        Resource("usb", 0,
-            Subsignal("d_p", Pins("A1")),
-            Subsignal("d_n", Pins("A2")),
-            Subsignal("pullup", Pins("A4")),
-            Attrs(IO_STANDARD="SB_LVCMOS"),
-        ),
+
+        DirectUSBResource(0, d_p="A1", d_n="A2", pullup="A4",
+                attrs=Attrs(IO_STANDARD="SB_LVCMOS"))
 
         *SPIFlashResources(0,
             cs="C1", clk="D1", copi="F1", cipo="E1",
