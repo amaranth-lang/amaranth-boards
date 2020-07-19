@@ -19,11 +19,8 @@ class TinyFPGABXPlatform(LatticeICE40Platform):
 
         *LEDResources(pins="B3", attrs=Attrs(IO_STANDARD="SB_LVCMOS")),
 
-        Resource("usb", 0,
-            Subsignal("d_p",    Pins("B4", dir="io")),
-            Subsignal("d_n",    Pins("A4", dir="io")),
-            Subsignal("pullup", Pins("A3", dir="o")),
-            Attrs(IO_STANDARD="SB_LVCMOS")
+        DirectUSBResource(0, d_p="B4", d_n="A4", pullup="A3",
+            attrs=Attrs(IO_STANDARD="SB_LVCMOS")
         ),
 
         *SPIFlashResources(0,

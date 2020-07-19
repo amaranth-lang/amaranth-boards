@@ -1,7 +1,10 @@
 from nmigen.build import *
 
 
-__all__ = ["UARTResource", "IrDAResource", "SPIResource"]
+__all__ = [
+    "UARTResource", "IrDAResource", "SPIResource",
+    "DirectUSBResource", "ULPIResource"
+]
 
 
 def UARTResource(*args, rx, tx, rts=None, cts=None, dtr=None, dsr=None, dcd=None, ri=None,
@@ -81,3 +84,35 @@ def SPIResource(*args, cs, clk, copi, cipo, int=None, reset=None,
     if attrs is not None:
         io.append(attrs)
     return Resource.family(*args, default_name="spi", ios=io)
+
+
+def DirectUSBResource(*args, d_p, d_n, pullup=None, vbus_valid=None,
+    conn=None, attrs=None):
+
+    io = []
+    io.append(Subsignal("d_p", Pins(d_p, dir="io", conn=conn, assert_width=1)))
+    io.append(Subsignal("d_n", Pins(d_n, dir="io", conn=conn, assert_width=1)))
+    if pullup:
+        io.append(Subsignal("pullup", Pins(pullup, dir="o", conn=conn, assert_width=1)))
+    if vbus_valid:
+        io.append(Subsignal("vbus_valid", Pins(vbus_valid, dir="i", conn=conn, assert_width=1)))
+    if attrs is not None:
+        io.append(attrs)
+    return Resource.family(*args, default_name="usb", ios=io)
+
+
+def ULPIResource(*args, data, clk, dir, nxt, stp, rst=None,
+            clk_dir='i', attrs=None, conn=None):
+    assert clk_dir in ('i', 'o',)
+
+    io = []
+    io.append(Subsignal("data", Pins(data, dir="io", conn=conn, assert_width=8)))
+    io.append(Subsignal("clk", Pins(clk, dir=clk_dir, conn=conn, assert_width=1)))
+    io.append(Subsignal("dir", Pins(dir, dir="i", conn=conn, assert_width=1)))
+    io.append(Subsignal("nxt", Pins(nxt, dir="i", conn=conn, assert_width=1)))
+    io.append(Subsignal("stp", Pins(stp, dir="o", conn=conn, assert_width=1)))
+    if rst is not None:
+        io.append(Subsignal("rst", Pins(stp, dir="o", conn=conn, assert_width=1)))
+    if attrs is not None:
+        io.append(attrs)
+    return Resource.family(*args, default_name="usb", ios=io)
