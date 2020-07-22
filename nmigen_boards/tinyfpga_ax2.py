@@ -1,5 +1,5 @@
 from nmigen.build import *
-from nmigen.vendor.lattice_machxo_2_3l import *
+from nmigen.vendor.lattice_machxo2 import *
 from .resources import *
 
 
