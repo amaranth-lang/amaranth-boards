@@ -44,14 +44,15 @@ class _ULX3SPlatform(LatticeECP5Platform):
         Resource("button_right", 0, Pins("H16", dir="i"), Attrs(IO_TYPE="LVCMOS33", PULLMODE="DOWN")),
 
         # FTDI connection.
-        UARTResource(0, rx="M1", tx="L4", rts="M3", dtr="N1", role="dce",
+        UARTResource(0, 
+            rx="M1", tx="L4", rts="M3", dtr="N1", role="dce",
             attrs=Attrs(IO_TYPE="LVCMOS33")
         ),
         Resource("uart_tx_enable", 0, Pins("L3", dir="o"), Attrs(IO_TYPE="LVCMOS33")),
 
         *SDCardResources(0,
-                clk="J1", cmd="J3", dat0="K2", dat1="K1", dat2="H2", dat3="H1",
-                attrs=Attrs(IO_TYPE="LVCMOS33", SLEW="FAST")
+            clk="J1", cmd="J3", dat0="K2", dat1="K1", dat2="H2", dat3="H1",
+            attrs=Attrs(IO_TYPE="LVCMOS33", SLEW="FAST")
         ),
 
         # SPI Flash clock is accessed via USR_MCLK instance.
@@ -65,10 +66,10 @@ class _ULX3SPlatform(LatticeECP5Platform):
         ),
 
         SDRAMResource(0,
-                clk="F19", cke="F20", cs="P20", we="T20", cas="T19", ras="R20", dqm="U19 E20",
-                ba="P19 N20", a="M20 M19 L20 L19 K20 K19 K18 J20 J19 H20 N19 G20 G19",
-                dq="J16 L18 M18 N18 P18 T18 T17 U20 E19 D20 D19 C20 E18 F18 J18 J17",
-                attrs=Attrs(PULLMODE="NONE", DRIVE="4", SLEWRATE="FAST", IO_TYPE="LVCMOS33")
+            clk="F19", cke="F20", cs="P20", we="T20", cas="T19", ras="R20", dqm="U19 E20",
+            ba="P19 N20", a="M20 M19 L20 L19 K20 K19 K18 J20 J19 H20 N19 G20 G19",
+            dq="J16 L18 M18 N18 P18 T18 T17 U20 E19 D20 D19 C20 E18 F18 J18 J17",
+            attrs=Attrs(PULLMODE="NONE", DRIVE="4", SLEWRATE="FAST", IO_TYPE="LVCMOS33")
         ),
 
         # SPI bus for ADC.
@@ -103,8 +104,9 @@ class _ULX3SPlatform(LatticeECP5Platform):
         Resource("diff_gpio", 2, DiffPairs("A9", "B10"), Attrs(IO_TYPE="LVCMOS33")),
         Resource("diff_gpio", 3, DiffPairs("B9", "C10"),  Attrs(IO_TYPE="LVCMOS33")),
 
-        DirectUSBResource(0, d_p="D15", d_n="E15", pullup="B12",
-                attrs= Attrs(IO_TYPE="LVCMOS33")
+        DirectUSBResource(0,
+            d_p="D15", d_n="E15", pullup="B12",
+            attrs=Attrs(IO_TYPE="LVCMOS33")
         )
     ]
 
@@ -133,12 +135,10 @@ class _ULX3SPlatform(LatticeECP5Platform):
             "openFPGALoader"
         ]
 
-
     def toolchain_prepare(self, fragment, name, **kwargs):
         overrides = dict(ecppack_opts="--compress")
         overrides.update(kwargs)
         return super().toolchain_prepare(fragment, name, **overrides)
-
 
     def toolchain_program(self, products, name):
         tool = os.environ.get("OPENFPGALOADER", "openFPGALoader")
@@ -149,11 +149,14 @@ class _ULX3SPlatform(LatticeECP5Platform):
 class ULX3S_12F_Platform(_ULX3SPlatform):
     device                 = "LFE5U-12F"
 
+
 class ULX3S_25F_Platform(_ULX3SPlatform):
     device                 = "LFE5U-25F"
 
+
 class ULX3S_45F_Platform(_ULX3SPlatform):
     device                 = "LFE5U-45F"
+
 
 class ULX3S_85F_Platform(_ULX3SPlatform):
     device                 = "LFE5U-85F"
