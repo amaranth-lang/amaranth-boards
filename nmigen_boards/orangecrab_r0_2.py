@@ -66,8 +66,7 @@ class OrangeCrabR0_2Platform(LatticeECP5Platform):
         Resource("adc", 0,
             Subsignal("ctrl",     Pins("G1 F1", dir="o")),
             Subsignal("mux",      Pins("F4 F3 F2 H1", dir="o")),
-            Subsignal("sense_hi", Pins("H3", dir="i")),
-            Subsignal("sense_lo", Pins("G3", dir="i")),
+            Subsignal("sense",    DiffPair("H3", "G3", dir="i")),
             Attrs(IO_TYPE="LVCMOS33")
         ),
 
