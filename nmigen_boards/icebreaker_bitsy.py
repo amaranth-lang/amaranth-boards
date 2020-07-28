@@ -5,7 +5,9 @@ from nmigen.build import *
 from nmigen.vendor.lattice_ice40 import *
 from .resources import *
 
+
 __all__ = ["ICEBreakerBitsyPlatform"]
+
 
 class ICEBreakerBitsyPlatform(LatticeICE40Platform):
     device      = "iCE40UP5K"
@@ -16,7 +18,7 @@ class ICEBreakerBitsyPlatform(LatticeICE40Platform):
                  Clock(12e6), Attrs(GLOBAL=True, IO_STANDARD="SB_LVCMOS")),
 
         DirectUSBResource(0, d_p="42", d_n="38", pullup="37",
-                attrs=Attrs(IO_STANDARD="SB_LVCMOS")),
+            attrs=Attrs(IO_STANDARD="SB_LVCMOS")),
 
         *SPIFlashResources(0,
             cs="16", clk="15", copi="14", cipo="17", wp="18", hold="19",
@@ -24,7 +26,7 @@ class ICEBreakerBitsyPlatform(LatticeICE40Platform):
         ),
 
         RGBLEDResource(0, r="39", g="40", b="41", invert=True,
-                attrs=Attrs(IO_STANDARD="SB_LVCMOS")),
+            attrs=Attrs(IO_STANDARD="SB_LVCMOS")),
         *LEDResources(pins="25 6", invert=True, attrs=Attrs(IO_STANDARD="SB_LVCMOS")),
         Resource("led_r", 0, PinsN("25", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS")),
         Resource("led_g", 0, PinsN("6", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS")),
@@ -38,12 +40,10 @@ class ICEBreakerBitsyPlatform(LatticeICE40Platform):
         )
     ]
 
-
     def toolchain_program(self, products, name):
         dfu_util = os.environ.get("DFU_UTIL", "dfu-util")
         with products.extract("{}.bin".format(name)) as bitstream_filename:
             subprocess.check_call([dfu_util, "-d", "1209:6146", "-a", "0", "-D", bitstream_filename])
-
 
 
 if __name__ == "__main__":
