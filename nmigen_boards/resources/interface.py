@@ -102,7 +102,7 @@ def DirectUSBResource(*args, d_p, d_n, pullup=None, vbus_valid=None,
 
 
 def ULPIResource(*args, data, clk, dir, nxt, stp, rst=None,
-            clk_dir='i', attrs=None, conn=None):
+            clk_dir='i', rst_invert=False, attrs=None, conn=None):
     assert clk_dir in ('i', 'o',)
 
     io = []
@@ -112,7 +112,8 @@ def ULPIResource(*args, data, clk, dir, nxt, stp, rst=None,
     io.append(Subsignal("nxt", Pins(nxt, dir="i", conn=conn, assert_width=1)))
     io.append(Subsignal("stp", Pins(stp, dir="o", conn=conn, assert_width=1)))
     if rst is not None:
-        io.append(Subsignal("rst", Pins(stp, dir="o", conn=conn, assert_width=1)))
+        io.append(Subsignal("rst", Pins(rst, dir="o", invert=rst_invert,
+            conn=conn, assert_width=1)))
     if attrs is not None:
         io.append(attrs)
     return Resource.family(*args, default_name="usb", ios=io)
