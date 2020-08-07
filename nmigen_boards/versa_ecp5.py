@@ -109,7 +109,7 @@ class VersaECP5Platform(LatticeECP5Platform):
 
         Resource("ddr3", 0,
             Subsignal("rst",     PinsN("N4", dir="o")),
-            Subsignal("clk",     DiffPairs("M4", "N5", dir="o"), Attrs(IO_TYPE="LVDS")),
+            Subsignal("clk",     DiffPairs("M4", "N5", dir="o"), Attrs(IO_TYPE="SSTL135D_I")),
             Subsignal("clk_en",  Pins("N2", dir="o")),
             Subsignal("cs",      PinsN("K1", dir="o")),
             Subsignal("we",      PinsN("M1", dir="o")),
@@ -117,12 +117,12 @@ class VersaECP5Platform(LatticeECP5Platform):
             Subsignal("cas",     PinsN("L1", dir="o")),
             Subsignal("a",       Pins("P2 C4 E5 F5 B3 F4 B5 E4 C5 E3 D5 B4 C3", dir="o")),
             Subsignal("ba",      Pins("P5 N3 M3", dir="o")),
-            Subsignal("dqs",     DiffPairs("K2 H4", "J1 G5", dir="io"), Attrs(IO_TYPE="LVDS")),
+            Subsignal("dqs",     DiffPairs("K2 H4", "J1 G5", dir="io"), Attrs(IO_TYPE="SSTL135D_I", DIFFRESISTOR="100", TERMINATION="OFF")),
             Subsignal("dq",      Pins("L5 F1 K4 G1 L4 H1 G2 J3 D1 C1 E2 C2 F3 A2 E1 B1",
-                                      dir="io")),
+                                      dir="io")), Attrs(TERMINATION="75"),
             Subsignal("dm",      Pins("J4 H5", dir="o")),
             Subsignal("odt",     Pins("L2", dir="o")),
-            Attrs(IO_TYPE="LVCMOS15")
+            Attrs(IO_TYPE="SSTL135_I", SLEWRATE="FAST")
         )
     ]
     connectors = [
