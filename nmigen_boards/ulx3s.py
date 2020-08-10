@@ -103,6 +103,16 @@ class _ULX3SPlatform(LatticeECP5Platform):
         Resource("diff_gpio", 1, DiffPairs("A10", "A11"), Attrs(IO_TYPE="LVCMOS33")),
         Resource("diff_gpio", 2, DiffPairs("A9", "B10"), Attrs(IO_TYPE="LVCMOS33")),
         Resource("diff_gpio", 3, DiffPairs("B9", "C10"),  Attrs(IO_TYPE="LVCMOS33")),
+        
+        # GPDI
+        Resource("gpdi", 0, DiffPairs("A16", "B16"), Attrs(IO_TYPE="LVCMOS33D", DRIVE="4")),
+        Resource("gpdi", 1, DiffPairs("A14", "C14"), Attrs(IO_TYPE="LVCMOS33D", DRIVE="4")),
+        Resource("gpdi", 2, DiffPairs("A12", "A13"), Attrs(IO_TYPE="LVCMOS33D", DRIVE="4")),
+        Resource("gpdi", 3, DiffPairs("A17", "B18"), Attrs(IO_TYPE="LVCMOS33D", DRIVE="4")),
+        Resource("gpdi_eth", 0, DiffPairs("A19", "B20"), Attrs(IO_TYPE="LVCMOS33D", DRIVE="4")),
+        Resource("gpdi_cec", 0, Pins("A18"), Attrs(IO_TYPE="LVCMOS33", DRIVE="4", PULLMODE="UP")),
+        Resource("gpdi_sda", 0, Pins("B19"), Attrs(IO_TYPE="LVCMOS33", DRIVE="4", PULLMODE="UP")),
+        Resource("gpdi_scl", 0, Pins("E12"), Attrs(IO_TYPE="LVCMOS33", DRIVE="4", PULLMODE="UP")),
 
         DirectUSBResource(0,
             d_p="D15", d_n="E15", pullup="B12",
