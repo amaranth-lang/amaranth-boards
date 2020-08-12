@@ -94,6 +94,13 @@ class _ULX3SPlatform(LatticeECP5Platform):
             Subsignal("gpio17", Pins("N3"),          Attrs(PULLMODE="UP")),
             Attrs(IO_TYPE="LVCMOS33", DRIVE="4")
         ),
+        
+        # OLED connector
+        Resource("oled_clk",  0, Pins("P4", dir="o"), Attrs(IO_TYPE="LVCMOS33", DRIVE="4", PULLMODE="UP")),
+        Resource("oled_mosi", 0, Pins("P3", dir="o"), Attrs(IO_TYPE="LVCMOS33", DRIVE="4", PULLMODE="UP")),
+        Resource("oled_dc",   0, Pins("P1", dir="o"), Attrs(IO_TYPE="LVCMOS33", DRIVE="4", PULLMODE="UP")),
+        Resource("oled_resn", 0, Pins("P2", dir="o"), Attrs(IO_TYPE="LVCMOS33", DRIVE="4", PULLMODE="UP")),
+        Resource("oled_csn",  0, Pins("N2", dir="o"), Attrs(IO_TYPE="LVCMOS33", DRIVE="4", PULLMODE="UP")),
 
         # PCB antenna, tuned to 433MHz
         Resource("ant", 0, Pins("G1", dir="o"), Attrs(IO_TYPE="LVCMOS33")),
