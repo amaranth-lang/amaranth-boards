@@ -26,12 +26,12 @@ class _ULX3SPlatform(LatticeECP5Platform):
         Resource("program", 0, PinsN("M4", dir="o"), Attrs(IO_TYPE="LVCMOS33", PULLMODE="UP")),
 
         *LEDResources(pins="B2 C2 C1 D2 D1 E2 E1 H3",
-            attrs=Attrs(IO_STANDARD="LVCMOS33", DRIVE="4")),
+            attrs=Attrs(IO_TYPE="LVCMOS33", DRIVE="4")),
         *ButtonResources(pins="R1 T1 R18 V1 U1 H16",
-            attrs=Attrs(IO_STANDARD="LVCMOS33", PULLMODE="DOWN")
+            attrs=Attrs(IO_TYPE="LVCMOS33", PULLMODE="DOWN")
         ),
         *ButtonResources("switch", pins="E8 D8 D7 E7",
-            attrs=Attrs(IO_STANDARD="LVCMOS33", PULLMODE="DOWN")
+            attrs=Attrs(IO_TYPE="LVCMOS33", PULLMODE="DOWN")
         ),
 
         # Semantic aliases by button label.
