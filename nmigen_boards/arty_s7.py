@@ -32,7 +32,6 @@ class _ArtyS7Platform(Xilinx7SeriesPlatform):
             attrs=Attrs(IOSTANDARD="LVCMOS33")
         ),
 
-
         SPIResource(0,
             cs="H16", clk="G16", copi="H17", cipo="K14",
             attrs=Attrs(IOSTANDARD="LVCMOS33")
@@ -173,8 +172,10 @@ class _ArtyS7Platform(Xilinx7SeriesPlatform):
             """).format(bitstream_filename).encode("utf-8")
             subprocess.run(["vivado", "-nolog", "-nojournal", "-mode", "tcl"], input=cmd, check=True)
 
+
 class ArtyS7_50Platform(_ArtyS7Platform):
     device      = "xc7s50"
+
 
 class ArtyS7_25Platform(_ArtyS7Platform):
     device      = "xc7s25"
