@@ -18,7 +18,7 @@ class ArtyA7Platform(Xilinx7SeriesPlatform):
     resources   = [
         Resource("clk100", 0, Pins("E3", dir="i"),
                  Clock(100e6), Attrs(IOSTANDARD="LVCMOS33")),
-        Resource("rst", 0, Pins("C2", dir="i"), Attrs(IOSTANDARD="LVCMOS33")),
+        Resource("rst", 0, PinsN("C2", dir="i"), Attrs(IOSTANDARD="LVCMOS33")),
 
         *LEDResources(pins="H5 J5 T9 T10", attrs=Attrs(IOSTANDARD="LVCMOS33")),
 
