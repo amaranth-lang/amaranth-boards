@@ -70,7 +70,7 @@ class ArtyZ720Platform(Xilinx7SeriesPlatform):
     ]
     connectors = [
         Connector("pmod", 0, "Y18 Y19 Y16 Y17 - - U18 U19 W18 W19 - -"),  # JA
-        Connector("pmod", 1, "Y14 W14 T10 T11 - - W16 V16 W13 V12 - -"),  # JB
+        Connector("pmod", 1, "W14 Y14 T11 T10 - - V16 W16 V12 W13 - -"),  # JB
 
         Connector("ck_io", 0, {
             # Outer Digital Header
