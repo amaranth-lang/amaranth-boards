@@ -103,13 +103,14 @@ def SRAMResource(*args, cs, oe=None, we, a, d, dm=None,
     return Resource.family(*args, default_name="sram", ios=io)
 
 
-def SDRAMResource(*args, clk, cke=None, cs, we, ras, cas, ba, a, dq, dqm=None,
+def SDRAMResource(*args, clk, cke=None, cs=None, we, ras, cas, ba, a, dq, dqm=None,
                   conn=None, attrs=None):
     io = []
     io.append(Subsignal("clk", Pins(clk, dir="o", conn=conn, assert_width=1)))
     if cke is not None:
         io.append(Subsignal("clk_en", Pins(cke, dir="o", conn=conn, assert_width=1)))
-    io.append(Subsignal("cs",  PinsN(cs,  dir="o", conn=conn, assert_width=1)))
+    if cs is not None:
+        io.append(Subsignal("cs",  PinsN(cs,  dir="o", conn=conn, assert_width=1)))
     io.append(Subsignal("we",  PinsN(we,  dir="o", conn=conn, assert_width=1)))
     io.append(Subsignal("ras", PinsN(ras, dir="o", conn=conn, assert_width=1)))
     io.append(Subsignal("cas", PinsN(cas, dir="o", conn=conn, assert_width=1)))
