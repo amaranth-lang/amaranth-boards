@@ -1,3 +1,4 @@
+import os
 import textwrap
 import subprocess
 
@@ -159,18 +160,43 @@ class _ArtyS7Platform(Xilinx7SeriesPlatform):
         }
         return super().toolchain_prepare(fragment, name, **overrides, **kwargs)
 
-    def toolchain_program(self, product, name):
-        with product.extract("{}.bit".format(name)) as bitstream_filename:
-            cmd = textwrap.dedent("""
-                open_hw_manager
-                connect_hw_server
-                open_hw_target
-                current_hw_device [lindex [get_hw_devices] 0]
-                set_property PROGRAM.FILE {{{}}} [current_hw_device]
-                program_hw_devices
-                close_hw_manager
-            """).format(bitstream_filename).encode("utf-8")
-            subprocess.run(["vivado", "-nolog", "-nojournal", "-mode", "tcl"], input=cmd, check=True)
+    def toolchain_program(self, product, name, *, programmer="vivado", flash=True):
+        assert programmer in ("vivado", "openocd")
+
+        if programmer == "vivado":
+            with product.extract("{}.bit".format(name)) as bitstream_filename:
+                cmd = textwrap.dedent("""
+                    open_hw_manager
+                    connect_hw_server
+                    open_hw_target
+                    current_hw_device [lindex [get_hw_devices] 0]
+                    set_property PROGRAM.FILE {{{}}} [current_hw_device]
+                    program_hw_devices
+                    close_hw_manager
+                """).format(bitstream_filename).encode("utf-8")
+                subprocess.run(["vivado", "-nolog", "-nojournal", "-mode", "tcl"], input=cmd, check=True)
+        else:
+            openocd = os.environ.get("OPENOCD", "openocd")
+            # In order, OpenOCD searches these directories for files:
+            # * $HOME/.openocd if $HOME exists (*nix)
+            # * Path pointed to by $OPENOCD_SCRIPTS if $OPENOCD_SCRIPTS exists
+            # * $APPDATA/OpenOCD on Windows
+            # Place the bscan_spi_xc7s50.bit proxy bitstream under a directory
+            # named "proxy" in one of the above directories so OpenOCD finds it.
+            if flash:
+                with product.extract("{}.bin".format(name)) as fn:
+                    subprocess.check_call([openocd, "-f", "board/arty_s7.cfg",
+                        "-c", """init;
+                        jtagspi_init 0 [find proxy/bscan_spi_xc7s50.bit];
+                        jtagspi_program {} 0;
+                        xc7_program xc7.tap;
+                        shutdown""".format(fn)])
+            else:
+                with product.extract("{}.bit".format(name)) as fn:
+                    subprocess.check_call(["openocd", "-f", "board/arty_s7.cfg",
+                        "-c", """init;
+                        pld load 0 {};
+                        shutdown""".format(fn)])
 
 
 class ArtyS7_50Platform(_ArtyS7Platform):
