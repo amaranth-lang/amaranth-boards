@@ -16,7 +16,7 @@ __all__ = [
 
 class _ULX3SPlatform(LatticeECP5Platform):
     package                = "BG381"
-    speed                  = "8"
+    speed                  = "6"
     default_clk            = "clk25"
 
     resources = [
