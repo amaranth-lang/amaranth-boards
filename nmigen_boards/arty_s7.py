@@ -6,7 +6,7 @@ from nmigen.vendor.xilinx_7series import *
 from .resources import *
 
 
-__all__ = ["ArtysS7_25Platform", "ArtyS7_50Platform"]
+__all__ = ["ArtyS7_25Platform", "ArtyS7_50Platform"]
 
 
 class _ArtyS7Platform(Xilinx7SeriesPlatform):
