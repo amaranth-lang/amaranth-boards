@@ -164,17 +164,41 @@ class _ArtyS7Platform(Xilinx7SeriesPlatform):
         assert programmer in ("vivado", "openocd")
 
         if programmer == "vivado":
-            with product.extract("{}.bit".format(name)) as bitstream_filename:
-                cmd = textwrap.dedent("""
-                    open_hw_manager
-                    connect_hw_server
-                    open_hw_target
-                    current_hw_device [lindex [get_hw_devices] 0]
-                    set_property PROGRAM.FILE {{{}}} [current_hw_device]
-                    program_hw_devices
-                    close_hw_manager
-                """).format(bitstream_filename).encode("utf-8")
-                subprocess.run(["vivado", "-nolog", "-nojournal", "-mode", "tcl"], input=cmd, check=True)
+            if flash:
+                # It does not appear possible to reset the FPGA via TCL after
+                # flash programming.
+                with product.extract("{}.bin".format(name)) as bitstream_filename:
+                    cmd = textwrap.dedent("""
+                        open_hw_manager
+                        connect_hw_server
+                        open_hw_target
+                        current_hw_device [lindex [get_hw_devices] 0]
+                        create_hw_cfgmem -hw_device [current_hw_device] s25fl128sxxxxxx0-spi-x1_x2_x4
+                        set_property PROGRAM.FILES {{{}}} [current_hw_cfgmem]
+                        set_property PROGRAM.ADDRESS_RANGE  {{use_file}} [current_hw_cfgmem]
+                        set_property PROGRAM.BLANK_CHECK  1 [current_hw_cfgmem]
+                        set_property PROGRAM.ERASE  1 [current_hw_cfgmem]
+                        set_property PROGRAM.CFG_PROGRAM  1 [current_hw_cfgmem]
+                        set_property PROGRAM.VERIFY  1 [current_hw_cfgmem]
+                        create_hw_bitstream -hw_device [current_hw_device] [get_property PROGRAM.HW_CFGMEM_BITFILE [current_hw_device]]
+                        program_hw_devices
+                        program_hw_cfgmem
+                        close_hw_manager
+                        puts "Vivado TCL cannot reset boards. Reset or power-cycle your board now."
+                    """).format(bitstream_filename).encode("utf-8")
+                    subprocess.run(["vivado", "-nolog", "-nojournal", "-mode", "tcl"], input=cmd, check=True)
+            else:
+                with product.extract("{}.bit".format(name)) as bitstream_filename:
+                    cmd = textwrap.dedent("""
+                        open_hw_manager
+                        connect_hw_server
+                        open_hw_target
+                        current_hw_device [lindex [get_hw_devices] 0]
+                        set_property PROGRAM.FILE {{{}}} [current_hw_device]
+                        program_hw_devices
+                        close_hw_manager
+                    """).format(bitstream_filename).encode("utf-8")
+                    subprocess.run(["vivado", "-nolog", "-nojournal", "-mode", "tcl"], input=cmd, check=True)
         else:
             openocd = os.environ.get("OPENOCD", "openocd")
             # In order, OpenOCD searches these directories for files:
