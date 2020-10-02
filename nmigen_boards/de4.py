@@ -3,7 +3,7 @@ import subprocess
 
 from nmigen.build import *
 from nmigen.vendor.intel import *
-from .resources import *
+from nmigen_boards.resources import *
 
 
 __all__ = ["DE4Platform"]
@@ -23,7 +23,7 @@ class DE4Platform(IntelPlatform):
         Resource("clk50", 2, Pins("AV19", dir="i"),
                  Clock(50e6), Attrs(io_standard="1.8-V")),
         Resource("clk50", 3, Pins("AC6", dir="i"),
-                 Clock(50e6), Attrs(io_standard="3.0-V")),
+                 Clock(50e6), Attrs(io_standard="3.0-V PCI")),
         Resource("clk50", 4, Pins("AB6", dir="i"),
                  Clock(50e6), Attrs(io_standard="2.5-V")),
         Resource("clk50", 5, Pins("A19", dir="i"),
@@ -31,8 +31,8 @@ class DE4Platform(IntelPlatform):
         Resource("clk100", 0, Pins("A21", dir="i"),
                  Clock(100e6), Attrs(io_standard="1.8-V")), #100MHz assumes SW7 is set to 00
 
-        Resource("cpu_reset_n", 0, Pins("AH8", dir="i"),
-                invert=True, Attrs(io_standard="2.5-V"))
+        Resource("cpu_reset_n", 0, PinsN("V34", dir="i"),
+                Attrs(io_standard="2.5-V")),
    
 
         #from 0 to n
@@ -41,7 +41,7 @@ class DE4Platform(IntelPlatform):
             attrs=Attrs(io_standard="2.5-V")),
         *ButtonResources(
             pins="AH5 AG5 AG7 AH8", invert=True,
-            attrs=Attrs(io_standard="3.0-V")),
+            attrs=Attrs(io_standard="3.0-V PCI")),
         *SwitchResources( 
             pins="J7 K7 AK6 L7",
             attrs=Attrs(io_standard="2.5-V")),
@@ -66,13 +66,13 @@ class DE4Platform(IntelPlatform):
             "AF6  AU9  AE5  AR8  AN9  AP9  AV5  AW6  AV7  AW7  "
             " -    -   AT5  AT8  AP5  AP7  AN5  AN10 AM5  AM10 "
             "AL10 AM8  AL8  AK8  AJ11 AK7  AJ5  AH12  -    -   "
-            "AG10 AG13 AG9  AF11 AT9  AF10 AD10 AD9  AD12 AD13 ", Attrs(io_standard="3.0V")),
+            "AG10 AG13 AG9  AF11 AT9  AF10 AD10 AD9  AD12 AD13 "),
     
         Connector("gpio", 1,
             "AW5  AW8  AW4  AV10 AV8  AW10 AU10 AU8  AP8  AT10 "
             " -    -   AU6  AT6  AU7  AR5  AP6  AT7  AN7  AN6  "
             "AL6  AM6  AL5  AL9  AK9  AJ6  AJ10 AH11  -    -   "
-            "AH8  AH9  AG12 AH10 AF13 AE13 AE10 AP10 AE12 AE11 ", Attrs(io_standard="3.0V")),
+            "AH8  AH9  AG12 AH10 AF13 AE13 AE10 AP10 AE12 AE11 "),
 
     ]
 
@@ -84,5 +84,5 @@ class DE4Platform(IntelPlatform):
 
 
 if __name__ == "__main__":
-    from .test.blinky import Blinky
+    from nmigen_boards.test.blinky import Blinky
     DE4Platform().build(Blinky(), do_program=True)
