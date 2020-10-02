@@ -69,10 +69,10 @@ class DE4Platform(IntelPlatform):
             "AG10 AG13 AG9  AF11 AT9  AF10 AD10 AD9  AD12 AD13 ", Attrs(io_standard="3.0V")),
     
         Connector("gpio", 1,
-            "Y15  AC24 AA15 AD26 AG28 AF28 AE25 AF27 AG26 AH27 "
-            "-    -    AG25 AH26 AH24 AF25 AG23 AF23 AG24 AH22 "
-            "AH21 AG21 AH23 AA20 AF22 AE22 AG20 AF21 -    -    "
-            "AG19 AH19 AG18 AH18 AF18 AF20 AG15 AE20 AE19 AE17 ", Attrs(io_standard="3.0V")),
+            "AW5  AW8  AW4  AV10 AV8  AW10 AU10 AU8  AP8  AT10 "
+            " -    -   AU6  AT6  AU7  AR5  AP6  AT7  AN7  AN6  "
+            "AL6  AM6  AL5  AL9  AK9  AJ6  AJ10 AH11  -    -   "
+            "AH8  AH9  AG12 AH10 AF13 AE13 AE10 AP10 AE12 AE11 ", Attrs(io_standard="3.0V")),
 
     ]
 
