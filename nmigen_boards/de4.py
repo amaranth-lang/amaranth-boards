@@ -11,16 +11,29 @@ __all__ = ["DE4Platform"]
 #This is for the larger (500k LEs) chip. The DE4 also comes in a configuration with the EP4SGX230C2
 class DE4Platform(IntelPlatform):
     device      = "EP4SGX530" # Stratix IV 530k LEs
-    package     = "U23"     # UBGA-484
+    package     = "KH40"     # FBGA-1517
     speed       = "C2"
     default_clk = "clk50"
+    default_rst = "cpu_reset_n"
     resources   = [
-        Resource("clk50", 0, Pins("V11", dir="i"),
-                 Clock(50e6), Attrs(io_standard="3.3-V LVTTL")),
-        Resource("clk50", 1, Pins("Y13", dir="i"),
-                 Clock(50e6), Attrs(io_standard="3.3-V LVTTL")),
-        Resource("clk50", 2, Pins("E11", dir="i"),
-                 Clock(50e6), Attrs(io_standard="3.3-V LVTTL")),
+        Resource("clk50", 0, Pins("AC35", dir="i"),
+                 Clock(50e6), Attrs(io_standard="2.5-V")),
+        Resource("clk50", 1, Pins("AV22", dir="i"),
+                 Clock(50e6), Attrs(io_standard="1.8-V")),
+        Resource("clk50", 2, Pins("AV19", dir="i"),
+                 Clock(50e6), Attrs(io_standard="1.8-V")),
+        Resource("clk50", 3, Pins("AC6", dir="i"),
+                 Clock(50e6), Attrs(io_standard="3.0-V")),
+        Resource("clk50", 4, Pins("AB6", dir="i"),
+                 Clock(50e6), Attrs(io_standard="2.5-V")),
+        Resource("clk50", 5, Pins("A19", dir="i"),
+                 Clock(50e6), Attrs(io_standard="1.8-V")),
+        Resource("clk100", 0, Pins("A21", dir="i"),
+                 Clock(100e6), Attrs(io_standard="1.8-V")), #100MHz assumes SW7 is set to 00
+
+        Resource("cpu_reset_n", 0, Pins("AH8", dir="i"),
+                invert=True, Attrs(io_standard="2.5-V"))
+   
 
         #from 0 to n
         *LEDResources(
@@ -34,21 +47,32 @@ class DE4Platform(IntelPlatform):
             attrs=Attrs(io_standard="2.5-V")),
 
 
+        Display7SegResource(0, 
+            a ="L34", b="M34", c="M33", d="H31", e="J33",
+            f="L35", g="K32", dp="AL34", invert=True,
+            attrs=Attrs(io_standard="2.5-V")),
+
+        Display7SegResource(1, 
+            a = "E31", b="F31", c="G31", d="C34", e="C33",
+            f="D33", g="D34", dp="AL35", invert=True,
+            attrs=Attrs(io_standard="2.5-V")),
+
+
        
     ]
     connectors  = [
         # Located on the right of the board
         Connector("gpio", 0,
-            "V12  E8   W12  D11  D8   AH13 AF7  AH14 AF4  AH3  "
-            "-    -    AD5  AG14 AE23 AE6  AD23 AE24 D12  AD20 "
-            "C12  AD17 AC23 AC22 Y19  AB23 AA19 W11  -    -    "
-            "AA18 W14  Y18  Y17  AB25 AB26 Y11  AA26 AA13 AA11 "),
+            "AF6  AU9  AE5  AR8  AN9  AP9  AV5  AW6  AV7  AW7  "
+            " -    -   AT5  AT8  AP5  AP7  AN5  AN10 AM5  AM10 "
+            "AL10 AM8  AL8  AK8  AJ11 AK7  AJ5  AH12  -    -   "
+            "AG10 AG13 AG9  AF11 AT9  AF10 AD10 AD9  AD12 AD13 ", Attrs(io_standard="3.0V")),
     
         Connector("gpio", 1,
             "Y15  AC24 AA15 AD26 AG28 AF28 AE25 AF27 AG26 AH27 "
             "-    -    AG25 AH26 AH24 AF25 AG23 AF23 AG24 AH22 "
             "AH21 AG21 AH23 AA20 AF22 AE22 AG20 AF21 -    -    "
-            "AG19 AH19 AG18 AH18 AF18 AF20 AG15 AE20 AE19 AE17 "),
+            "AG19 AH19 AG18 AH18 AF18 AF20 AG15 AE20 AE19 AE17 ", Attrs(io_standard="3.0V")),
 
     ]
 
