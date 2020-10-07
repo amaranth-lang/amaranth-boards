@@ -39,22 +39,42 @@ class DE10NanoPlatform(IntelPlatform):
             a="AE26", b="AE27", c="AE28", d="AG27", e="AF28",
             f="AG28", g="AH28", invert=True,
             attrs=Attrs(io_standard="3.3-V LVTTL")),
+        Display7SegResource(1,
+            a="AJ29", b="AH29", c="AH30", d="AG30", e="AF29",
+            f="AF30", g="AD27", invert=True,
+            attrs=Attrs(io_standard="3.3-V LVTTL")),
+        Display7SegResource(2,
+            a="AB23", b="AE29", c="AD29", d="AC28", e="AD30",
+            f="AC29", g="AC30", invert=True,
+            attrs=Attrs(io_standard="3.3-V LVTTL")),
+        Display7SegResource(3,
+            a="AD26", b="AC27", c="AD25", d="AC25", e="AB28",
+            f="AB25", g="AB22", invert=True,
+            attrs=Attrs(io_standard="3.3-V LVTTL")),
+        Display7SegResource(4,
+            a="AA24", b="Y23", c="Y24", d="W22", e="W24",
+            f="V23", g="W25", invert=True,
+            attrs=Attrs(io_standard="3.3-V LVTTL")),
+        Display7SegResource(5,
+            a="V25", b="AA28", c="Y27", d="AB27", e="AB26",
+            f="AA26", g="AA25", invert=True,
+            attrs=Attrs(io_standard="3.3-V LVTTL")),
 
         
     ]
     connectors  = [
-        # Located on the top of the board, above the chip.
+        # Located on the right hand side of the board
         Connector("gpio", 0,
-            "V12  E8   W12  D11  D8   AH13 AF7  AH14 AF4  AH3  "
-            "-    -    AD5  AG14 AE23 AE6  AD23 AE24 D12  AD20 "
-            "C12  AD17 AC23 AC22 Y19  AB23 AA19 W11  -    -    "
-            "AA18 W14  Y18  Y17  AB25 AB26 Y11  AA26 AA13 AA11 "),
-        # Located on the bottom of the board.
+            "AC18 Y17  AD17 Y18  AK16 AK18 AK19 AJ19 AJ17 AJ16 "
+            " -    -   AH18 AH17 AG16 AE16 AF16 AG17 AA18 AA19 "
+            "AE17 AC20 AH19 AJ20 AH20 AK21 AD19 AD20  -    -   "
+            "AE18 AE19 AF20 AF21 AF19 AG21 AF18 AG20 AG18 AJ21 "),
+        
         Connector("gpio", 1,
-            "Y15  AC24 AA15 AD26 AG28 AF28 AE25 AF27 AG26 AH27 "
-            "-    -    AG25 AH26 AH24 AF25 AG23 AF23 AG24 AH22 "
-            "AH21 AG21 AH23 AA20 AF22 AE22 AG20 AF21 -    -    "
-            "AG19 AH19 AG18 AH18 AF18 AF20 AG15 AE20 AE19 AE17 "),
+            "AB17 AA21 AB21 AC23 AD24 AE23 AE24 AF25 AF26 AG25 "
+            "-    -    AG26 AH24 AH27 AJ27 AK29 AK28 AK27 AJ26 "
+            "AK26 AH25 AJ25 AJ24 AK24 AG23 AK23 AH23  -    -   "
+            "AK22 AJ22 AH22 AG22 AF24 AF23 AE22 AD21 AA20 AC22 "),
         
     ]
 
