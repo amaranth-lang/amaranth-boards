@@ -12,25 +12,32 @@ __all__ = ["DE1SoCPlatform"]
 # The MiSTer platform is built around the DE10-Nano; if you update one you should update the other.
 class DE10NanoPlatform(IntelPlatform):
     device      = "5CSEMA5" # Cyclone V 85K LEs
-    package     = "U23"     # UBGA-484
-    speed       = "I7"
+    package     = "F31"     # FBGA-896
+    speed       = "C6"
     default_clk = "clk50"
     resources   = [
-        Resource("clk50", 0, Pins("V11", dir="i"),
+        Resource("clk50", 0, Pins("AF14", dir="i"),
                  Clock(50e6), Attrs(io_standard="3.3-V LVTTL")),
-        Resource("clk50", 1, Pins("Y13", dir="i"),
+        Resource("clk50", 1, Pins("AA16", dir="i"),
                  Clock(50e6), Attrs(io_standard="3.3-V LVTTL")),
-        Resource("clk50", 2, Pins("E11", dir="i"),
+        Resource("clk50", 2, Pins("Y26", dir="i"),
+                 Clock(50e6), Attrs(io_standard="3.3-V LVTTL")),
+        Resource("clk50", 3, Pins("K14", dir="i"),
                  Clock(50e6), Attrs(io_standard="3.3-V LVTTL")),
 
+
         *LEDResources(
-            pins="W15 AA24 V16 V15 AF26 AE26 Y16 AA23",
+            pins="V16 W16 V17 V18 W17 W19 Y19 W20 W21 Y21",
             attrs=Attrs(io_standard="3.3-V LVTTL")),
         *ButtonResources(
-            pins="AH17 AH16", invert=True,
+            pins="AA14 AA15 W15 Y16", invert=True,
             attrs=Attrs(io_standard="3.3-V LVTTL")),
         *SwitchResources(
-            pins="Y24 W24 W21 W20",
+            pins="AB12 AC12 AF9 AF10 AD11 AD12 AE11 AC9 AD10 AE12",
+            attrs=Attrs(io_standard="3.3-V LVTTL")),
+        Display7SegResource(0,
+            a="AE26", b="AE27", c="AE28", d="AG27", e="AF28",
+            f="AG28", g="AH28", invert=True,
             attrs=Attrs(io_standard="3.3-V LVTTL")),
 
         
