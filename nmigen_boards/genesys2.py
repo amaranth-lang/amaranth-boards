@@ -24,7 +24,7 @@ class Genesys2Platform(Xilinx7SeriesPlatform):
         self._JP6 = JP6
 
     def bank15_16_17_iostandard(self):
-        return "LVCMOS" + self._JP6
+        return "LVCMOS" + self._JP6.replace('V', '')
 
     default_rst = "rst"
     default_clk = "clk"
