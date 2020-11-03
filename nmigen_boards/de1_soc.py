@@ -9,8 +9,7 @@ from nmigen_boards.resources import *
 __all__ = ["DE1SoCPlatform"]
 
 
-# The MiSTer platform is built around the DE10-Nano; if you update one you should update the other.
-class DE10NanoPlatform(IntelPlatform):
+class DE1SoCPlatform(IntelPlatform):
     device      = "5CSEMA5" # Cyclone V 85K LEs
     package     = "F31"     # FBGA-896
     speed       = "C6"
@@ -89,4 +88,4 @@ class DE10NanoPlatform(IntelPlatform):
 
 if __name__ == "__main__":
     from nmigen_boards.test.blinky import Blinky
-    DE10NanoPlatform().build(Blinky(), do_program=True)
+    DE1SoCPlatform().build(Blinky(), do_program=True)
