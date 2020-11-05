@@ -86,14 +86,10 @@ def SPIResource(*args, cs, clk, copi, cipo, int=None, reset=None,
     return Resource.family(*args, default_name="spi", ios=io)
 
 
-def I2CResource(*args, scl, sda, scl_pullup=None, sda_pullup=None, conn=None, attrs=None):
+def I2CResource(*args, scl, sda, conn=None, attrs=None):
     io = []
     io.append(Subsignal("scl", Pins(scl, dir="io", conn=conn, assert_width=1)))
     io.append(Subsignal("sda", Pins(sda, dir="io", conn=conn, assert_width=1)))
-    if scl_pullup:
-        io.append(Subsignal("scl_pullup", Pins(scl_pullup, dir="o", conn=conn, assert_width=1)))
-    if sda_pullup:
-        io.append(Subsignal("sda_pullup", Pins(sda_pullup, dir="o", conn=conn, assert_width=1)))
     if attrs is not None:
         io.append(attrs)
     return Resource.family(*args, default_name="i2c", ios=io)
