@@ -38,10 +38,9 @@ class _ArtyS7Platform(Xilinx7SeriesPlatform):
             attrs=Attrs(IOSTANDARD="LVCMOS33")
         ),
 
-        Resource("i2c", 0,
-            Subsignal("scl",        Pins("J14", dir="io")),
-            Subsignal("sda",        Pins("J13", dir="io")),
-            Attrs(IOSTANDARD="LVCMOS33")
+        I2CResource(0,
+            scl="J14", sda="J13",
+            attrs=Attrs(IOSTANDARD="LVCMOS33")
         ),
 
         *SPIFlashResources(0,
