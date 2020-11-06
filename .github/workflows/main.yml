@@ -11,6 +11,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install wheel
+          pip install git+https://github.com/nmigen/nmigen
       - name: Test
         run: |
           python setup.py test
