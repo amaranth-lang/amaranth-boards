@@ -22,6 +22,7 @@ setup(
     setup_requires=["wheel", "setuptools", "setuptools_scm"],
     install_requires=[
         "nmigen>=0.2,<0.4",
+        "importlib_metadata; python_version<'3.8'",
     ],
     packages=find_packages(),
     project_urls={
