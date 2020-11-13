@@ -14,16 +14,16 @@ class QuickfeatherPlatform(QuicklogicPlatform):
     device      = "ql-eos-s3_wlcsp"
     package     = "PU64"
     default_clk = "sys_clk0"
+    # It is possible to configure both oscillator frequency and
+    # clock divider. Resulting frequency is: 60MHz / 12 = 5MHz
+    osc_freq    = int(60e6)
+    osc_div     = 12
     connectors = [
         Connector("J", 2, "- 28 22 21 37 36 42 40 7 2 4 5"),
         Connector("J", 3, "- 8 9 17 16 20 6 55 31 25 47 - - - - 41"),
         Connector("J", 8, "27 26 33 32 23 57 56 3 64 62 63 61 59 - - -"),
     ]
     resources   = [
-        # This is a placeholder resource since the board utilizes
-        # default internal SoC clock.
-        Resource("sys_clk0", 0, Pins("63", dir="i"), Clock(60e6)),
-
         *ButtonResources(pins="62"),
 
         RGBLEDResource(0, r="34", g="39", b="38"),
