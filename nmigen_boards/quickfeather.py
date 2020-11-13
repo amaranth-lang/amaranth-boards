@@ -59,37 +59,24 @@ class QuickfeatherPlatform(QuicklogicPlatform):
     # https://github.com/antmicro/openocd/tree/eos-s3-support
     def toolchain_program(self, products, name):
         openocd = os.environ.get("OPENOCD", "openocd")
-        with products.extract("{}.bit".format(name)) as bitstream_filename:
-            bitstream_folder = os.path.dirname(bitstream_filename)
-            top_ocd_path = os.path.join(bitstream_folder, "top.openocd")
-            subprocess.call([sys.executable, "-m",
-                             "quicklogic_fasm.bitstream_to_openocd",
-                             bitstream_filename, top_ocd_path])
-            # Merge IOMUX config with bitstream into one OpenOCD script
-            with products.extract("{}_iomux.openocd".format(name)) as iomux_filename:
-                merged_ocd_cfg = str()
-                merged_ocd_cfg_path = os.path.join(bitstream_folder, 'top_and_iomux.openocd')
-                with open(top_ocd_path, "r") as top_file:
-                    merged_ocd_cfg = top_file.read()[0:-2]
-                with open(iomux_filename, "r") as iomux_file:
-                    merged_ocd_cfg += iomux_file.read() + '}'
-                with open(merged_ocd_cfg_path, "w") as merged_ocd_cfg_file:
-                    merged_ocd_cfg_file.write(merged_ocd_cfg)
-                cfg_path = merged_ocd_cfg_path
-            try:
-                openocd_proc = subprocess.Popen([openocd, "-s", "tcl",
-                                                 "-f", "interface/ftdi/antmicro-ftdi-adapter.cfg",
-                                                 "-f", "interface/ftdi/swd-resistor-hack.cfg",
-                                                 "-f", "board/quicklogic_quickfeather.cfg",
-                                                 "-f", cfg_path,
-                                                 "-c", "init",
-                                                 "-c", "reset halt",
-                                                 "-c", "load_bitstream",
-                                                 "-c", "exit"])
-            except Exception as e:
-                openocd_proc.kill()
-                raise e
+        with products.extract("{}.openocd".format(name),
+                              "{}_iomux.openocd".format(name)) as \
+                (bitstream_openocd_filename, iomux_openocd_filename):
+            subprocess.check_call([
+                openocd,
+                "-s", "tcl",
+                "-f", "interface/ftdi/antmicro-ftdi-adapter.cfg",
+                "-f", "interface/ftdi/swd-resistor-hack.cfg",
+                "-f", "board/quicklogic_quickfeather.cfg",
+                "-f", bitstream_openocd_filename,
+                "-c", "init",
+                "-c", "reset halt",
+                "-c", "load_bitstream",
+                "-f", iomux_openocd_filename,
+                "-c", "exit"
+            ])
+
 
 if __name__ == "__main__":
     from .test.blinky import *
-    QuickfeatherPlatform().build(Blinky(), do_program=False)
+    QuickfeatherPlatform().build(Blinky())
