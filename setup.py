@@ -20,7 +20,9 @@ setup(
     #long_description="""TODO""",
     license="BSD",
     setup_requires=["wheel", "setuptools", "setuptools_scm"],
-    install_requires=["nmigen>=0.1,<0.5"],
+    install_requires=[
+        "nmigen>=0.2,<0.4",
+    ],
     packages=find_packages(),
     project_urls={
         "Source Code": "https://github.com/nmigen/nmigen-boards",
