@@ -3,7 +3,7 @@ import subprocess
 
 from nmigen.build import *
 from nmigen.vendor.intel import *
-from nmigen_boards.resources import *
+from .resources import *
 
 
 __all__ = ["DE4Platform"]
@@ -83,5 +83,5 @@ class DE4Platform(IntelPlatform):
 
 
 if __name__ == "__main__":
-    from nmigen_boards.test.blinky import Blinky
+    from .test.blinky import Blinky
     DE4Platform().build(Blinky(), do_program=True)
