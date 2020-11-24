@@ -14,8 +14,11 @@ class DE4Platform(IntelPlatform):
     package     = "KH40"     # FBGA-1517
     speed       = "C2"
     default_clk = "clk50"
-    default_rst = "cpu_reset_n"
+    default_rst = "rst"
     resources   = [
+        Resource("rst", 0, PinsN("V34", dir="i"),
+                Attrs(io_standard="2.5-V")),
+
         Resource("clk50", 0, Pins("AC35", dir="i"),
                  Clock(50e6), Attrs(io_standard="2.5-V")),
         Resource("clk50", 1, Pins("AV22", dir="i"),
@@ -29,11 +32,7 @@ class DE4Platform(IntelPlatform):
         Resource("clk50", 5, Pins("A19", dir="i"),
                  Clock(50e6), Attrs(io_standard="1.8-V")),
         Resource("clk100", 0, Pins("A21", dir="i"),
-                 Clock(100e6), Attrs(io_standard="1.8-V")), #100MHz assumes SW7 is set to 00
-
-        Resource("cpu_reset_n", 0, PinsN("V34", dir="i"),
-                Attrs(io_standard="2.5-V")),
-   
+                 Clock(100e6), Attrs(io_standard="1.8-V")), #100MHz assumes SW7 is set to 00   
 
         #from 0 to n
         *LEDResources(
