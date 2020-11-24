@@ -3,7 +3,7 @@ import subprocess
 
 from nmigen.build import *
 from nmigen.vendor.intel import *
-from nmigen_boards.resources import *
+from .resources import *
 
 
 __all__ = ["DE1SoCPlatform"]
@@ -23,7 +23,6 @@ class DE1SoCPlatform(IntelPlatform):
                  Clock(50e6), Attrs(io_standard="3.3-V LVTTL")),
         Resource("clk50", 3, Pins("K14", dir="i"),
                  Clock(50e6), Attrs(io_standard="3.3-V LVTTL")),
-
 
         *LEDResources(
             pins="V16 W16 V17 V18 W17 W19 Y19 W20 W21 Y21",
@@ -58,8 +57,6 @@ class DE1SoCPlatform(IntelPlatform):
             a="V25", b="AA28", c="Y27", d="AB27", e="AB26",
             f="AA26", g="AA25", invert=True,
             attrs=Attrs(io_standard="3.3-V LVTTL")),
-
-        
     ]
     connectors  = [
         # Located on the right hand side of the board
@@ -74,7 +71,6 @@ class DE1SoCPlatform(IntelPlatform):
             "-    -    AG26 AH24 AH27 AJ27 AK29 AK28 AK27 AJ26 "
             "AK26 AH25 AJ25 AJ24 AK24 AG23 AK23 AH23  -    -   "
             "AK22 AJ22 AH22 AG22 AF24 AF23 AE22 AD21 AA20 AC22 "),
-        
     ]
 
     def toolchain_program(self, products, name):
@@ -87,5 +83,5 @@ class DE1SoCPlatform(IntelPlatform):
 
 
 if __name__ == "__main__":
-    from nmigen_boards.test.blinky import Blinky
+    from .test.blinky import Blinky
     DE1SoCPlatform().build(Blinky(), do_program=True)
