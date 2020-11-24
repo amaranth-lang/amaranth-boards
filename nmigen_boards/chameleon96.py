@@ -9,6 +9,7 @@ from .resources import *
 
 __all__ = ["Chameleon96Platform"]
 
+
 class Chameleon96Platform(IntelPlatform):
     device      = "5CSEBA6" # Cyclone V SE 110K LEs
     package     = "U19"     # UBGA-484
@@ -97,6 +98,7 @@ class Chameleon96Platform(IntelPlatform):
             # puts the ARM cores first.
             subprocess.check_call([quartus_pgm, "--haltcc", "--mode", "JTAG",
                                    "--operation", "P;" + bitstream_filename + "@2"])
+
 
 if __name__ == "__main__":
     from .test.blinky import Blinky
