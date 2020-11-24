@@ -103,6 +103,21 @@ class _ULX3SPlatform(LatticeECP5Platform):
         Resource("diff_gpio", 1, DiffPairs("A10", "A11"), Attrs(IO_TYPE="LVCMOS33")),
         Resource("diff_gpio", 2, DiffPairs("A9", "B10"), Attrs(IO_TYPE="LVCMOS33")),
         Resource("diff_gpio", 3, DiffPairs("B9", "C10"),  Attrs(IO_TYPE="LVCMOS33")),
+        
+        # HDMI (only TX, due to the top bank of ECP5 only supporting diff. outputs)
+        Resource("hdmi", 0,
+            Subsignal("cec", Pins("A18", dir="io"),
+                Attrs(IO_TYPE="LVCMOS33", DRIVE="4", PULLMODE="UP")),
+            Subsignal("clk", DiffPairs("A17", "B18", dir="o"),
+                Attrs(IO_TYPE="LVCMOS33D", DRIVE="4")),
+            Subsignal("d",   DiffPairs("A16 A14 A12", "B16 C14 A13", dir="o"),
+                Attrs(IO_TYPE="LVCMOS33D", DRIVE="4")),
+            Subsignal("eth", DiffPairs("A19", "B20", dir="o"),
+                Attrs(IO_TYPE="LVCMOS33D", DRIVE="4")),
+            Subsignal("scl", Pins("E12", dir="io"),
+                Attrs(IO_TYPE="LVCMOS33", DRIVE="4", PULLMODE="UP")),
+            Subsignal("sda", Pins("B19", dir="io"),
+                Attrs(IO_TYPE="LVCMOS33", DRIVE="4", PULLMODE="UP"))),
 
         DirectUSBResource(0,
             d_p="D15", d_n="E15", pullup="B12",
