@@ -8,6 +8,7 @@ from .resources import *
 
 __all__ = ["DE4Platform"]
 
+
 #This is for the larger (500k LEs) chip. The DE4 also comes in a configuration with the EP4SGX230C2
 class DE4Platform(IntelPlatform):
     device      = "EP4SGX530" # Stratix IV 530k LEs
@@ -45,19 +46,15 @@ class DE4Platform(IntelPlatform):
             pins="J7 K7 AK6 L7",
             attrs=Attrs(io_standard="2.5-V")),
 
-
         Display7SegResource(0, 
-            a ="L34", b="M34", c="M33", d="H31", e="J33",
+            a="L34", b="M34", c="M33", d="H31", e="J33",
             f="L35", g="K32", dp="AL34", invert=True,
             attrs=Attrs(io_standard="2.5-V")),
 
         Display7SegResource(1, 
-            a = "E31", b="F31", c="G31", d="C34", e="C33",
+            a="E31", b="F31", c="G31", d="C34", e="C33",
             f="D33", g="D34", dp="AL35", invert=True,
-            attrs=Attrs(io_standard="2.5-V")),
-
-
-       
+            attrs=Attrs(io_standard="2.5-V")),       
     ]
     connectors  = [
         # Located on the right of the board
@@ -72,7 +69,6 @@ class DE4Platform(IntelPlatform):
             " -    -   AU6  AT6  AU7  AR5  AP6  AT7  AN7  AN6  "
             "AL6  AM6  AL5  AL9  AK9  AJ6  AJ10 AH11  -    -   "
             "AH8  AH9  AG12 AH10 AF13 AE13 AE10 AP10 AE12 AE11 "),
-
     ]
 
     def toolchain_program(self, products, name):
