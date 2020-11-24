@@ -42,7 +42,13 @@ class RZEasyFPGAA2_2Platform(IntelPlatform):
             Subsignal("r", Pins("106", dir="o")),
             Subsignal("g", Pins("105", dir="o")),
             Subsignal("b", Pins("104", dir="o")),
+
+            # Note: This pin is also the same pin that nCEO reserves.
+            # To avoid an when using VGA, add the following to the
+            # arguments of your call to RZEasyFPGA2_2Platform.build(): 
+            # add_settings='''set_global_assignment -name CYCLONEII_RESERVE_NCEO_AFTER_CONFIGURATION "USE AS REGULAR IO"'''
             Subsignal("hs", Pins("101", dir="o")),
+
             Subsignal("vs", Pins("103", dir="o")),
         ),
 
