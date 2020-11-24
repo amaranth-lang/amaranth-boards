@@ -11,7 +11,8 @@ class RZEasyFPGAA2_2Platform(IntelPlatform):
     device      = "EP4CE6" # Cyclone IV 6K LEs
     package     = "E22"    # EQFP 144 pins
     speed       = "C8"
-    default_clk = "clk50" # 50MHz builtin clock
+    default_clk = "clk50"  # 50MHz builtin clock
+    default_rst = "rst"
     resources   = [
         # Clock
         Resource("clk50", 0, Pins("23", dir="i"),
@@ -35,55 +36,49 @@ class RZEasyFPGAA2_2Platform(IntelPlatform):
             dqm="42 55", attrs=Attrs(io_standard="3.3-V LVCMOS")),
 
         # Reset switch, located on the lower left of the board.
-        Resource("reset_switch", 0, PinsN("25", dir="i"), Attrs(io_standard="3.3-V LVTTL")),
+        Resource("rst", 0, PinsN("25", dir="i"), Attrs(io_standard="3.3-V LVTTL")),
 
         # VGA connector, located on the right of the board.
         Resource("vga", 0,
             Subsignal("r", Pins("106", dir="o")),
             Subsignal("g", Pins("105", dir="o")),
             Subsignal("b", Pins("104", dir="o")),
-
-            # Note: This pin is also the same pin that nCEO reserves.
-            # To avoid an when using VGA, add the following to the
-            # arguments of your call to RZEasyFPGA2_2Platform.build(): 
-            # add_settings='''set_global_assignment -name CYCLONEII_RESERVE_NCEO_AFTER_CONFIGURATION "USE AS REGULAR IO"'''
             Subsignal("hs", Pins("101", dir="o")),
-
             Subsignal("vs", Pins("103", dir="o")),
         ),
 
         # 4 digit 7 segment display, located on top of the board.
-        Resource("display_7seg", 0,
-            # MSB is the very left digit, LSB is the very right digit.
-            Subsignal("dig", Pins("133 135 136 137", dir="o", invert=True)),
-            Subsignal("seg",  Pins("128 121 125 129 132 126 124 127", dir="o", invert=True)),
+        Display7SegResource(0,
+            a="128", b="121", c="125", d="129", e="132", f="126", g="124", dp="127",
+            invert=True),
+        Resource("display_7seg_ctrl", 0,
+            Subsignal("en", Pins("133 135 136 137", dir="o", invert=True)),
         ),
 
         # PS2 port, located on upper right of the board.
         Resource("ps2_host", 0, 
-            Subsignal("clk", Pins("119", dir="i")),
+            Subsignal("clk", Pins("119", dir="io")),
             Subsignal("dat", Pins("120", dir="io")),
         ),
 
+        # LM75 temperature sensor
         I2CResource(0, scl="112", sda="113"),
+
+        # AT24C08 EEPROM
         I2CResource(1, scl="99" , sda="98" ),
+
+        # Buzzer
+        Resource("buzzer", 0, PinsN("110", dir="o")),
 
         # Serial port, located above the VGA port.
         UARTResource(0, tx="114", rx="115"),
 
         # LCD connector, located above the 7 segment display.
-        Resource("lcd", 0,
+        Resource("lcd_hd44780", 0,
             Subsignal("rs", Pins("141", dir="o")),
             Subsignal("rw", Pins("138", dir="o")),
             Subsignal("e" , Pins("143", dir="o")),
-            Subsignal("d0", Pins("142", dir="o")),
-            Subsignal("d1", Pins("1"  , dir="o")),
-            Subsignal("d2", Pins("144", dir="o")),
-            Subsignal("d3", Pins("3"  , dir="o")),
-            Subsignal("d4", Pins("2"  , dir="o")),
-            Subsignal("d5", Pins("10" , dir="o")),
-            Subsignal("d6", Pins("7"  , dir="o")),
-            Subsignal("d7", Pins("11" , dir="o")),
+            Subsignal("d" , Pins("142 1 144 3 2 10 7 11", dir="io")),
         ),
 
         # IR receiver, located right of the buttons.
@@ -116,6 +111,13 @@ class RZEasyFPGAA2_2Platform(IntelPlatform):
             "30 32 34 39 43 46 50 52 54 58 60 65 67 71 73 75 77 83 -  -  - "
             "28 31 33 38 42 44 51 53 55 59 64 66 68 70 72 74 76 80 -  -  - "),
     ]
+
+    def toolchain_prepare(self, fragment, name, **kwargs):
+        overrides = {
+            "add_settings":
+                '''set_global_assignment -name CYCLONEII_RESERVE_NCEO_AFTER_CONFIGURATION "USE AS REGULAR IO"'''
+        }
+        return super().toolchain_prepare(fragment, name, **overrides, **kwargs)
 
     def toolchain_program(self, products, name):
         quartus_pgm = os.environ.get("QUARTUS_PGM", "quartus_pgm")
