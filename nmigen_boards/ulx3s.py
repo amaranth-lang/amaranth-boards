@@ -16,7 +16,7 @@ __all__ = [
 
 class _ULX3SPlatform(LatticeECP5Platform):
     package                = "BG381"
-    speed                  = "8"
+    speed                  = "6"
     default_clk            = "clk25"
 
     resources = [
@@ -103,6 +103,21 @@ class _ULX3SPlatform(LatticeECP5Platform):
         Resource("diff_gpio", 1, DiffPairs("A10", "A11"), Attrs(IO_TYPE="LVCMOS33")),
         Resource("diff_gpio", 2, DiffPairs("A9", "B10"), Attrs(IO_TYPE="LVCMOS33")),
         Resource("diff_gpio", 3, DiffPairs("B9", "C10"),  Attrs(IO_TYPE="LVCMOS33")),
+        
+        # HDMI (only TX, due to the top bank of ECP5 only supporting diff. outputs)
+        Resource("hdmi", 0,
+            Subsignal("cec", Pins("A18", dir="io"),
+                Attrs(IO_TYPE="LVCMOS33", DRIVE="4", PULLMODE="UP")),
+            Subsignal("clk", DiffPairs("A17", "B18", dir="o"),
+                Attrs(IO_TYPE="LVCMOS33D", DRIVE="4")),
+            Subsignal("d",   DiffPairs("A16 A14 A12", "B16 C14 A13", dir="o"),
+                Attrs(IO_TYPE="LVCMOS33D", DRIVE="4")),
+            Subsignal("eth", DiffPairs("A19", "B20", dir="o"),
+                Attrs(IO_TYPE="LVCMOS33D", DRIVE="4")),
+            Subsignal("scl", Pins("E12", dir="io"),
+                Attrs(IO_TYPE="LVCMOS33", DRIVE="4", PULLMODE="UP")),
+            Subsignal("sda", Pins("B19", dir="io"),
+                Attrs(IO_TYPE="LVCMOS33", DRIVE="4", PULLMODE="UP"))),
 
         DirectUSBResource(0,
             d_p="D15", d_n="E15", pullup="B12",
@@ -117,15 +132,15 @@ class _ULX3SPlatform(LatticeECP5Platform):
             "4+": "A7",   "4-":  "A8",  "5+":  "C8",  "5-":  "B8",
             "6+": "C6",   "6-":  "C7",  "7+":  "A6",  "7-":  "B6",
             "8+": "A4",   "8-":  "A5",  "9+":  "A2",  "9-":  "B1",
-            "10-": "C4",  "10-": "B4",  "11-": "F4",  "11-": "E3",
-            "12-": "G3",  "12-": "F3",  "13-": "H4",  "13-": "G5",
-            "14-": "U18", "14-": "U17", "15-": "N17", "15-": "P16",
-            "16-": "N16", "16-": "M17", "17-": "L16", "17-": "L17",
-            "18-": "H18", "18-": "H17", "19-": "F17", "19-": "G18",
-            "20-": "D18", "20-": "E17", "21-": "C18", "21-": "D17",
-            "22-": "B15", "22-": "C15", "23-": "B17", "23-": "C17",
-            "24-": "C16", "24-": "D16", "25-": "D14", "25-": "E14",
-            "26-": "B13", "26-": "C13", "27-": "D13", "27-": "E13",
+            "10+": "C4",  "10-": "B4",  "11+": "F4",  "11-": "E3",
+            "12+": "G3",  "12-": "F3",  "13+": "H4",  "13-": "G5",
+            "14+": "U18", "14-": "U17", "15+": "N17", "15-": "P16",
+            "16+": "N16", "16-": "M17", "17+": "L16", "17-": "L17",
+            "18+": "H18", "18-": "H17", "19+": "F17", "19-": "G18",
+            "20+": "D18", "20-": "E17", "21+": "C18", "21-": "D17",
+            "22+": "B15", "22-": "C15", "23+": "B17", "23-": "C17",
+            "24+": "C16", "24-": "D16", "25+": "D14", "25-": "E14",
+            "26+": "B13", "26-": "C13", "27+": "D13", "27-": "E13",
         })
     ]
 

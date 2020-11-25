@@ -2,7 +2,7 @@ from nmigen.build import *
 
 
 __all__ = [
-    "UARTResource", "IrDAResource", "SPIResource",
+    "UARTResource", "IrDAResource", "SPIResource", "I2CResource",
     "DirectUSBResource", "ULPIResource"
 ]
 
@@ -59,18 +59,23 @@ def IrDAResource(number, *, rx, tx, en=None, sd=None,
 def SPIResource(*args, cs, clk, copi, cipo, int=None, reset=None,
                 conn=None, attrs=None, role="controller"):
     assert role in ("controller", "peripheral")
+    assert copi is not None or cipo is not None # support unidirectional SPI
 
     io = []
     if role == "controller":
         io.append(Subsignal("cs", PinsN(cs, dir="o", conn=conn)))
         io.append(Subsignal("clk", Pins(clk, dir="o", conn=conn, assert_width=1)))
-        io.append(Subsignal("copi", Pins(copi, dir="o", conn=conn, assert_width=1)))
-        io.append(Subsignal("cipo", Pins(cipo, dir="i", conn=conn, assert_width=1)))
+        if copi is not None:
+            io.append(Subsignal("copi", Pins(copi, dir="o", conn=conn, assert_width=1)))
+        if cipo is not None:
+            io.append(Subsignal("cipo", Pins(cipo, dir="i", conn=conn, assert_width=1)))
     else:  # peripheral
         io.append(Subsignal("cs", PinsN(cs, dir="i", conn=conn, assert_width=1)))
         io.append(Subsignal("clk", Pins(clk, dir="i", conn=conn, assert_width=1)))
-        io.append(Subsignal("copi", Pins(copi, dir="i", conn=conn, assert_width=1)))
-        io.append(Subsignal("cipo", Pins(cipo, dir="oe", conn=conn, assert_width=1)))
+        if copi is not None:
+            io.append(Subsignal("copi", Pins(copi, dir="i", conn=conn, assert_width=1)))
+        if cipo is not None:
+            io.append(Subsignal("cipo", Pins(cipo, dir="oe", conn=conn, assert_width=1)))
     if int is not None:
         if role == "controller":
             io.append(Subsignal("int", Pins(int, dir="i", conn=conn)))
@@ -86,8 +91,16 @@ def SPIResource(*args, cs, clk, copi, cipo, int=None, reset=None,
     return Resource.family(*args, default_name="spi", ios=io)
 
 
-def DirectUSBResource(*args, d_p, d_n, pullup=None, vbus_valid=None,
-    conn=None, attrs=None):
+def I2CResource(*args, scl, sda, conn=None, attrs=None):
+    io = []
+    io.append(Subsignal("scl", Pins(scl, dir="io", conn=conn, assert_width=1)))
+    io.append(Subsignal("sda", Pins(sda, dir="io", conn=conn, assert_width=1)))
+    if attrs is not None:
+        io.append(attrs)
+    return Resource.family(*args, default_name="i2c", ios=io)
+
+
+def DirectUSBResource(*args, d_p, d_n, pullup=None, vbus_valid=None, conn=None, attrs=None):
 
     io = []
     io.append(Subsignal("d_p", Pins(d_p, dir="io", conn=conn, assert_width=1)))

@@ -24,7 +24,7 @@ class Genesys2Platform(Xilinx7SeriesPlatform):
         self._JP6 = JP6
 
     def bank15_16_17_iostandard(self):
-        return "LVCMOS" + self._JP6
+        return "LVCMOS" + self._JP6.replace('V', '')
 
     default_rst = "rst"
     default_clk = "clk"
@@ -52,10 +52,8 @@ class Genesys2Platform(Xilinx7SeriesPlatform):
                  Attrs(IOSTANDARD="LVCMOS33")),
         UARTResource(0, rx="Y20", tx="Y23",
                      attrs=Attrs(IOSTANDARD="LVCMOS33")),
-        Resource("i2c", 0,
-                 Subsignal("scl", Pins("AE30", dir="io")),
-                 Subsignal("sda", Pins("AF30", dir="io")),
-                 Attrs(IOSTANDARD="LVCMOS33")),
+        I2CResource(0, scl="AE30", sda="AF30",
+                    attrs=Attrs(IOSTANDARD="LVCMOS33")),
         Resource("ddr3", 0,
                  Subsignal("rst", PinsN("AG5", dir="o"),
                            Attrs(IOSTANDARD="SSTL15")),
@@ -142,15 +140,9 @@ class Genesys2Platform(Xilinx7SeriesPlatform):
                          attrs=Attrs(IOSTANDARD="LVCMOS33")),
         Resource("sd_card_rst", 0,
                  Pins("AE24", dir="o"), Attrs(IOSTANDARD="LVCMOS33")),
-        Resource("ulpi", 0,
-                 Subsignal("rst", PinsN("AB14", dir="o")),
-                 Subsignal("clk", Pins("AD18", dir="i")),
-                 Subsignal("d", Pins("AE14 AE15 AC15 AC16 "
-                                     "AB15 AA15 AD14 AC14", dir="io")),
-                 Subsignal("dir", Pins("Y16", dir="i")),
-                 Subsignal("stp", Pins("AA17", dir="o")),
-                 Subsignal("nxt", Pins("AA16", dir="i")),
-                 Attrs(IOSTANDARD="LVCMOS18")),
+        ULPIResource(0, data="AE14 AE15 AC15 AC16 AB15 AA15 AD14 AC14",
+                     rst="AB14", clk="AD18", dir="Y16", stp="AA17", nxt="AA16",
+                     clk_dir="i", rst_invert=True, attrs=Attrs(IOSTANDARD="LVCMOS18")),
         Resource("vusb_oc", 0,
                  PinsN("AF16", dir="i"), Attrs(IOSTANDARD="LVCMOS18")),
         Resource("eth_rgmii", 0,
