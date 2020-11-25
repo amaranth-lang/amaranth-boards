@@ -28,8 +28,8 @@ class ICEBreakerBitsyPlatform(LatticeICE40Platform):
         RGBLEDResource(0, r="39", g="40", b="41", invert=True,
             attrs=Attrs(IO_STANDARD="SB_LVCMOS")),
         *LEDResources(pins="25 6", invert=True, attrs=Attrs(IO_STANDARD="SB_LVCMOS")),
-        Resource("led_r", 0, PinsN("25", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS")),
-        Resource("led_g", 0, PinsN("6", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS")),
+        Resource("led_r_n", 0, PinsN("25", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS")),
+        Resource("led_g_n", 0, PinsN("6", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS")),
 
         *ButtonResources(pins="2", invert=True, attrs=Attrs(IO_STANDARD="SB_LVCMOS")),
     ]

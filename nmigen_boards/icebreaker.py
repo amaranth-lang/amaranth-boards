@@ -19,8 +19,8 @@ class ICEBreakerPlatform(LatticeICE40Platform):
 
         *LEDResources(pins="11 37", invert=True, attrs=Attrs(IO_STANDARD="SB_LVCMOS")),
         # Semantic aliases
-        Resource("led_r", 0, PinsN("11", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS")),
-        Resource("led_g", 0, PinsN("37", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS")),
+        Resource("led_r_n", 0, PinsN("11", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS")),
+        Resource("led_g_n", 0, PinsN("37", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS")),
 
         *ButtonResources(pins="10", invert=True, attrs=Attrs(IO_STANDARD="SB_LVCMOS")),
 

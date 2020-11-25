@@ -62,7 +62,7 @@ class MercuryPlatform(XilinxSpartan3APlatform):
         # under SRAMResource) interface to the SRAM. On assertion, this signal
         # will tristate the level-shifters, preventing any output on the 5V
         # GPIO pins (including gpio:30 and gpio:20).
-        Resource("bussw_oe", 0, PinsN("P30N", dir="o"),
+        Resource("bussw_oe_n", 0, PinsN("P30N", dir="o"),
             Attrs(IOSTANDARD="LVTTL"))
     ]
 
@@ -160,8 +160,8 @@ class MercuryPlatform(XilinxSpartan3APlatform):
 
     _vga = [
         Resource("vga_out", 0,
-            Subsignal("hsync", PinsN("led_0:3", dir="o")),
-            Subsignal("vsync", PinsN("led_0:4", dir="o")),
+            Subsignal("hsync_n", PinsN("led_0:3", dir="o")),
+            Subsignal("vsync_n", PinsN("led_0:4", dir="o")),
 
             Subsignal("r", Pins("dio_0:1 dio_0:2 dio_0:3", dir="o")),
             Subsignal("g", Pins("dio_0:4 dio_0:5 dio_0:6", dir="o")),

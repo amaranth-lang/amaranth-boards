@@ -14,14 +14,14 @@ class RZEasyFPGAA2_2Platform(IntelPlatform):
     package     = "E22"    # EQFP 144 pins
     speed       = "C8"
     default_clk = "clk50"  # 50MHz builtin clock
-    default_rst = "rst"
+    default_rst = "rst_n"
     resources   = [
         # Clock
         Resource("clk50", 0, Pins("23", dir="i"),
                  Clock(50e6), Attrs(io_standard="3.3-V LVTTL")),
 
         # Reset switch, located on the lower left of the board.
-        Resource("rst", 0, PinsN("25", dir="i"), Attrs(io_standard="3.3-V LVTTL")),
+        Resource("rst_n", 0, PinsN("25", dir="i"), Attrs(io_standard="3.3-V LVTTL")),
 
         # LEDs, located on the bottom of the board.
         *LEDResources(
@@ -70,7 +70,7 @@ class RZEasyFPGAA2_2Platform(IntelPlatform):
         I2CResource(1, scl="99" , sda="98" ),
 
         # Buzzer
-        Resource("buzzer", 0, PinsN("110", dir="o")),
+        Resource("buzzer_n", 0, PinsN("110", dir="o")),
 
         # Serial port, located above the VGA port.
         UARTResource(0, tx="114", rx="115"),

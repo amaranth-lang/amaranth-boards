@@ -72,13 +72,13 @@ class MisterPlatform(IntelPlatform):
 
         # MiSTer I/O Board (optional, but highly recommended)
         # https://github.com/MiSTer-devel/Hardware_MiSTer/blob/master/releases/iobrd_6.0.pdf
-        Resource("power_led", 0, PinsN("1", dir="o", conn=("gpio", 1)), Attrs(io_standard="3.3-V LVTTL")),
-        Resource("disk_led", 0, PinsN("3", dir="o", conn=("gpio", 1)), Attrs(io_standard="3.3-V LVTTL")),
-        Resource("user_led", 0, PinsN("5", dir="o", conn=("gpio", 1)), Attrs(io_standard="3.3-V LVTTL")),
+        Resource("power_led_n", 0, PinsN("1", dir="o", conn=("gpio", 1)), Attrs(io_standard="3.3-V LVTTL")),
+        Resource("disk_led_n", 0, PinsN("3", dir="o", conn=("gpio", 1)), Attrs(io_standard="3.3-V LVTTL")),
+        Resource("user_led_n", 0, PinsN("5", dir="o", conn=("gpio", 1)), Attrs(io_standard="3.3-V LVTTL")),
 
-        Resource("reset_switch", 0, PinsN("17", dir="i", conn=("gpio", 1)), Attrs(io_standard="3.3-V LVTTL")),
-        Resource("osd_switch", 0, PinsN("13", dir="i", conn=("gpio", 1)), Attrs(io_standard="3.3-V LVTTL")),
-        Resource("user_switch", 0, PinsN("15", dir="i", conn=("gpio", 1)), Attrs(io_standard="3.3-V LVTTL")),
+        Resource("reset_switch_n", 0, PinsN("17", dir="i", conn=("gpio", 1)), Attrs(io_standard="3.3-V LVTTL")),
+        Resource("osd_switch_n", 0, PinsN("13", dir="i", conn=("gpio", 1)), Attrs(io_standard="3.3-V LVTTL")),
+        Resource("user_switch_n", 0, PinsN("15", dir="i", conn=("gpio", 1)), Attrs(io_standard="3.3-V LVTTL")),
 
         Resource("audio", 0,
             Subsignal("l", Pins("2", dir="o", conn=("gpio", 1))),

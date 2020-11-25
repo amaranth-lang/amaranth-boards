@@ -44,7 +44,7 @@ class Supercon19BadgePlatform(LatticeECP5Platform):
         Resource("clk8", 0, Pins("U18"), Clock(8e6), Attrs(IO_TYPE="LVCMOS33")),
 
         # Used to trigger FPGA reconfiguration.
-        Resource("program", 0, PinsN("R1"), Attrs(IO_TYPE="LVCMOS33")),
+        Resource("program_n", 0, PinsN("R1"), Attrs(IO_TYPE="LVCMOS33")),
 
         # See note above for LED anode/cathode information.
         # Short version is: these work as normal LEDs until you touch their cathodes.
@@ -77,8 +77,8 @@ class Supercon19BadgePlatform(LatticeECP5Platform):
         Resource("hdmi", 0,
             Subsignal("clk", DiffPairsN("P20", "R20"), Attrs(IO_TYPE="TMDS_33")),
             Subsignal("d", DiffPairs("N19 L20 L16", "N20 M20 L17"), Attrs(IO_TYPE="TMDS_33")),
-            Subsignal("hpd", PinsN("R18"), Attrs(IO_TYPE="LVCMOS33")),# Also called HDMI_HEAC_n
-            Subsignal("hdmi_heac_p", PinsN("T19"), Attrs(IO_TYPE="LVCMOS33")),
+            Subsignal("hpd_n", PinsN("R18"), Attrs(IO_TYPE="LVCMOS33")),# Also called HDMI_HEAC_n
+            Subsignal("hdmi_heac_p_n", PinsN("T19"), Attrs(IO_TYPE="LVCMOS33")),
             Attrs(DRIVE="4"),
         ),
 
@@ -98,7 +98,7 @@ class Supercon19BadgePlatform(LatticeECP5Platform):
         ),
 
         Resource("spi_flash", 0, # clock needs to be accessed through USRMCLK
-            Subsignal("cs",   PinsN("R2")),
+            Subsignal("cs_n", PinsN("R2")),
             Subsignal("copi", Pins("W2")),
             Subsignal("cipo", Pins("V2")),
             Subsignal("wp",   Pins("Y2")),
@@ -106,20 +106,20 @@ class Supercon19BadgePlatform(LatticeECP5Platform):
             Attrs(IO_TYPE="LVCMOS33")
         ),
         Resource("spi_flash_4x", 0, # clock needs to be accessed through USRMCLK
-            Subsignal("cs",   PinsN("R2")),
+            Subsignal("cs_n", PinsN("R2")),
             Subsignal("dq",   Pins("W2 V2 Y2 W1")),
             Attrs(IO_TYPE="LVCMOS33")
         ),
 
         # SPI-connected PSRAM.
         Resource("spi_psram_4x", 0,
-            Subsignal("cs",  PinsN("D20")),
-            Subsignal("clk", Pins("E20")),
-            Subsignal("dq",  Pins("E19 D19 C20 F19"), Attrs(PULLMODE="UP")),
+            Subsignal("cs_n", PinsN("D20")),
+            Subsignal("clk",  Pins("E20")),
+            Subsignal("dq",   Pins("E19 D19 C20 F19"), Attrs(PULLMODE="UP")),
             Attrs(IO_TYPE="LVCMOS33", SLEWRATE="SLOW")
         ),
         Resource("spi_psram_4x", 1,
-            Subsignal("cs",   PinsN("F20")),
+            Subsignal("cs_n", PinsN("F20")),
             Subsignal("clk",  Pins("J19")),
             Subsignal("dq",   Pins("J20 G19 G20 H20"), Attrs(PULLMODE="UP")),
             Attrs(IO_TYPE="LVCMOS33", SLEWRATE="SLOW")

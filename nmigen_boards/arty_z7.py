@@ -38,8 +38,8 @@ class ArtyZ720Platform(Xilinx7SeriesPlatform):
             attrs=Attrs(IOSTANDARD="LVCMOS33")),
 
         Resource("audio", 0,
-            Subsignal("pwm", Pins("R18", dir="o")),
-            Subsignal("sd",  PinsN("T17", dir="o")),
+            Subsignal("pwm",  Pins("R18", dir="o")),
+            Subsignal("sd_n", PinsN("T17", dir="o")),
             Attrs(IOSTANDARD="LVCMOS33")),
 
         Resource("crypto_sda", 0,                               # ATSHA204A
@@ -58,14 +58,14 @@ class ArtyZ720Platform(Xilinx7SeriesPlatform):
             Attrs(IOSTANDARD="LVCMOS33")),
 
         Resource("hdmi_tx", 0,                                  # J11
-            Subsignal("cec", Pins("G15", dir="io")),
-            Subsignal("clk", DiffPairs("L16", "L17", dir="o"),
+            Subsignal("cec",   Pins("G15", dir="io")),
+            Subsignal("clk",   DiffPairs("L16", "L17", dir="o"),
                 Attrs(IOSTANDARD="TMDS_33")),
-            Subsignal("d",   DiffPairs("K17 K19 J18", "K18 J19 H18", dir="o"),
+            Subsignal("d",     DiffPairs("K17 K19 J18", "K18 J19 H18", dir="o"),
                 Attrs(IOSTANDARD="TMDS_33")),
-            Subsignal("hpd", PinsN("R19", dir="i")),
-            Subsignal("scl", Pins("M17", dir="io")),
-            Subsignal("sda", Pins("M18", dir="io")),
+            Subsignal("hpd_n", PinsN("R19", dir="i")),
+            Subsignal("scl",   Pins("M17", dir="io")),
+            Subsignal("sda",   Pins("M18", dir="io")),
             Attrs(IOSTANDARD="LVCMOS33"))
     ]
     connectors = [

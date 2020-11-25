@@ -14,11 +14,11 @@ class ArtyA7Platform(Xilinx7SeriesPlatform):
     package     = "csg324"
     speed       = "1L"
     default_clk = "clk100"
-    default_rst = "rst"
+    default_rst = "rst_n"
     resources   = [
         Resource("clk100", 0, Pins("E3", dir="i"),
                  Clock(100e6), Attrs(IOSTANDARD="LVCMOS33")),
-        Resource("rst", 0, PinsN("C2", dir="i"), Attrs(IOSTANDARD="LVCMOS33")),
+        Resource("rst_n", 0, PinsN("C2", dir="i"), Attrs(IOSTANDARD="LVCMOS33")),
 
         *LEDResources(pins="H5 J5 T9 T10", attrs=Attrs(IOSTANDARD="LVCMOS33")),
 
@@ -54,13 +54,13 @@ class ArtyA7Platform(Xilinx7SeriesPlatform):
         ),
 
         Resource("ddr3", 0,
-            Subsignal("rst",    PinsN("K6", dir="o")),
+            Subsignal("rst_n",  PinsN("K6", dir="o")),
             Subsignal("clk",    DiffPairs("U9", "V9", dir="o"), Attrs(IOSTANDARD="DIFF_SSTL135")),
             Subsignal("clk_en", Pins("N5", dir="o")),
-            Subsignal("cs",     PinsN("U8", dir="o")),
-            Subsignal("we",     PinsN("P5", dir="o")),
-            Subsignal("ras",    PinsN("P3", dir="o")),
-            Subsignal("cas",    PinsN("M4", dir="o")),
+            Subsignal("cs_n",   PinsN("U8", dir="o")),
+            Subsignal("we_n",   PinsN("P5", dir="o")),
+            Subsignal("ras_n",  PinsN("P3", dir="o")),
+            Subsignal("cas_n",  PinsN("M4", dir="o")),
             Subsignal("a",      Pins("R2 M6 N4 T1 N6 R7 V6 U7 R8 V7 R6 U6 T6 T8", dir="o")),
             Subsignal("ba",     Pins("R1 P4 P2", dir="o")),
             Subsignal("dqs",    DiffPairs("N2 U2", "N1 V2", dir="io"),
@@ -77,7 +77,7 @@ class ArtyA7Platform(Xilinx7SeriesPlatform):
         Resource("eth_clk50", 0, Pins("G18", dir="o"),
                  Clock(50e6), Attrs(IOSTANDARD="LVCMOS33")),
         Resource("eth_mii", 0,
-            Subsignal("rst",     PinsN("C16", dir="o")),
+            Subsignal("rst_n",   PinsN("C16", dir="o")),
             Subsignal("mdio",    Pins("K13", dir="io")),
             Subsignal("mdc",     Pins("F16", dir="o")),
             Subsignal("tx_clk",  Pins("H16", dir="i")),
@@ -92,7 +92,7 @@ class ArtyA7Platform(Xilinx7SeriesPlatform):
             Attrs(IOSTANDARD="LVCMOS33")
         ),
         Resource("eth_rmii", 0,
-            Subsignal("rst",       PinsN("C16", dir="o")),
+            Subsignal("rst_n",     PinsN("C16", dir="o")),
             Subsignal("mdio",      Pins("K13", dir="io")),
             Subsignal("mdc",       Pins("F16", dir="o")),
             Subsignal("tx_en",     Pins("H15", dir="o")),

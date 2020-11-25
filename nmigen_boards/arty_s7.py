@@ -14,11 +14,11 @@ class _ArtyS7Platform(Xilinx7SeriesPlatform):
     package     = "csga324"
     speed       = "1"
     default_clk = "clk100"
-    default_rst = "rst"
+    default_rst = "rst_n"
     resources   = [
         Resource("clk100", 0, Pins("R2", dir="i"),
                  Clock(100e6), Attrs(IOSTANDARD="SSTL135")),
-        Resource("rst", 0, PinsN("C18", dir="i"), Attrs(IOSTANDARD="LVCMOS33")),
+        Resource("rst_n", 0, PinsN("C18", dir="i"), Attrs(IOSTANDARD="LVCMOS33")),
 
         *LEDResources(pins="E18 F13 E13 H15", attrs=Attrs(IOSTANDARD="LVCMOS33")),
 
@@ -49,13 +49,13 @@ class _ArtyS7Platform(Xilinx7SeriesPlatform):
         ),
 
         Resource("ddr3", 0,
-            Subsignal("rst",    PinsN("J6", dir="o")),
+            Subsignal("rst_n",  PinsN("J6", dir="o")),
             Subsignal("clk",    DiffPairs("R5", "T4", dir="o"), Attrs(IOSTANDARD="DIFF_SSTL135")),
             Subsignal("clk_en", Pins("T2", dir="o")),
-            Subsignal("cs",     PinsN("R3", dir="o")),
-            Subsignal("we",     PinsN("P7", dir="o")),
-            Subsignal("ras",    PinsN("U1", dir="o")),
-            Subsignal("cas",    PinsN("V3", dir="o")),
+            Subsignal("cs_n",   PinsN("R3", dir="o")),
+            Subsignal("we_n",   PinsN("P7", dir="o")),
+            Subsignal("ras_n",  PinsN("U1", dir="o")),
+            Subsignal("cas_n",  PinsN("V3", dir="o")),
             Subsignal("a",      Pins("U2 R4 V2 V4 T3 R7 V6 T6 U7 V7 P6 T5 R6 U6", dir="o")),
             Subsignal("ba",     Pins("V5 T1 U3", dir="o")),
             Subsignal("dqs",    DiffPairs("K1 N3", "L1 N2", dir="io"),

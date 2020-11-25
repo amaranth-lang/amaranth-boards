@@ -14,11 +14,11 @@ class Nexys4DDRPlatform(Xilinx7SeriesPlatform):
     package     = "csg324"
     speed       = "1"
     default_clk = "clk100"
-    default_rst = "rst"
+    default_rst = "rst_n"
     resources   = [
         Resource("clk100", 0,
             Pins("E3", dir="i"), Clock(100e6), Attrs(IOSTANDARD="LVCMOS33")),
-        Resource("rst", 0,
+        Resource("rst_n", 0,
             PinsN("C12", dir="i"), Attrs(IOSTANDARD="LVCMOS33")),
 
         *SwitchResources(
@@ -40,11 +40,11 @@ class Nexys4DDRPlatform(Xilinx7SeriesPlatform):
             a="T10", b="R10", c="K16", d="K13", e="P15",
             f="T11", g="L18", dp="H15", invert=True,
             attrs=Attrs(IOSTANDARD="LVCMOS33")),
-        Resource("display_7seg_an", 0,
+        Resource("display_7seg_an_n", 0,
             PinsN("J17 J18 T9 J14 P14 T14 K2 U13", dir="o"),
             Attrs(IOSTANDARD="LVCMOS33")),
 
-        Resource("button_reset", 0,
+        Resource("button_reset_n", 0,
             PinsN("C12", dir="i"), Attrs(IOSTANDARD="LVCMOS33")),
         Resource("button_center", 0,
             Pins("N17",  dir="i"), Attrs(IOSTANDARD="LVCMOS33")),
@@ -73,7 +73,7 @@ class Nexys4DDRPlatform(Xilinx7SeriesPlatform):
             Pins("E2", dir="o"), Attrs(IOSTANDARD="LVCMOS33")),
 
         Resource("accelerometer", 0,                        # ADXL362
-            Subsignal("cs",   PinsN("D15",    dir="o")),
+            Subsignal("cs_n", PinsN("D15",    dir="o")),
             Subsignal("clk",  Pins("F15",     dir="o")),
             Subsignal("copi", Pins("F14",     dir="o")),
             Subsignal("cipo", Pins("E15",     dir="i")),
@@ -95,8 +95,8 @@ class Nexys4DDRPlatform(Xilinx7SeriesPlatform):
             Attrs(IOSTANDARD="LVCMOS33")),
 
         Resource("audio", 0,
-            Subsignal("pwm", Pins("A11",  dir="o")),
-            Subsignal("sd",  PinsN("D12", dir="o")),
+            Subsignal("pwm",  Pins("A11",  dir="o")),
+            Subsignal("sd_n", PinsN("D12", dir="o")),
             Attrs(IOSTANDARD="LVCMOS33")),
 
         UARTResource(0,
@@ -118,7 +118,7 @@ class Nexys4DDRPlatform(Xilinx7SeriesPlatform):
             Subsignal("txd",    Pins("A10 A8",  dir="o")),
             Subsignal("txen",   Pins("B9",      dir="o")),
             Subsignal("crs_dv", Pins("D9",      dir="io")),
-            Subsignal("int",    PinsN("B8",     dir="io")),
+            Subsignal("int_n",  PinsN("B8",     dir="io")),
             Subsignal("clk",    Pins("D5",      dir="o"), Clock(50e6)),
             Attrs(IOSTANDARD="LVCMOS33")),
 
@@ -136,11 +136,11 @@ class Nexys4DDRPlatform(Xilinx7SeriesPlatform):
             Subsignal("clk", DiffPairs("L6", "L5", dir="o"),
                 Attrs(IOSTANDARD="DIFF_SSTL18_I")),
             Subsignal("clk_en", Pins("M1", dir="o")),
-            Subsignal("cs",  PinsN("K6", dir="o")),
-            Subsignal("we",  PinsN("N2", dir="o")),
-            Subsignal("ras", PinsN("N4", dir="o")),
-            Subsignal("cas", PinsN("L1", dir="o")),
-            Subsignal("dqs", DiffPairs("U9 U2", "V9 V2", dir="o"),
+            Subsignal("cs_n",   PinsN("K6", dir="o")),
+            Subsignal("we_n",   PinsN("N2", dir="o")),
+            Subsignal("ras_n",  PinsN("N4", dir="o")),
+            Subsignal("cas_n",  PinsN("L1", dir="o")),
+            Subsignal("dqs",    DiffPairs("U9 U2", "V9 V2", dir="o"),
                 Attrs(IOSTANDARD="DIFF_SSTL18_I")),
             Subsignal("dm",  Pins("T6 U1", dir="o")),
             Subsignal("odt", Pins("R5",    dir="o")),

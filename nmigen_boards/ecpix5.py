@@ -13,10 +13,10 @@ class _ECPIX5Platform(LatticeECP5Platform):
     package     = "BG554"
     speed       = "8"
     default_clk = "clk100"
-    default_rst = "rst"
+    default_rst = "rst_n"
 
     resources   = [
-        Resource("rst", 0, PinsN("AB1", dir="i"), Attrs(IO_TYPE="LVCMOS33")),
+        Resource("rst_n", 0, PinsN("AB1", dir="i"), Attrs(IO_TYPE="LVCMOS33")),
         Resource("clk100", 0, Pins("K23", dir="i"), Clock(100e6), Attrs(IO_TYPE="LVCMOS33")),
 
         RGBLEDResource(0,
@@ -47,7 +47,7 @@ class _ECPIX5Platform(LatticeECP5Platform):
         ),
 
         Resource("eth_rgmii", 0,
-            Subsignal("rst",     PinsN("C13", dir="o")),
+            Subsignal("rst_n",   PinsN("C13", dir="o")),
             Subsignal("mdio",    Pins("A13", dir="io")),
             Subsignal("mdc",     Pins("C11", dir="o")),
             Subsignal("tx_clk",  Pins("A12", dir="o")),
@@ -58,14 +58,14 @@ class _ECPIX5Platform(LatticeECP5Platform):
             Subsignal("rx_data", Pins("B11 A10 B10 A9", dir="i")),
             Attrs(IO_TYPE="LVCMOS33")
         ),
-        Resource("eth_int", 0, PinsN("B13", dir="i"), Attrs(IO_TYPE="LVCMOS33")),
+        Resource("eth_int_n", 0, PinsN("B13", dir="i"), Attrs(IO_TYPE="LVCMOS33")),
 
         Resource("ddr3", 0,
             Subsignal("clk",    DiffPairs("H3", "J3", dir="o"), Attrs(IO_TYPE="SSTL135D_I")),
             Subsignal("clk_en", Pins("P1", dir="o")),
-            Subsignal("we",     PinsN("R3", dir="o")),
-            Subsignal("ras",    PinsN("T3", dir="o")),
-            Subsignal("cas",    PinsN("P2", dir="o")),
+            Subsignal("we_n",   PinsN("R3", dir="o")),
+            Subsignal("ras_n",  PinsN("T3", dir="o")),
+            Subsignal("cas_n",  PinsN("P2", dir="o")),
             Subsignal("a",      Pins("T5 M3 L3 V6 K2 W6 K3 L1 H2 L2 N1 J1 M1 K1", dir="o")),
             Subsignal("ba",     Pins("U6 N3 N4", dir="o")),
             Subsignal("dqs",    DiffPairs("V4 V1", "U5 U2", dir="io"),
@@ -94,11 +94,11 @@ class _ECPIX5Platform(LatticeECP5Platform):
         ),
 
         Resource("usbc_cfg", 0,
-            Subsignal("scl", Pins("D24", dir="io")),
-            Subsignal("sda", Pins("C24", dir="io")),
-            Subsignal("dir", Pins("B23", dir="i")),
-            Subsignal("id",  Pins("D23", dir="i")),
-            Subsignal("int", PinsN("B24", dir="i")),
+            Subsignal("scl",   Pins("D24", dir="io")),
+            Subsignal("sda",   Pins("C24", dir="io")),
+            Subsignal("dir",   Pins("B23", dir="i")),
+            Subsignal("id",    Pins("D23", dir="i")),
+            Subsignal("int_n", PinsN("B24", dir="i")),
             Attrs(IO_TYPE="LVCMOS33")
         ),
         Resource("usbc_mux", 0,
@@ -162,7 +162,7 @@ class ECPIX545Platform(_ECPIX5Platform):
 
         # The IT6613E HDMI transmitter has access to 8 bits per color channel.
         Resource("it6613e", 0,
-            Subsignal("rst",   PinsN("N6", dir="o")),
+            Subsignal("rst_n", PinsN("N6", dir="o")),
             Subsignal("scl",   Pins("C17", dir="io")),
             Subsignal("sda",   Pins("E17", dir="io")),
             Subsignal("pclk",  Pins("C1", dir="o")),
@@ -178,7 +178,7 @@ class ECPIX545Platform(_ECPIX5Platform):
             Subsignal("sck",   Pins("D6", dir="o")),
             Subsignal("ws",    Pins("C6", dir="o")),
             Subsignal("i2s",   Pins("A6 B6 A5 C5", dir="o")),
-            Subsignal("int",   PinsN("C4", dir="i")),
+            Subsignal("int_n", PinsN("C4", dir="i")),
             Attrs(IO_TYPE="LVTTL33")
         ),
     ]
@@ -193,7 +193,7 @@ class ECPIX585Platform(_ECPIX5Platform):
         # The IT6613E HDMI transmitter has access to 12 bits per color channel. The LFE5UM5G-85F
         # has an additional I/O bank which is used to provide the lower 4 bits of each channel.
         Resource("it6613e", 0,
-            Subsignal("rst",   PinsN("N6", dir="o")),
+            Subsignal("rst_n", PinsN("N6", dir="o")),
             Subsignal("scl",   Pins("C17", dir="io")),
             Subsignal("sda",   Pins("E17", dir="io")),
             Subsignal("pclk",  Pins("C1", dir="o")),
@@ -209,7 +209,7 @@ class ECPIX585Platform(_ECPIX5Platform):
             Subsignal("sck",   Pins("D6", dir="o")),
             Subsignal("ws",    Pins("C6", dir="o")),
             Subsignal("i2s",   Pins("A6 B6 A5 C5", dir="o")),
-            Subsignal("int",   PinsN("C4", dir="i")),
+            Subsignal("int_n", PinsN("C4", dir="i")),
             Attrs(IO_TYPE="LVTTL33")
         ),
     ]

@@ -38,39 +38,39 @@ def UARTResource(*args, rx, tx, rts=None, cts=None, dtr=None, dsr=None, dcd=None
     return Resource.family(*args, default_name="uart", ios=io)
 
 
-def IrDAResource(number, *, rx, tx, en=None, sd=None,
+def IrDAResource(number, *, rx, tx, en=None, sd_n=None,
                  conn=None, attrs=None):
-    # Exactly one of en (active-high enable) or sd (shutdown, active-low enable) should
+    # Exactly one of en (active-high enable) or sd_n (shutdown, active-low enable) should
     # be specified, and it is mapped to a logic level en subsignal.
-    assert (en is not None) ^ (sd is not None)
+    assert (en is not None) ^ (sd_n is not None)
 
     io = []
     io.append(Subsignal("rx", Pins(rx, dir="i", conn=conn, assert_width=1)))
     io.append(Subsignal("tx", Pins(tx, dir="o", conn=conn, assert_width=1)))
     if en is not None:
         io.append(Subsignal("en", Pins(en, dir="o", conn=conn, assert_width=1)))
-    if sd is not None:
-        io.append(Subsignal("en", PinsN(sd, dir="o", conn=conn, assert_width=1)))
+    if sd_n is not None:
+        io.append(Subsignal("en_n", PinsN(sd_n, dir="o", conn=conn, assert_width=1)))
     if attrs is not None:
         io.append(attrs)
     return Resource("irda", number, *io)
 
 
-def SPIResource(*args, cs, clk, copi, cipo, int=None, reset=None,
+def SPIResource(*args, cs_n, clk, copi, cipo, int=None, reset=None,
                 conn=None, attrs=None, role="controller"):
     assert role in ("controller", "peripheral")
     assert copi is not None or cipo is not None # support unidirectional SPI
 
     io = []
     if role == "controller":
-        io.append(Subsignal("cs", PinsN(cs, dir="o", conn=conn)))
+        io.append(Subsignal("cs_n", PinsN(cs_n, dir="o", conn=conn)))
         io.append(Subsignal("clk", Pins(clk, dir="o", conn=conn, assert_width=1)))
         if copi is not None:
             io.append(Subsignal("copi", Pins(copi, dir="o", conn=conn, assert_width=1)))
         if cipo is not None:
             io.append(Subsignal("cipo", Pins(cipo, dir="i", conn=conn, assert_width=1)))
     else:  # peripheral
-        io.append(Subsignal("cs", PinsN(cs, dir="i", conn=conn, assert_width=1)))
+        io.append(Subsignal("cs_n", PinsN(cs_n, dir="i", conn=conn, assert_width=1)))
         io.append(Subsignal("clk", Pins(clk, dir="i", conn=conn, assert_width=1)))
         if copi is not None:
             io.append(Subsignal("copi", Pins(copi, dir="i", conn=conn, assert_width=1)))

@@ -14,7 +14,7 @@ class ECP55GEVNPlatform(LatticeECP5Platform):
     package     = "BG381"
     speed       = "8"
     default_clk = "clk12"
-    default_rst = "rst"
+    default_rst = "rst_n"
 
     def __init__(self, *, VCCIO1="2V5", VCCIO6="3V3", **kwargs):
         """
@@ -43,7 +43,7 @@ class ECP55GEVNPlatform(LatticeECP5Platform):
         return self._vccio_to_iostandard(self._VCCIO6)
 
     resources   = [
-        Resource("rst", 0, PinsN("G2", dir="i"), Attrs(IO_TYPE="LVCMOS33")),
+        Resource("rst_n", 0, PinsN("G2", dir="i"), Attrs(IO_TYPE="LVCMOS33")),
         Resource("clk12", 0, Pins("A10", dir="i"),
                  Clock(12e6), Attrs(IO_TYPE="LVCMOS33")),
 
