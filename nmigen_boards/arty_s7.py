@@ -14,11 +14,11 @@ class _ArtyS7Platform(Xilinx7SeriesPlatform):
     package     = "csga324"
     speed       = "1"
     default_clk = "clk100"
-    default_rst = "rst"
+    default_rst = "rst_n"
     resources   = [
         Resource("clk100", 0, Pins("R2", dir="i"),
                  Clock(100e6), Attrs(IOSTANDARD="SSTL135")),
-        Resource("rst", 0, PinsN("C18", dir="i"), Attrs(IOSTANDARD="LVCMOS33")),
+        Resource("rst_n", 0, PinsN("C18", dir="i"), Attrs(IOSTANDARD="LVCMOS33")),
 
         *LEDResources(pins="E18 F13 E13 H15", attrs=Attrs(IOSTANDARD="LVCMOS33")),
 

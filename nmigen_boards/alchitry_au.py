@@ -42,13 +42,13 @@ class AlchitryAuPlatform(Xilinx7SeriesPlatform):
 
         # TODO: This is untested
         Resource("ddr3", 0,
-            Subsignal("rst",     PinsN("D13", dir="o")),
+            Subsignal("rst_n",   PinsN("D13", dir="o")),
             Subsignal("clk",     DiffPairs("G14", "F14", dir="o"), Attrs(IOSTANDARD="LVDS")),
             Subsignal("clk_en",  Pins("D15", dir="o")),
-            Subsignal("cs",      PinsN("D16", dir="o")),
-            Subsignal("we",      PinsN("E11", dir="o")),
-            Subsignal("ras",     PinsN("D11", dir="o")),
-            Subsignal("cas",     PinsN("D14", dir="o")),
+            Subsignal("cs_n",    PinsN("D16", dir="o")),
+            Subsignal("we_n",    PinsN("E11", dir="o")),
+            Subsignal("ras_n",   PinsN("D11", dir="o")),
+            Subsignal("cas_n",   PinsN("D14", dir="o")),
             Subsignal("a",       Pins("F12 G16 G15 E16 H11 G12 H16 H12 H16 H13 E12 H14 F13 J15", dir="o")),
             Subsignal("ba",      Pins("E13 F15 E15", dir="o")),
             Subsignal("dqs",     DiffPairs("B15 A15", "B9 A10", dir="io"), Attrs(IOSTANDARD="LVDS")),

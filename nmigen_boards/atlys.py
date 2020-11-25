@@ -27,9 +27,9 @@ class AtlysPlatform(XilinxSpartan6Platform):
         return "LVCMOS25" if self._JP12 == "2V5" else "LVCMOS33"
 
     default_clk = "clk100"
-    default_rst = "rst"
+    default_rst = "rst_n"
     resources   = [
-        Resource("rst",    0, PinsN("T15", dir="i"), Attrs(IOSTANDARD=bank2_iostandard)), # RESET
+        Resource("rst_n",  0, PinsN("T15", dir="i"), Attrs(IOSTANDARD=bank2_iostandard)), # RESET
         Resource("clk100", 0, Pins("L15",  dir="i"),
                  Clock(100e6), Attrs(IOSTANDARD="LVCMOS33")),                             # GCLK
 
@@ -79,9 +79,9 @@ class AtlysPlatform(XilinxSpartan6Platform):
             Subsignal("clk",    DiffPairs("G3", "G1", dir="o"),
                                 Attrs(IOSTANDARD="DIFF_SSTL18_II", IN_TERM="NONE")),
             Subsignal("clk_en", Pins("H7", dir="o")),
-            Subsignal("we",     PinsN("E3", dir="o")),
-            Subsignal("ras",    PinsN("L5", dir="o")),
-            Subsignal("cas",    PinsN("K5", dir="o")),
+            Subsignal("we_n",   PinsN("E3", dir="o")),
+            Subsignal("ras_n",  PinsN("L5", dir="o")),
+            Subsignal("cas_n",  PinsN("K5", dir="o")),
             Subsignal("a",      Pins("J7 J6 H5 L7 F3 H4 H3 H6 D2 D1 F4 D3 G6", dir="o")),
             Subsignal("ba",     Pins("F2 F1 E1", dir="o")),
             Subsignal("dqs",    DiffPairs("P2 L4", "P1 L3", dir="o"),
@@ -93,8 +93,8 @@ class AtlysPlatform(XilinxSpartan6Platform):
         ),
 
         Resource("eth_gmii", 0,
-            Subsignal("rst",     PinsN("G13", dir="o")),
-            Subsignal("int",     PinsN("L16", dir="o")),
+            Subsignal("rst_n",   PinsN("G13", dir="o")),
+            Subsignal("int_n",   PinsN("L16", dir="o")),
             Subsignal("mdio",    Pins("N17", dir="io")),
             Subsignal("mdc",     Pins("F16", dir="o")), # Max 8.3MHz
             Subsignal("gtx_clk", Pins("L12", dir="o")),
@@ -111,8 +111,8 @@ class AtlysPlatform(XilinxSpartan6Platform):
             Attrs(IOSTANDARD="LVCMOS33")
         ),
         Resource("eth_rgmii", 0,
-            Subsignal("rst",     PinsN("G13", dir="o")),
-            Subsignal("int",     PinsN("L16", dir="o")),
+            Subsignal("rst_n",   PinsN("G13", dir="o")),
+            Subsignal("int_n",   PinsN("L16", dir="o")),
             Subsignal("mdio",    Pins("N17", dir="io")),
             Subsignal("mdc",     Pins("F16", dir="o")), # Max 8.3MHz
             Subsignal("tx_clk",  Pins("L12", dir="o")),
@@ -124,8 +124,8 @@ class AtlysPlatform(XilinxSpartan6Platform):
             Attrs(IOSTANDARD="LVCMOS33")
         ),
         Resource("eth_mii", 0,
-            Subsignal("rst",     PinsN("G13", dir="o")),
-            Subsignal("int",     PinsN("L16", dir="o")),
+            Subsignal("rst_n",   PinsN("G13", dir="o")),
+            Subsignal("int_n",   PinsN("L16", dir="o")),
             Subsignal("mdio",    Pins("N17", dir="io")),
             Subsignal("mdc",     Pins("F16", dir="o")), # Max 8.3MHz
             Subsignal("tx_clk",  Pins("K16", dir="i")),
@@ -142,8 +142,8 @@ class AtlysPlatform(XilinxSpartan6Platform):
         ),
         # Device does not support RMII
         Resource("eth_tbi", 0,
-            Subsignal("rst",     PinsN("G13", dir="o")),
-            Subsignal("int",     PinsN("L16", dir="o")),
+            Subsignal("rst_n",   PinsN("G13", dir="o")),
+            Subsignal("int_n",   PinsN("L16", dir="o")),
             Subsignal("mdio",    Pins("N17", dir="io")),
             Subsignal("mdc",     Pins("F16", dir="o")), # Max 8.3MHz
             Subsignal("tx_clk",  Pins("L12", dir="o")),
@@ -155,8 +155,8 @@ class AtlysPlatform(XilinxSpartan6Platform):
             Attrs(IOSTANDARD="LVCMOS33")
         ),
         Resource("eth_rtbi", 0,
-            Subsignal("rst",     PinsN("G13", dir="o")),
-            Subsignal("int",     PinsN("L16", dir="o")),
+            Subsignal("rst_n",   PinsN("G13", dir="o")),
+            Subsignal("int_n",   PinsN("L16", dir="o")),
             Subsignal("mdio",    Pins("N17", dir="io")),
             Subsignal("mdc",     Pins("F16", dir="o")), # Max 8.3MHz
             Subsignal("tx_clk",  Pins("L12", dir="o")),

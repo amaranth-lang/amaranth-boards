@@ -14,9 +14,9 @@ class VersaECP5Platform(LatticeECP5Platform):
     package     = "BG381"
     speed       = "8"
     default_clk = "clk100"
-    default_rst = "rst"
+    default_rst = "rst_n"
     resources   = [
-        Resource("rst", 0, PinsN("T1", dir="i"), Attrs(IO_TYPE="LVCMOS33")),
+        Resource("rst_n", 0, PinsN("T1", dir="i"), Attrs(IO_TYPE="LVCMOS33")),
         Resource("clk100", 0, DiffPairs("P3", "P4", dir="i"),
                  Clock(100e6), Attrs(IO_TYPE="LVDS")),
         Resource("pclk", 0, DiffPairs("A4", "A5", dir="i"),
@@ -26,21 +26,21 @@ class VersaECP5Platform(LatticeECP5Platform):
                       attrs=Attrs(IO_TYPE="LVCMOS25")),
 
         Resource("alnum_led", 0,
-            Subsignal("a", PinsN("M20", dir="o")),
-            Subsignal("b", PinsN("L18", dir="o")),
-            Subsignal("c", PinsN("M19", dir="o")),
-            Subsignal("d", PinsN("L16", dir="o")),
-            Subsignal("e", PinsN("L17", dir="o")),
-            Subsignal("f", PinsN("M18", dir="o")),
-            Subsignal("g", PinsN("N16", dir="o")),
-            Subsignal("h", PinsN("M17", dir="o")),
-            Subsignal("j", PinsN("N18", dir="o")),
-            Subsignal("k", PinsN("P17", dir="o")),
-            Subsignal("l", PinsN("N17", dir="o")),
-            Subsignal("m", PinsN("P16", dir="o")),
-            Subsignal("n", PinsN("R16", dir="o")),
-            Subsignal("p", PinsN("R17", dir="o")),
-            Subsignal("dp", PinsN("U1", dir="o")),
+            Subsignal("a_n",  PinsN("M20", dir="o")),
+            Subsignal("b_n",  PinsN("L18", dir="o")),
+            Subsignal("c_n",  PinsN("M19", dir="o")),
+            Subsignal("d_n",  PinsN("L16", dir="o")),
+            Subsignal("e_n",  PinsN("L17", dir="o")),
+            Subsignal("f_n",  PinsN("M18", dir="o")),
+            Subsignal("g_n",  PinsN("N16", dir="o")),
+            Subsignal("h_n",  PinsN("M17", dir="o")),
+            Subsignal("j_n",  PinsN("N18", dir="o")),
+            Subsignal("k_n",  PinsN("P17", dir="o")),
+            Subsignal("l_n",  PinsN("N17", dir="o")),
+            Subsignal("m_n",  PinsN("P16", dir="o")),
+            Subsignal("n_n",  PinsN("R16", dir="o")),
+            Subsignal("p_n",  PinsN("R17", dir="o")),
+            Subsignal("dp_n", PinsN("U1",  dir="o")),
             Attrs(IO_TYPE="LVCMOS25")
         ),
 
@@ -64,7 +64,7 @@ class VersaECP5Platform(LatticeECP5Platform):
         Resource("eth_clk125_pll", 0, Pins("U16", dir="i"),
                  Clock(125e6), Attrs(IO_TYPE="LVCMOS25")), # NC by default
         Resource("eth_rgmii", 0,
-            Subsignal("rst",     PinsN("U17", dir="o")),
+            Subsignal("rst_n",   PinsN("U17", dir="o")),
             Subsignal("mdc",     Pins("T18", dir="o")),
             Subsignal("mdio",    Pins("U18", dir="io")),
             Subsignal("tx_clk",  Pins("P19", dir="o")),
@@ -76,7 +76,7 @@ class VersaECP5Platform(LatticeECP5Platform):
             Attrs(IO_TYPE="LVCMOS25")
         ),
         Resource("eth_sgmii", 0,
-            Subsignal("rst",     PinsN("U17", dir="o"), Attrs(IO_TYPE="LVCMOS25")),
+            Subsignal("rst_n",   PinsN("U17", dir="o"), Attrs(IO_TYPE="LVCMOS25")),
             Subsignal("mdc",     Pins("T18", dir="o"), Attrs(IO_TYPE="LVCMOS25")),
             Subsignal("mdio",    Pins("U18", dir="io"), Attrs(IO_TYPE="LVCMOS25")),
             Subsignal("tx",      DiffPairs("W13", "W14", dir="o")),
@@ -88,7 +88,7 @@ class VersaECP5Platform(LatticeECP5Platform):
         Resource("eth_clk125_pll", 1, Pins("C18", dir="i"),
                  Clock(125e6), Attrs(IO_TYPE="LVCMOS25")), # NC by default
         Resource("eth_rgmii", 1,
-            Subsignal("rst",     PinsN("F20", dir="o")),
+            Subsignal("rst_n",   PinsN("F20", dir="o")),
             Subsignal("mdc",     Pins("G19", dir="o")),
             Subsignal("mdio",    Pins("H20", dir="io")),
             Subsignal("tx_clk",  Pins("C20", dir="o")),
@@ -100,7 +100,7 @@ class VersaECP5Platform(LatticeECP5Platform):
             Attrs(IO_TYPE="LVCMOS25")
         ),
         Resource("eth_sgmii", 1,
-            Subsignal("rst",     PinsN("F20", dir="o"), Attrs(IO_TYPE="LVCMOS25")),
+            Subsignal("rst_n",   PinsN("F20", dir="o"), Attrs(IO_TYPE="LVCMOS25")),
             Subsignal("mdc",     Pins("G19", dir="o"), Attrs(IO_TYPE="LVCMOS25")),
             Subsignal("mdio",    Pins("H20", dir="io"), Attrs(IO_TYPE="LVCMOS25")),
             Subsignal("tx",      DiffPairs("W17", "W18", dir="o")),
@@ -108,13 +108,13 @@ class VersaECP5Platform(LatticeECP5Platform):
         ),
 
         Resource("ddr3", 0,
-            Subsignal("rst",     PinsN("N4", dir="o")),
+            Subsignal("rst_n",   PinsN("N4", dir="o")),
             Subsignal("clk",     DiffPairs("M4", "N5", dir="o"), Attrs(IO_TYPE="SSTL135D_I")),
             Subsignal("clk_en",  Pins("N2", dir="o")),
-            Subsignal("cs",      PinsN("K1", dir="o")),
-            Subsignal("we",      PinsN("M1", dir="o")),
-            Subsignal("ras",     PinsN("P1", dir="o")),
-            Subsignal("cas",     PinsN("L1", dir="o")),
+            Subsignal("cs_n",    PinsN("K1", dir="o")),
+            Subsignal("we_n",    PinsN("M1", dir="o")),
+            Subsignal("ras_n",   PinsN("P1", dir="o")),
+            Subsignal("cas_n",   PinsN("L1", dir="o")),
             Subsignal("a",       Pins("P2 C4 E5 F5 B3 F4 B5 E4 C5 E3 D5 B4 C3", dir="o")),
             Subsignal("ba",      Pins("P5 N3 M3", dir="o")),
             Subsignal("dqs",     DiffPairs("K2 H4", "J1 G5", dir="io"), Attrs(IO_TYPE="SSTL135D_I", DIFFRESISTOR="100", TERMINATION="OFF")),

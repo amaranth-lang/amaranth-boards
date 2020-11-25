@@ -26,10 +26,10 @@ class Genesys2Platform(Xilinx7SeriesPlatform):
     def bank15_16_17_iostandard(self):
         return "LVCMOS" + self._JP6.replace('V', '')
 
-    default_rst = "rst"
+    default_rst = "rst_n"
     default_clk = "clk"
     resources = [
-        Resource("rst", 0, PinsN("R19", dir="i"),
+        Resource("rst_n", 0, PinsN("R19", dir="i"),
                  Attrs(IOSTANDARD="LVCMOS33")),
         Resource("clk", 0, DiffPairs(p="AD12 ", n="AD11", dir="i"),
                  Clock(200e6), Attrs(IOSTANDARD="LVDS")),
@@ -55,16 +55,16 @@ class Genesys2Platform(Xilinx7SeriesPlatform):
         I2CResource(0, scl="AE30", sda="AF30",
                     attrs=Attrs(IOSTANDARD="LVCMOS33")),
         Resource("ddr3", 0,
-                 Subsignal("rst", PinsN("AG5", dir="o"),
+                 Subsignal("rst_n", PinsN("AG5", dir="o"),
                            Attrs(IOSTANDARD="SSTL15")),
                  Subsignal("clk",
                            DiffPairs(p="AB9", n="AC9", dir="o"),
                            Attrs(IOSTANDARD="DIFF_SSTL15_DCI")),
                  Subsignal("clk_en", Pins("AJ9", dir="o")),
-                 Subsignal("cs", PinsN("AH12", dir="o")),
-                 Subsignal("we", PinsN("AG13", dir="o")),
-                 Subsignal("ras", PinsN("AE11", dir="o")),
-                 Subsignal("cas", PinsN("AF11", dir="o")),
+                 Subsignal("cs_n", PinsN("AH12", dir="o")),
+                 Subsignal("we_n", PinsN("AG13", dir="o")),
+                 Subsignal("ras_n", PinsN("AE11", dir="o")),
+                 Subsignal("cas_n", PinsN("AF11", dir="o")),
                  Subsignal("a", Pins(
                      "AC12 AE8 AD8 AC10 AD9 AA13 AA10 AA11 "
                      "Y10 Y11 AB8 AA8 AB12 AA12 AH9 AG9", dir="o")),
@@ -102,8 +102,8 @@ class Genesys2Platform(Xilinx7SeriesPlatform):
                     attrs=Attrs(IOSTANDARD="LVCMOS18")),
         Resource("oled", 0,  # OLED, UG-2832HSWEG04
                  Subsignal("dc", Pins("AC17", dir="o")),
-                 Subsignal("vdd_en", PinsN("AG17", dir="o")),
-                 Subsignal("vbat_en", PinsN("AB22", dir="o"),
+                 Subsignal("vdd_en_n", PinsN("AG17", dir="o")),
+                 Subsignal("vbat_en_n", PinsN("AB22", dir="o"),
                            Attrs(IOSTANDARD="LVCMOS33")),
                  Attrs(IOSTANDARD="LVCMOS18")),
         Resource("hdmi", 0,  # HDMI TX, connector J4
@@ -132,8 +132,8 @@ class Genesys2Platform(Xilinx7SeriesPlatform):
                  Subsignal("g", Pins("AJ23 AJ22 AH22 AK21 AJ21 AK23",
                                      dir="o")),
                  Subsignal("b", Pins("AH20 AG20 AF21 AK20 AG22", dir="o")),
-                 Subsignal("hsync", PinsN("AF20", dir="o")),
-                 Subsignal("vsync", PinsN("AG23", dir="o")),
+                 Subsignal("hsync_n", PinsN("AF20", dir="o")),
+                 Subsignal("vsync_n", PinsN("AG23", dir="o")),
                  Attrs(IOSTANDARD="LVCMOS33")),
         *SDCardResources(0, clk="R28", cmd="R29", dat0="R26", dat1="R30",
                          dat2="P29", dat3="T30", cd="P28",
@@ -143,10 +143,10 @@ class Genesys2Platform(Xilinx7SeriesPlatform):
         ULPIResource(0, data="AE14 AE15 AC15 AC16 AB15 AA15 AD14 AC14",
                      rst="AB14", clk="AD18", dir="Y16", stp="AA17", nxt="AA16",
                      clk_dir="i", rst_invert=True, attrs=Attrs(IOSTANDARD="LVCMOS18")),
-        Resource("vusb_oc", 0,
+        Resource("vusb_oc_n", 0,
                  PinsN("AF16", dir="i"), Attrs(IOSTANDARD="LVCMOS18")),
         Resource("eth_rgmii", 0,
-                 Subsignal("rst", PinsN("AH24", dir="o"),
+                 Subsignal("rst_n", PinsN("AH24", dir="o"),
                            Attrs(IOSTANDARD="LVCMOS33")),
                  Subsignal("mdc", Pins("AF12", dir="o")),
                  Subsignal("mdio", Pins("AG12", dir="io")),

@@ -23,11 +23,11 @@ class ICE40UP5KBEVNPlatform(LatticeICE40Platform):
             pins="39 40 41", invert=True,
             attrs=Attrs(IO_STANDARD="SB_LVCMOS")
         ),
-        Resource("led_b", 0, PinsN("39", dir="o"),
+        Resource("led_b_n", 0, PinsN("39", dir="o"),
                  Attrs(IO_STANDARD="SB_LVCMOS")),
-        Resource("led_g", 0, PinsN("40", dir="o"),
+        Resource("led_g_n", 0, PinsN("40", dir="o"),
                  Attrs(IO_STANDARD="SB_LVCMOS")),
-        Resource("led_r", 0, PinsN("41", dir="o"),
+        Resource("led_r_n", 0, PinsN("41", dir="o"),
                  Attrs(IO_STANDARD="SB_LVCMOS")),
 
         # 4 DIP switches are available, requiring internal pull-ups.

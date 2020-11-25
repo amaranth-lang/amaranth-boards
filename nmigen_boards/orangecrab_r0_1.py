@@ -21,7 +21,7 @@ class OrangeCrabR0_1Platform(LatticeECP5Platform):
 
         # Used to reload FPGA configuration.
         # Can enter USB bootloader by assigning button 0 to program.
-        Resource("program", 0, PinsN("V17", dir="o"), Attrs(IO_TYPE="LVCMOS33")),
+        Resource("program_n", 0, PinsN("V17", dir="o"), Attrs(IO_TYPE="LVCMOS33")),
 
         RGBLEDResource(0,
             r="V17", g="T17", b="J3", invert=True,
@@ -33,13 +33,13 @@ class OrangeCrabR0_1Platform(LatticeECP5Platform):
         ),
 
         Resource("ddr3", 0,
-            Subsignal("rst",     PinsN("B1", dir="o")),
+            Subsignal("rst_n",   PinsN("B1", dir="o")),
             Subsignal("clk",     DiffPairs("J18", "K18", dir="o"), Attrs(IO_TYPE="SSTL135D_I")),
             Subsignal("clk_en",  Pins("D6", dir="o")),
-            Subsignal("cs",      PinsN("A12", dir="o")),
-            Subsignal("we",      PinsN("B12", dir="o")),
-            Subsignal("ras",     PinsN("C12", dir="o")),
-            Subsignal("cas",     PinsN("D13", dir="o")),
+            Subsignal("cs_n",    PinsN("A12", dir="o")),
+            Subsignal("we_n",    PinsN("B12", dir="o")),
+            Subsignal("ras_n",   PinsN("C12", dir="o")),
+            Subsignal("cas_n",   PinsN("D13", dir="o")),
             Subsignal("a",       Pins("A4 D2 C3 C7 D3 D4 D1 B2 C1 A2 A7 C2 C4", dir="o")),
             Subsignal("ba",      Pins("B6 B7 A6", dir="o")),
             Subsignal("dqs",     DiffPairs("G18 H17", "B15 A16", dir="io"),
@@ -54,8 +54,8 @@ class OrangeCrabR0_1Platform(LatticeECP5Platform):
 
         Resource("ddr3_pseudo_power", 0,
             # pseudo power pins, leave these at their default value
-            Subsignal("vcc_virtual", PinsN("A3 B18 C6 C15 D17 D18 K15 K16 K17", dir="o")),
-            Subsignal("gnd_virtual", Pins("L15 L16 L18", dir="o")),
+            Subsignal("vcc_virtual_n", PinsN("A3 B18 C6 C15 D17 D18 K15 K16 K17", dir="o")),
+            Subsignal("gnd_virtual",   Pins("L15 L16 L18", dir="o")),
             Attrs(IO_TYPE="SSTL135_II", SLEWRATE="FAST")
         ),
 

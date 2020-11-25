@@ -23,7 +23,7 @@ class _ULX3SPlatform(LatticeECP5Platform):
         Resource("clk25", 0, Pins("G2", dir="i"), Clock(25e6), Attrs(IO_TYPE="LVCMOS33")),
 
         # Used to reload FPGA configuration.
-        Resource("program", 0, PinsN("M4", dir="o"), Attrs(IO_TYPE="LVCMOS33", PULLMODE="UP")),
+        Resource("program_n", 0, PinsN("M4", dir="o"), Attrs(IO_TYPE="LVCMOS33", PULLMODE="UP")),
 
         *LEDResources(pins="B2 C2 C1 D2 D1 E2 E1 H3",
             attrs=Attrs(IO_TYPE="LVCMOS33", DRIVE="4")),
@@ -35,7 +35,7 @@ class _ULX3SPlatform(LatticeECP5Platform):
         ),
 
         # Semantic aliases by button label.
-        Resource("button_pwr",   0, PinsN("D6", dir="i"), Attrs(IO_TYPE="LVCMOS33", PULLMODE="UP")),
+        Resource("button_pwr_n", 0, PinsN("D6", dir="i"), Attrs(IO_TYPE="LVCMOS33", PULLMODE="UP")),
         Resource("button_fire",  0, Pins("R1",  dir="i"), Attrs(IO_TYPE="LVCMOS33", PULLMODE="DOWN")),
         Resource("button_fire",  1, Pins("T1",  dir="i"), Attrs(IO_TYPE="LVCMOS33", PULLMODE="DOWN")),
         Resource("button_up",    0, Pins("R18", dir="i"), Attrs(IO_TYPE="LVCMOS33", PULLMODE="DOWN")),
@@ -57,11 +57,11 @@ class _ULX3SPlatform(LatticeECP5Platform):
 
         # SPI Flash clock is accessed via USR_MCLK instance.
         Resource("spi_flash", 0,
-            Subsignal("cs",   PinsN("R2", dir="o")),
-            Subsignal("copi", Pins("W2", dir="o")),
-            Subsignal("cipo", Pins("V2", dir="i")),
-            Subsignal("hold", PinsN("W1", dir="o")),
-            Subsignal("wp",   PinsN("Y2", dir="o")),
+            Subsignal("cs_n",   PinsN("R2", dir="o")),
+            Subsignal("copi",   Pins("W2", dir="o")),
+            Subsignal("cipo",   Pins("V2", dir="i")),
+            Subsignal("hold_n", PinsN("W1", dir="o")),
+            Subsignal("wp_n",   PinsN("Y2", dir="o")),
             Attrs(PULLMODE="NONE", DRIVE="4", IO_TYPE="LVCMOS33")
         ),
 
