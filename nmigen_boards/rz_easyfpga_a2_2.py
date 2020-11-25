@@ -82,8 +82,8 @@ class RZEasyFPGAA2_2Platform(IntelPlatform):
         ),
 
         # IR receiver, located right of the buttons.
-        Resource("ir", 0,
-            Subsignal("ir", Pins("100", dir="i"))
+        Resource("cir", 0,
+            Subsignal("rx", Pins("100", dir="i"))
         ),
     ]
 
