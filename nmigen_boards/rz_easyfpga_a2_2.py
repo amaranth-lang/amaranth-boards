@@ -5,7 +5,9 @@ from nmigen.build import *
 from nmigen.vendor.intel import *
 from .resources import *
 
+
 __all__ = ["RZEasyFPGAA2_2Platform"]
+
 
 class RZEasyFPGAA2_2Platform(IntelPlatform):
     device      = "EP4CE6" # Cyclone IV 6K LEs
@@ -17,6 +19,9 @@ class RZEasyFPGAA2_2Platform(IntelPlatform):
         # Clock
         Resource("clk50", 0, Pins("23", dir="i"),
                  Clock(50e6), Attrs(io_standard="3.3-V LVTTL")),
+
+        # Reset switch, located on the lower left of the board.
+        Resource("rst", 0, PinsN("25", dir="i"), Attrs(io_standard="3.3-V LVTTL")),
 
         # LEDs, located on the bottom of the board.
         *LEDResources(
@@ -34,9 +39,6 @@ class RZEasyFPGAA2_2Platform(IntelPlatform):
             ba="73 74", a="76 77 80 83 68 67 66 65 64 60 75 59",
             dq="28 30 31 32 33 34 38 39 54 53 52 51 50 49 46 44",
             dqm="42 55", attrs=Attrs(io_standard="3.3-V LVCMOS")),
-
-        # Reset switch, located on the lower left of the board.
-        Resource("rst", 0, PinsN("25", dir="i"), Attrs(io_standard="3.3-V LVTTL")),
 
         # VGA connector, located on the right of the board.
         Resource("vga", 0,
