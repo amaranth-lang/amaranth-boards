@@ -32,7 +32,7 @@ class OrangeCrabR0_2Platform(LatticeECP5Platform):
             attrs=Attrs(IO_TYPE="SSTL135_I")),
 
         *SPIFlashResources(0,
-            cs="U17", clk="U16", cipo="T18", copi="U18", wp="R18", hold="N18",
+            cs_n="U17", clk="U16", cipo="T18", copi="U18", wp_n="R18", hold_n="N18",
             attrs=Attrs(IO_TYPE="LVCMOS33"),
         ),
 

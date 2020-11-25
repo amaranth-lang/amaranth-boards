@@ -21,7 +21,7 @@ class ICEBreakerBitsyPlatform(LatticeICE40Platform):
             attrs=Attrs(IO_STANDARD="SB_LVCMOS")),
 
         *SPIFlashResources(0,
-            cs="16", clk="15", copi="14", cipo="17", wp="18", hold="19",
+            cs_n="16", clk="15", copi="14", cipo="17", wp_n="18", hold_n="19",
             attrs=Attrs(IO_STANDARD="SB_LVCMOS")
         ),
 

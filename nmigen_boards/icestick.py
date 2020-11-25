@@ -26,12 +26,12 @@ class ICEStickPlatform(LatticeICE40Platform):
         ),
 
         IrDAResource(0,
-            rx="106", tx="105", sd="107",
+            rx="106", tx="105", sd_n="107",
             attrs=Attrs(IO_STANDARD="SB_LVCMOS")
         ),
 
         *SPIFlashResources(0,
-            cs="71", clk="70", copi="67", cipo="68",
+            cs_n="71", clk="70", copi="67", cipo="68",
             attrs=Attrs(IO_STANDARD="SB_LVCMOS")
         ),
     ]

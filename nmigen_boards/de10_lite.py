@@ -56,7 +56,7 @@ class DE10LitePlatform(IntelPlatform):
             attrs=Attrs(io_standard="3.3-V LVTTL")),
 
         SDRAMResource(0,
-            clk="L14", cs="U20", we="V20", ras="U22", cas="U21",
+            clk="L14", cs_n="U20", we_n="V20", ras_n="U22", cas_n="U21",
             ba="T21 T22", a="U17 W19 V18 U18 U19 T18 T19 R18 P18 P19 T20 P20 R20",
             dq="Y21 Y20 AA22 AA21 Y22 W22 W20 V21 P21 J22 H21 H22 G22 G20 G19 F22",
             dqm="V22 J21", attrs=Attrs(io_standard="3.3-V LVCMOS")),

@@ -71,7 +71,7 @@ class AtlysPlatform(XilinxSpartan6Platform):
         ),
 
         *SPIFlashResources(0,
-            cs="AE14", clk="AH18", copi="AF14", cipo="AF20", wp="AG21", hold="AG17",
+            cs_n="AE14", clk="AH18", copi="AF14", cipo="AF20", wp_n="AG21", hold_n="AG17",
             attrs=Attrs(IOSTANDARD="LVCMOS25", SLEW="FAST"),
         ),
 

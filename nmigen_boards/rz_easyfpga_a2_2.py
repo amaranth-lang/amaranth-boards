@@ -35,7 +35,7 @@ class RZEasyFPGAA2_2Platform(IntelPlatform):
 
         # Connections to the SKHynix RAM chip on board.
         SDRAMResource(0,
-            clk="43", cs="72", we="69", ras="71", cas="70",
+            clk="43", cs_n="72", we_n="69", ras_n="71", cas_n="70",
             ba="73 74", a="76 77 80 83 68 67 66 65 64 60 75 59",
             dq="28 30 31 32 33 34 38 39 54 53 52 51 50 49 46 44",
             dqm="42 55", attrs=Attrs(io_standard="3.3-V LVCMOS")),

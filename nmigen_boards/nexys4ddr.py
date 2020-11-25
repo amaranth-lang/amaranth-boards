@@ -123,7 +123,7 @@ class Nexys4DDRPlatform(Xilinx7SeriesPlatform):
             Attrs(IOSTANDARD="LVCMOS33")),
 
         *SPIFlashResources(0,
-            cs="L13", clk="E9", copi="K17", cipo="K18", wp="L14", hold="M14",
+            cs_n="L13", clk="E9", copi="K17", cipo="K18", wp_n="L14", hold_n="M14",
             attrs=Attrs(IOSTANDARD="LVCMOS33")),
 
         Resource("ddr2", 0,                                 # MT47H64M16HR-25:H

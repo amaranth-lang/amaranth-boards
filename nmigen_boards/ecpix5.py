@@ -42,7 +42,7 @@ class _ECPIX5Platform(LatticeECP5Platform):
         ),
 
         *SPIFlashResources(0,
-            cs="AA2", clk="AE3", cipo="AE2", copi="AD2", wp="AF2", hold="AE1",
+            cs_n="AA2", clk="AE3", cipo="AE2", copi="AD2", wp_n="AF2", hold_n="AE1",
             attrs=Attrs(IO_TYPE="LVCMOS33")
         ),
 

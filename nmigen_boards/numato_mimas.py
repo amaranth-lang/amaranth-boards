@@ -24,7 +24,7 @@ class NumatoMimasPlatform(XilinxSpartan6Platform):
                          attrs=Attrs(IOSTANDARD="LVCMOS33", PULLUP="TRUE")),
 
         *SPIFlashResources(0,
-            cs="P38", clk="P70", copi="P64", cipo="65",
+            cs_n="P38", clk="P70", copi="P64", cipo="65",
             attrs=Attrs(IOSTANDARD="LVCMOS33")
         ),
     ]

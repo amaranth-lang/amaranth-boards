@@ -78,18 +78,18 @@ class DE0Platform(IntelPlatform):
         ),
 
         *SDCardResources(0,
-            clk="Y21", cmd="Y22", dat0="AA22", dat3="W21", wp="W20",
+            clk="Y21", cmd="Y22", dat0="AA22", dat3="W21", wp_n="W20",
             attrs=Attrs(io_standard="3.3-V LVTTL")),
 
         SDRAMResource(0,
-            clk="E5", cke="E6", cs="G7", we="D6", ras="F7", cas="G8",
+            clk="E5", cke="E6", cs_n="G7", we_n="D6", ras_n="F7", cas_n="G8",
             ba="B5 A4", a="C4 A3 B3 C3 A5 C6 B6 A6 C7 B7 B4 A7 C8",
             dq="D10 G10 H10 E9 F9 G9 H9 F8 A8 B9 A9 C10 B10 A10 E10 F10", dqm="E7 B8",
             attrs=Attrs(io_standard="3.3-V LVTTL")),
 
         *NORFlashResources(0,
-            rst="R1", byte="AA1",
-            cs="N8", oe="R6", we="P4", wp="T3", by="M7",
+            rst="R1", byte_n="AA1",
+            cs_n="N8", oe_n="R6", we_n="P4", wp_n="T3", by="M7",
             a="P7 P5 P6 N7 N5 N6 M8 M4 P2 N2 N1 M3 M2 M1 L7 L6 AA2 M5 M6 P1 P3 R2",
             dq="R7 P8 R8 U1 V2 V3 W1 Y1 T5 T7 T4 U2 V1 V4 W2 Y2",
             attrs=Attrs(io_standard="3.3-V LVTTL")),

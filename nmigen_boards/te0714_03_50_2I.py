@@ -15,7 +15,7 @@ class TE0714_03_50_2IPlatform(Xilinx7SeriesPlatform):
         Resource("clk25", 0, Pins("T14", dir="i"), Clock(25e6), Attrs(IOSTANDARD="LVCMOS18")),
         *LEDResources(pins="K18", attrs=Attrs(IOSTANDARD="LVCMOS18")),
         *SPIFlashResources(0,
-            cs="L15", clk="E8", copi="K16", cipo="K17", wp="J15", hold="J16",
+            cs_n="L15", clk="E8", copi="K16", cipo="K17", wp_n="J15", hold_n="J16",
             attrs=Attrs(IOSTANDARD="LVCMOS18")
         )
     ]
