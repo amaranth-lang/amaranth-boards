@@ -38,19 +38,19 @@ def UARTResource(*args, rx, tx, rts=None, cts=None, dtr=None, dsr=None, dcd=None
     return Resource.family(*args, default_name="uart", ios=io)
 
 
-def IrDAResource(number, *, rx, tx, en=None, sd_n=None,
+def IrDAResource(number, *, rx, tx, en=None, sd=None,
                  conn=None, attrs=None):
-    # Exactly one of en (active-high enable) or sd_n (shutdown, active-low enable) should
+    # Exactly one of en (active-high enable) or sd (shutdown, active-low enable) should
     # be specified, and it is mapped to a logic level en subsignal.
-    assert (en is not None) ^ (sd_n is not None)
+    assert (en is not None) ^ (sd is not None)
 
     io = []
     io.append(Subsignal("rx", Pins(rx, dir="i", conn=conn, assert_width=1)))
     io.append(Subsignal("tx", Pins(tx, dir="o", conn=conn, assert_width=1)))
     if en is not None:
         io.append(Subsignal("en", Pins(en, dir="o", conn=conn, assert_width=1)))
-    if sd_n is not None:
-        io.append(Subsignal("en", PinsN(sd_n, dir="o", conn=conn, assert_width=1)))
+    if sd is not None:
+        io.append(Subsignal("en", PinsN(sd, dir="o", conn=conn, assert_width=1)))
     if attrs is not None:
         io.append(attrs)
     return Resource("irda", number, *io)
