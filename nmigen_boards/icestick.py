@@ -26,7 +26,7 @@ class ICEStickPlatform(LatticeICE40Platform):
         ),
 
         IrDAResource(0,
-            rx="106", tx="105", sd_n="107",
+            rx="106", tx="105", sd="107",
             attrs=Attrs(IO_STANDARD="SB_LVCMOS")
         ),
 
