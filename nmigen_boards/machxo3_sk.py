@@ -36,7 +36,7 @@ class MachXO3SKPlatform(LatticeMachXO3LPlatform):
         ), # SW2
 
         *SPIFlashResources(0,
-            cs="R5", clk="P6", copi="T13", cipo="T6",
+            cs_n="R5", clk="P6", copi="T13", cipo="T6",
             attrs=Attrs(IO_TYPE="LVCMOS33")
         ),
     ]

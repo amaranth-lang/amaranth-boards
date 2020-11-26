@@ -40,7 +40,7 @@ class MisterPlatform(IntelPlatform):
 
         # LTC2308 analogue-to-digital converter
         SPIResource(0,
-            cs="U9", clk="V10", copi="AC4", cipo="AD4",
+            cs_n="U9", clk="V10", copi="AC4", cipo="AD4",
             attrs=Attrs(io_standard="3.3-V LVTTL")),
 
         # ADV7513 HDMI transmitter
@@ -65,7 +65,7 @@ class MisterPlatform(IntelPlatform):
         # MiSTer SDRAM Board (required)
         # https://github.com/MiSTer-devel/Hardware_MiSTer/blob/master/releases/sdram_xs_2.2.pdf
         SDRAMResource(0,
-            clk="20", cs="33", we="27", ras="32", cas="31",
+            clk="20", cs_n="33", we_n="27", ras_n="32", cas_n="31",
             ba="34 35", a="37 38 39 40 28 25 26 23 24 21 36 22 19",
             dq="1 2 3 4 5 6 7 8 18 17 16 15 14 13 9 10",
             dqm="", conn=("gpio", 0), attrs=Attrs(io_standard="3.3-V LVCMOS")),

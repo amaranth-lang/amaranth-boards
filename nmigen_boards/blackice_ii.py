@@ -35,10 +35,10 @@ class BlackIceIIPlatform(LatticeICE40Platform):
         ),
 
         SRAMResource(0,
-            cs="136", oe="29", we="120",
+            cs_n="136", oe_n="29", we_n="120",
             a="137 138 139 141 142 42 43 44 73 74 75 76 115 116 117 118 119 78",
             d="136 135 134 130 125 124 122 121 62 61 60 56 55 48 47 45",
-            dm="24 28",
+            dm_n="24 28",
             attrs=Attrs(IO_STANDARD="SB_LVCMOS"),
         ),
     ]

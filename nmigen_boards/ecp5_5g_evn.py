@@ -70,7 +70,7 @@ class ECP55GEVNPlatform(LatticeECP5Platform):
         ),
 
         *SPIFlashResources(0,
-            cs="R2", clk="U3", cipo="V2", copi="W2", wp="Y2", hold="W1",
+            cs_n="R2", clk="U3", cipo="V2", copi="W2", wp_n="Y2", hold_n="W1",
             attrs=Attrs(IO_TYPE="LVCMOS33")
         ),
 

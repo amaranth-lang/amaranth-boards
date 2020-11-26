@@ -40,19 +40,19 @@ class MercuryPlatform(XilinxSpartan3APlatform):
         # The serial interface and flash memory have a shared SPI bus.
         # FPGA is secondary.
         SPIResource("spi_serial", 0, role="peripheral",
-            cs="P39", clk="P53", copi="P46", cipo="P51",
+            cs_n="P39", clk="P53", copi="P46", cipo="P51",
             attrs=Attrs(IOSTANDARD="LVTTL"),
         ),
 
         # FPGA is primary.
         *SPIFlashResources(0,
-            cs="P27", clk="P53", copi="P46", cipo="P51",
+            cs_n="P27", clk="P53", copi="P46", cipo="P51",
             attrs=Attrs(IOSTANDARD="LVTTL")
         ),
 
         # ADC over SPI- FPGA is primary.
         SPIResource("spi_adc", 0, role="controller",
-            cs="P12", clk="P9", copi="P10", cipo="P21",
+            cs_n="P12", clk="P9", copi="P10", cipo="P21",
             attrs=Attrs(IOSTANDARD="LVTTL"),
         ),
 
@@ -101,7 +101,7 @@ class MercuryPlatform(XilinxSpartan3APlatform):
 
     sram = [
         SRAMResource(0,
-            cs="P3", we="gpio_0:29",
+            cs_n="P3", we_n="gpio_0:29",
             # According to the schematic, A19/Pin 25 on the SRAM is wired to
             # gpio-0:20. However, according to the SRAM's datasheet, pin 25 is
             # a NC. Do not expose for now.

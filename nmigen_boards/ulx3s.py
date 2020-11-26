@@ -66,14 +66,14 @@ class _ULX3SPlatform(LatticeECP5Platform):
         ),
 
         SDRAMResource(0,
-            clk="F19", cke="F20", cs="P20", we="T20", cas="T19", ras="R20", dqm="U19 E20",
+            clk="F19", cke="F20", cs_n="P20", we_n="T20", cas_n="T19", ras_n="R20", dqm="U19 E20",
             ba="P19 N20", a="M20 M19 L20 L19 K20 K19 K18 J20 J19 H20 N19 G20 G19",
             dq="J16 L18 M18 N18 P18 T18 T17 U20 E19 D20 D19 C20 E18 F18 J18 J17",
             attrs=Attrs(PULLMODE="NONE", DRIVE="4", SLEWRATE="FAST", IO_TYPE="LVCMOS33")
         ),
 
         # SPI bus for ADC.
-        SPIResource("adc", cs="R17", copi="R16", cipo="U16", clk="P17",
+        SPIResource("adc", cs_n="R17", copi="R16", cipo="U16", clk="P17",
             attrs=Attrs(IO_TYPE="LVCMOS33", PULLMODE="UP")),
 
         # TRRS audio jack

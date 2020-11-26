@@ -34,7 +34,7 @@ class _ArtyS7Platform(Xilinx7SeriesPlatform):
         ),
 
         SPIResource(0,
-            cs="H16", clk="G16", copi="H17", cipo="K14",
+            cs_n="H16", clk="G16", copi="H17", cipo="K14",
             attrs=Attrs(IOSTANDARD="LVCMOS33")
         ),
 
@@ -44,7 +44,7 @@ class _ArtyS7Platform(Xilinx7SeriesPlatform):
         ),
 
         *SPIFlashResources(0,
-            cs="M13", clk="D11", copi="K17", cipo="K18", wp="L14", hold="M15",
+            cs_n="M13", clk="D11", copi="K17", cipo="K18", wp_n="L14", hold_n="M15",
             attrs=Attrs(IOSTANDARD="LVCMOS33")
         ),
 

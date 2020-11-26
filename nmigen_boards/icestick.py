@@ -31,7 +31,7 @@ class ICEStickPlatform(LatticeICE40Platform):
         ),
 
         *SPIFlashResources(0,
-            cs="71", clk="70", copi="67", cipo="68",
+            cs_n="71", clk="70", copi="67", cipo="68",
             attrs=Attrs(IO_STANDARD="SB_LVCMOS")
         ),
     ]

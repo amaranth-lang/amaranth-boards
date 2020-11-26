@@ -38,7 +38,7 @@ class ICE40UP5KBEVNPlatform(LatticeICE40Platform):
         ),
 
         *SPIFlashResources(0,
-            cs="16", clk="15", copi="14", cipo="17",
+            cs_n="16", clk="15", copi="14", cipo="17",
             attrs=Attrs(IO_STANDARD="SB_LVCMOS")
         ),
     ]

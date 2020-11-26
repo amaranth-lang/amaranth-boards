@@ -125,7 +125,7 @@ class Supercon19BadgePlatform(LatticeECP5Platform):
             Attrs(IO_TYPE="LVCMOS33", SLEWRATE="SLOW")
         ),
 
-        SDRAMResource(0, clk="D11", cke="C11", cs="C7", we="B6", ras="D6", cas="A6",
+        SDRAMResource(0, clk="D11", cke="C11", cs_n="C7", we_n="B6", ras_n="D6", cas_n="A6",
             ba="A7 C8", a="A8 D9 C9 B9 C14 E17 A12 B12 H17 G18 B8 A11 B11",
             dq="C5 B5 A5 C6 B10 C10 D10 A9", dqm="A10",
             attrs=Attrs(IO_TYPE="LVCMOS33", SLEWRATE="FAST")

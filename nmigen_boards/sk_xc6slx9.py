@@ -20,12 +20,12 @@ class SK_XC6SLX9Platform(XilinxSpartan6Platform):
         ),
 
         *SPIFlashResources(0,
-            cs="P38", clk="P70", copi="P64", cipo="65",
+            cs_n="P38", clk="P70", copi="P64", cipo="65",
             attrs=Attrs(IOSTANDARD="LVCMOS33")
         ),
 
         SRAMResource(0,
-            cs="P97", oe="P45", we="P51",
+            cs_n="P97", oe_n="P45", we_n="P51",
             a="P39 P40 P41 P43 P44 P55 P56 P57 P58 P59 P82 P81 P80 P79 P78 P66 P62 P61 P60",
             d="P46 P47 P48 P50 P75 P74 P69 P67",
             attrs=Attrs(IOSTANDARD="LVCMOS33")
