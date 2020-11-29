@@ -32,9 +32,7 @@ class DE4Platform(IntelPlatform):
                  Clock(50e6), Attrs(io_standard="2.5-V")),
         Resource("clk50", 5, Pins("A19", dir="i"),
                  Clock(50e6), Attrs(io_standard="1.8-V")),
-        Resource("clk100", 0, Pins("A21", dir="i"),
-                 Clock(100e6), Attrs(io_standard="1.8-V")), #100MHz assumes SW7 is set to 00   
-
+         
         #from 0 to n
         *LEDResources(
             pins="V28 W28 R29 P29 N29 M29 M30 N30", invert=True,
