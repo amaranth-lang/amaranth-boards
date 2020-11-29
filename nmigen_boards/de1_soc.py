@@ -57,6 +57,74 @@ class DE1SoCPlatform(IntelPlatform):
             a="V25", b="AA28", c="Y27", d="AB27", e="AB26",
             f="AA26", g="AA25", invert=True,
             attrs=Attrs(io_standard="3.3-V LVTTL")),
+
+        Resource("audio_codec", 0,      #WM8731 codec. Uses I2C for config
+            Subsignal("adclrck", Pins("K8", dir = "i")),
+            Subsignal("adcdat",  Pins("K7", dir = "i")),
+            Subsignal("daclrck", Pins("H8", dir = "i")),
+            Subsignal("dacdat",  Pins("J7", dir = "o")),
+            Subsignal("xck",     Pins("G7", dir = "o")),
+            Subsignal("bclk",    Pins("H7", dir = "i")),
+            Attrs(io_standard="3.3-V LVTTL"),
+        ),
+
+        #Have used I2C resource for this but am wondering if it should be named,
+        #since it does config for the audio codec and TV decoder
+        I2CResource(0,      
+            scl="J12", sda="K12", 
+            atttrs=Attrs(io_standard="3.3-V LVTTL"),
+        ),
+
+        Resource("vga", 0,          #ADV7123 DAC
+            Subsignal("r",     Pins("A13  C13  E13  B12  C12  D12  E12  F13", dir="o")),
+            Subsignal("g",     Pins("J9   J10  H12  G10  G11  G12  F11  E11", dir="o")),
+            Subsignal("b",     Pins("B13  G13  H13  F14  H14  F15  G15  J14", dir="o")),
+            Subsignal("clk",   Pins("A11", dir="o")),
+            Subsignal("blank", PinsN("F10", dir="o")),
+            Subsignal("hs",    Pins("B11", dir="o")),
+            Subsignal("vs",    Pins("D11", dir="o")),
+            Subsignal("sync",  PinsN("C10", dir="o")),
+            Attrs(io_standard="3.3-V LVTTL"),
+        ),
+
+        Resource("tv_decoder", 0,   #ADV7180 TV decoder chip. Uses I2C for config
+            Subsignal("data",  Pins("D2 B1 E2 B2 D1 E1 C2 B3", dir="i")),
+            Subsignal("hs",    Pins("A5", dir="i")),
+            Subsignal("vs",    Pins("A3", dir="i")),
+            Subsignal("clk27", Pins("H15", dir="i")),
+            Subsignal("reset", PinsN("F6", dir="o")),
+            Attrs(io_standard="3.3-V LVTTL"),
+        ),
+
+        IrDAResource(0,
+            rx="AA30", tx="AB30",
+            attrs=Attrs(io_standard="3.3-V LVTTL"),
+        ),
+
+        SDRAMResource(0,
+            clk  = "AH12", cke   = "AK13", cs_n  = "AG11",
+            we_n = "AA13", ras_n = "AE13", cas_n = "AF11",
+            ba  = "AF13 AJ12",
+            a   = "AK14 AH14 AG15 AE14 AB15 AC14 AD14 AF15 AH15 AG13 AG12 AH13 AJ14",
+            dq  = "AK6  AJ7  AK7  AK8  AK9  AG10 AK11 AJ11 AH10 AJ10 AJ9  AH9  AH8  AH7  AJ6  AJ5",
+            dqm = "AB13 AK12",
+            attrs=Attrs(io_standard="3.3-V LVTTL"),
+        ),
+
+        Resource("ps2", 0,      #A dual PS2 port. If using one device, just use LSB of the clk/dat signals
+            Subsignal("clk", Pins("AD7 AD9", dir="io")),
+            Subsignal("dat", Pins("AE7 AE9", dir="io")),
+            Attrs(io_standard="3.3-V LVTTL"),
+        ),
+
+        Resource("adc", 0,      #LTC2308 ADC with SPI interface. Again wondering if it should be SPIResource
+            Subsignal("sclk", Pins("AK2", dir="o")),
+            Subsignal("din",  Pins("AK4", dir="o")), #I don't like having an output called DIN but it's ADC_DIN in the manual
+            Subsignal("dout", Pins("AK3", dir="i")),
+            Subsignal("cs",   PinsN("AJ4", dir="o")),
+            Attrs(io_standard="3.3-V LVTTL"),
+        ),
+
     ]
     connectors  = [
         # Located on the right hand side of the board
