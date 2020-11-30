@@ -36,7 +36,7 @@ class DE0NanoPlatform(IntelPlatform):
             attrs=Attrs(io_standard="3.3-V LVTTL")),
 
         SDRAMResource(0,
-            clk="R4", cke="L7", cs="P6", we="C2", ras="L2", cas="L1",
+            clk="R4", cke="L7", cs_n="P6", we_n="C2", ras_n="L2", cas_n="L1",
             ba="M7 M6", a="P2 N5 N6 M8 P8 T7 N8 T6 R1 P1 N2 N1 L4",
             dq="G2 G1 L8 K5 K2 J2 J1 R7 T4 T2 T3 R3 R5 P3 N3 K1",
             dqm="R6 T5",
