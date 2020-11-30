@@ -17,14 +17,12 @@ class DE0NanoPlatform(IntelPlatform):
         Resource("clk50", 0, Pins("R8", dir="i"),
                  Clock(50e6), Attrs(io_standard="3.3-V LVTTL")),
 
-        Resource("i2c_flash", 0,
-            Subsignal("clk", Pins("F2", dir="o")),
-            Subsignal("dat", Pins("F1", dir="io")),
-            Attrs(io_standard="3.3-V LVTTL")
+        I2CResource("eeprom", scl="F2", sda="F1",
+            attrs=Attrs(io_standard="I2C")
         ),
 
         SPIResource("adc", cs="A10", copi="B10", cipo="A9", clk="B14",
-            Attrs(io_standard="3.3-V LVTTL", PULLMODE="UP")),
+            attrs=Attrs(io_standard="3.3-V LVTTL", PULLMODE="UP")),
 
         *LEDResources(
             pins="A15 A13 B13 A11 D1 F3 B1 L3",
@@ -43,7 +41,6 @@ class DE0NanoPlatform(IntelPlatform):
             dq="G2 G1 L8 K5 K2 J2 J1 R7 T4 T2 T3 R3 R5 P3 N3 K1",
             dqm="R6 T5",
             attrs=Attrs(io_standard="3.3-V LVTTL")),
-
     ]
 
     connectors  = [
