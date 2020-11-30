@@ -23,13 +23,8 @@ class DE0NanoPlatform(IntelPlatform):
             Attrs(io_standard="3.3-V LVTTL")
         ),
 
-        Resource("ADC", 0,
-            Subsignal("CS_n", Pins("A10", dir="o")),
-            Subsignal("SADDR", Pins("B10", dir="o")),
-            Subsignal("SDAT", Pins("A9", dir="i")),
-            Subsignal("SCLK", Pins("B14", dir="o")),
-            Attrs(io_standard="3.3-V LVTTL")
-        ),       
+        SPIResource("adc", cs="A10", copi="B10", cipo="A9", clk="B14",
+            Attrs(io_standard="3.3-V LVTTL", PULLMODE="UP")),
 
         *LEDResources(
             pins="A15 A13 B13 A11 D1 F3 B1 L3",
@@ -45,8 +40,10 @@ class DE0NanoPlatform(IntelPlatform):
         SDRAMResource(0,
             clk="R4", cke="L7", cs="P6", we="C2", ras="L2", cas="L1",
             ba="M7 M6", a="P2 N5 N6 M8 P8 T7 N8 T6 R1 P1 N2 N1 L4",
-            dq="G2 G1 L8 K5 K2 J2 J1 R7 T4 T2 T3 R3 R5 P3 N3 K1", dqm="R6 T5",
+            dq="G2 G1 L8 K5 K2 J2 J1 R7 T4 T2 T3 R3 R5 P3 N3 K1",
+            dqm="R6 T5",
             attrs=Attrs(io_standard="3.3-V LVTTL")),
+
     ]
 
     connectors  = [
