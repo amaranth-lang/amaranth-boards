@@ -21,7 +21,7 @@ class DE0NanoPlatform(IntelPlatform):
             attrs=Attrs(io_standard="I2C")
         ),
 
-        SPIResource("adc", cs="A10", copi="B10", cipo="A9", clk="B14",
+        SPIResource("adc", cs_n="A10", copi="B10", cipo="A9", clk="B14",
             attrs=Attrs(io_standard="3.3-V LVTTL", PULLMODE="UP")),
 
         *LEDResources(
