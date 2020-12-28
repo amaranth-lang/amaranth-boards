@@ -232,4 +232,4 @@ class ArtyS7_25Platform(_ArtyS7Platform):
 
 if __name__ == "__main__":
     from .test.blinky import *
-    ArtyS7Platform().build(Blinky(), do_program=True)
+    ArtyS7_25Platform().build(Blinky(), do_program=True)
