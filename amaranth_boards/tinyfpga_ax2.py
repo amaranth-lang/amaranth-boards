@@ -9,6 +9,7 @@ __all__ = ["TinyFPGAAX2Platform"]
 class TinyFPGAAX2Platform(LatticeMachXO2Platform):
     device      = "LCMXO2-1200HC"
     package     = "SG32"
+    default_clk = "OSCH"
     speed       = "4"
     connectors  = [
         Connector("gpio", 0,
