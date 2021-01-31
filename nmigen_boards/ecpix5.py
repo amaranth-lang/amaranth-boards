@@ -74,7 +74,7 @@ class _ECPIX5Platform(LatticeECP5Platform):
                                 Attrs(TERMINATION="75")),
             Subsignal("dm",     Pins("U4 U1", dir="o")),
             Subsignal("odt",    Pins("P3", dir="o")),
-            Attrs(IO_TYPE="SSTL135_I")
+            Attrs(IO_TYPE="SSTL135_I", SLEWRATE="FAST")
         ),
 
         Resource("sata", 0,
