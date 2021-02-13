@@ -80,7 +80,7 @@ class _ULX3SPlatform(LatticeECP5Platform):
         Resource("audio", 0,
             Subsignal("l", Pins("E4 D3 C3 B3", dir="o")),
             Subsignal("r", Pins("A3 B5 D5 C5", dir="o")),
-            Subsignal("ring2", Pins("A3 B5 D5 C5", dir="o")), # extra ring out for video adapters
+            Subsignal("ring2", Pins("H5 F2 F5 E5", dir="o")), # extra ring out for video adapters
         ),
 
         # ESP-32 connections
