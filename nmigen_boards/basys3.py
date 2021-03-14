@@ -1,23 +1,9 @@
 import textwrap
 import subprocess
 
-from nmigen.vendor.xilinx_7series import Xilinx7SeriesPlatform
-from nmigen_boards.resources import (
-    ButtonResources,
-    Display7SegResource,
-    SwitchResources,
-    LEDResources,
-    UARTResource,
-    SPIFlashResources,
-)
-from nmigen.build import (
-    Attrs,
-    Clock,
-    Connector,
-    Pins,
-    Resource,
-    Subsignal,
-)
+from nmigen.vendor.xilinx_7series import *
+from nmigen_boards.resources import *
+from nmigen.build import *
 
 __all__ = ["Basys3Platform"]
 
