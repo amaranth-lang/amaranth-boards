@@ -21,19 +21,16 @@ class Basys3Platform(Xilinx7SeriesPlatform):
     speed = "1"
     default_clk = "clk100"
 
-    _basys_iostandard = "LVCMOS33"
-    _default_attrs = Attrs(IOSTANDARD=_basys_iostandard)
-
     resources = [
-        Resource("clk100", 0, Pins("W5", dir="i"), Clock(100e6), _default_attrs),
+        Resource("clk100", 0, Pins("W5", dir="i"), Clock(100e6), Attrs(IOSTANDARD="LVCMOS33")),
 
         *SwitchResources(pins="V17 V16 W16 W17 W15 V15 W14 W13 V2 T3 T2 R3 W2 U1 T1 R2",
-                attrs=_default_attrs),
+                attrs=Attrs(IOSTANDARD="LVCMOS33")),
 
         *LEDResources(pins="U16 E19 U19 V19 W18 U15 U14 V14 V13 V3 W3 U3 P3 N3 P1 L1",
-                attrs=_default_attrs),
+                attrs=Attrs(IOSTANDARD="LVCMOS33")),
 
-        UARTResource(0, rx="B18", tx="A18", attrs=_default_attrs),
+        UARTResource(0, rx="B18", tx="A18", attrs=Attrs(IOSTANDARD="LVCMOS33")),
 
         Resource("vga", 0,
             Subsignal("r", Pins("G19 H19 J19 N19", dir="o")),
@@ -41,27 +38,27 @@ class Basys3Platform(Xilinx7SeriesPlatform):
             Subsignal("b", Pins("N18 L18 K18 J18", dir="o")),
             Subsignal("hs", Pins("P19", dir="o")),
             Subsignal("vs", Pins("R19", dir="o")),
-            _default_attrs,
+            Attrs(IOSTANDARD="LVCMOS33"),
         ),
 
         Resource("ps2", 0,
             Subsignal("clk", Pins("C17", dir="o")),
             Subsignal("dat", Pins("B17", dir="io")),
-            Attrs(IOSTANDARD=_basys_iostandard, PULLUP="true"),
+            Attrs(IOSTANDARD="LVCMOS33", PULLUP="true"),
         ),
 
         *SPIFlashResources(0,
             cs_n="K19", clk="C11", copi="D18", cipo="D19",
             wp_n="G18", hold_n="F18",
-            attrs=_default_attrs,
+            attrs=Attrs(IOSTANDARD="LVCMOS33"),
         ),
 
         Display7SegResource(0,
             a="W7", b="W6", c="U8", d="V8",
             e="U5", f="V5", g="U7", dp="V7",
-            attrs=_default_attrs,
+            attrs=Attrs(IOSTANDARD="LVCMOS33"),
         ),
-        Resource("display_anode", Pins("U2 U4 V4 W4"), _default_attrs),
+        Resource("display_anode", Pins("U2 U4 V4 W4"), Attrs(IOSTANDARD="LVCMOS33")),
 
         *ButtonResources(pins={
             "C": "U18",
@@ -69,7 +66,7 @@ class Basys3Platform(Xilinx7SeriesPlatform):
             "L": "W19",
             "R": "T17",
             "D": "U17"},
-            attrs=_default_attrs
+            attrs=Attrs(IOSTANDARD="LVCMOS33")
         ),
     ]
 
