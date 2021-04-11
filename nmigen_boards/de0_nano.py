@@ -34,7 +34,9 @@ class DE0NanoPlatform(IntelPlatform):
             dq="G2 G1 L8 K5 K2 J2 J1 R7 T4 T2 T3 R3 R5 P3 N3 K1", dqm="R6 T5",
             attrs=Attrs(io_standard="3.3-V LVTTL")),
 
-        I2CResource(0, scl="F2", sda="F1"), # this is used for the eeprom and the accelerometer
+        # this is used for the eeprom and the accelerometer
+        I2CResource(0, scl="F2", sda="F1",
+            attrs=Attrs(io_standard="3.3-V LVTTL")),
 
         Resource("adxl345", 0,
             Subsignal("int", Pins("M2", dir="i")),
