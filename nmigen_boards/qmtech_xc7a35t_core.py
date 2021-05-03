@@ -31,7 +31,7 @@ class QMTechXC7A35TCorePlatform(Xilinx7SeriesPlatform):
 
         *LEDResources(
             pins="E6", invert=True,
-            attrs=Attrs(io_standard="LVCMOS33")),
+            attrs=Attrs(IOSTANDARD="LVCMOS33")),
 
         # MT25QL128
         Resource("qspi_flash", 0,

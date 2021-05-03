@@ -40,9 +40,10 @@ class QMTechDaughterboard:
         # 3 digit 7 segment display
         Display7SegResource(0,
             a="J_2:29", b="J_2:24", c="J_2:26", d="J_2:30", e="J_2:32", f="J_2:27", g="J_2:23", dp="J_2:28",
-            invert=True),
+            invert=True, attrs=Attrs(IOSTANDARD="LVCMOS33")),
         Resource("display_7seg_ctrl", 0,
             Subsignal("en", Pins("J_2:31 J_2:25 J_2:33", dir="o", invert=False)),
+            Attrs(IOSTANDARD="LVCMOS33")
         ),
 
         Resource("vga", 0,
@@ -51,7 +52,7 @@ class QMTechDaughterboard:
             Subsignal("b", Pins("J_3:44 J_3:43 J_3:46 J_3:45 J_3:47", dir="o")),
             Subsignal("hs", Pins("J_3:42", dir="o")),
             Subsignal("vs", Pins("J_3:41", dir="o")),
-            Attrs(io_standard="3.3-V LVTTL")
+            Attrs(IOSTANDARD="LVCMOS33")
         ),
 
         *SDCardResources(0, clk="J_3:9", cmd="J_3:10", dat0="J_3:8", dat1="J_3:7",
