@@ -148,9 +148,9 @@ class QMTechXC7A35TCorePlatform(Xilinx7SeriesPlatform):
         return super().toolchain_prepare(fragment, name, **overrides, **kwargs)
 
     def toolchain_program(self, products, name):
-        xc3sprog = os.environ.get("XC3SPROG", "xc3sprog")
+        loader = os.environ.get("OPENFPGALOADER", "openFPGALoader")
         with products.extract("{}.bit".format(name)) as bitstream_filename:
-            subprocess.run([xc3sprog, "-v", "-c", "ft232h", bitstream_filename], check=True)
+            subprocess.run([loader, "-v", "-c", "ft232", bitstream_filename], check=True)
 
 
 if __name__ == "__main__":
