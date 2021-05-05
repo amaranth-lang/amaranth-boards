@@ -140,7 +140,7 @@ class QMTechXC7A35TCorePlatform(Xilinx7SeriesPlatform):
                 "-loadbit \"up 0x0 {name}.bit\" -file {name}.bin".format(name=name),
             "add_constraints":
                 """
-                set_property INTERNAL_VREF 0.675 [get_iobanks 34]
+                set_property INTERNAL_VREF 0.675 [get_iobanks 15]
                 set_property CFGBVS VCCO [current_design]
                 set_property CONFIG_VOLTAGE 3.3 [current_design]
                 """
