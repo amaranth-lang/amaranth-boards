@@ -30,11 +30,10 @@ class _PanologicG2Platform(XilinxSpartan6Platform):
 
         # Pano Button LED Output, Active High
         *LEDResources(
-            pins="E12",
+            pins="B17 B13 B12",
+            conn=("AB", 0),
             attrs=Attrs(IOSTANDARD="LVCMOS33")
         ),
-        Resource.family(1, default_name="led", ios=[Pins("B13", dir="o", conn=("AB", 0)), Attrs(IOSTANDARD="LVCMOS33")]),
-        Resource.family(2, default_name="led", ios=[Pins("B12", dir="o", conn=("AB", 0)), Attrs(IOSTANDARD="LVCMOS33")]),
 
         # Pano Button Input, Active Low
         *ButtonResources(pins="B11", conn=("AB", 0), invert=True, attrs=Attrs(IOSTANDARD="LVCMOS33")),
@@ -188,6 +187,7 @@ class _PanologicG2Platform(XilinxSpartan6Platform):
             "B12": "F13", "A12": "F15",
             "B13": "H13",
                           "A15": "D9",
+            "B17": "E12",
             "B20": "C14", "A20": "F12",
             "B21": "C17", "A21": "C16",
                           "A23": "F14",
