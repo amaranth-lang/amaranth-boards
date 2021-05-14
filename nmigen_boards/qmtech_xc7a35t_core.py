@@ -15,12 +15,12 @@ class QMTechXC7A35TCorePlatform(Xilinx7SeriesPlatform):
     default_clk = "clk50"
     default_rst = "rst"
 
-    def __init__(self, standalone=True):
+    def __init__(self, standalone=True, toolchain="Vivado"):
         if (not standalone):
             # D3 - we do not use LEDResources here, because there are five LEDs
             # on the daughterboard and this will then clash with those
             self.resources[2] = Resource("core_led", 0, PinsN("E6"), Attrs(IOSTANDARD="LVCMOS33"))
-        super().__init__()
+        super().__init__(toolchain=toolchain)
 
     resources   = [
         Resource("clk50", 0, Pins("N11", dir="i"),

@@ -8,10 +8,10 @@ from nmigen_boards.qmtech_daughterboard import QMTechDaughterboard
 __all__ = ["QMTechXC7A35TKitPlatform"]
 
 class QMTechXC7A35TKitPlatform(QMTechXC7A35TCorePlatform):
-    def __init__(self):
+    def __init__(self, toolchain="Vivado"):
         self.connectors += QMTechDaughterboard.connectors
         self.resources  += QMTechDaughterboard.resources
-        super().__init__(standalone=False)
+        super().__init__(standalone=False, toolchain=toolchain)
 
 if __name__ == "__main__":
     from nmigen_boards.test.blinky import *
