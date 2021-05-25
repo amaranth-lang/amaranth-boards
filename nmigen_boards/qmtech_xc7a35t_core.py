@@ -4,11 +4,11 @@ import subprocess
 from nmigen.build import *
 from nmigen.vendor.xilinx_7series import *
 from nmigen_boards.resources import *
-
+from nmigen_boards.qmtech_daughterboard import QMTechDaughterboard
 
 __all__ = ["QMTechXC7A35TCorePlatform"]
 
-class QMTechXC7A35TCorePlatform(Xilinx7SeriesPlatform):
+class QMTechXC7A35TPlatform(Xilinx7SeriesPlatform):
     device      = "xc7a35t"
     package     = "ftg256"
     speed       = "1"
@@ -16,10 +16,13 @@ class QMTechXC7A35TCorePlatform(Xilinx7SeriesPlatform):
     default_rst = "rst"
 
     def __init__(self, standalone=True, toolchain="Vivado"):
-        if (not standalone):
+        if not standalone:
             # D3 - we do not use LEDResources here, because there are five LEDs
             # on the daughterboard and this will then clash with those
             self.resources[2] = Resource("core_led", 0, PinsN("E6"), Attrs(IOSTANDARD="LVCMOS33"))
+            self.connectors += QMTechDaughterboard.connectors
+            self.resources  += QMTechDaughterboard.resources
+
         super().__init__(toolchain=toolchain)
 
     resources   = [
@@ -155,4 +158,4 @@ class QMTechXC7A35TCorePlatform(Xilinx7SeriesPlatform):
 
 if __name__ == "__main__":
     from nmigen_boards.test.blinky import *
-    QMTechXC7A35TCorePlatform().build(Blinky(), do_program=True)
+    QMTechXC7A35TPlatform(standalone=False).build(Blinky(), do_program=True)
