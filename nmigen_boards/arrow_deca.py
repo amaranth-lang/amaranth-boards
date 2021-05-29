@@ -35,7 +35,6 @@ class ArrowDECAPlatform(IntelPlatform):
             attrs=Attrs(io_standard="1.5 V")),
         *SwitchResources(
             pins="J21 J22",
-            invert=True,
             attrs=Attrs(io_standard="1.5 V")),
     ]
     connectors  = [
