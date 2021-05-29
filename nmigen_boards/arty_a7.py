@@ -6,11 +6,10 @@ from nmigen.vendor.xilinx_7series import *
 from .resources import *
 
 
-__all__ = ["ArtyA7Platform"]
+__all__ = ["ArtyA7_35Platform", "ArtyA7_100Platform"]
 
 
-class ArtyA7Platform(Xilinx7SeriesPlatform):
-    device      = "xc7a35ti"
+class _ArtyA7Platform(Xilinx7SeriesPlatform):
     package     = "csg324"
     speed       = "1L"
     default_clk = "clk100"
@@ -218,6 +217,14 @@ class ArtyA7Platform(Xilinx7SeriesPlatform):
             subprocess.run([xc3sprog, "-c", "nexys4", bitstream_filename], check=True)
 
 
+class ArtyA7_35Platform(_ArtyA7Platform):
+    device      = "xc7a35ti"
+
+
+class ArtyA7_100Platform(_ArtyA7Platform):
+    device      = "xc7a100ti"
+
+
 if __name__ == "__main__":
     from .test.blinky import *
-    ArtyA7Platform().build(Blinky(), do_program=True)
+    ArtyA7_35Platform().build(Blinky(), do_program=True)
