@@ -52,14 +52,12 @@ class DE0CVPlatform(IntelPlatform):
             a="N9", b="M8", c="T14", d="P14", e="C1", f="C2", g="W19", invert=True,
             attrs=Attrs(io_standard="3.3-V LVTTL")),
 
-        Resource("vga", 0,
-            Subsignal("r", Pins("A9 B10 C9 A5", dir="o")),
-            Subsignal("g", Pins("L7 K7 J7 J8", dir="o")),
-            Subsignal("b", Pins("B6 B7 A8 A7", dir="o")),
-            Subsignal("hs", Pins("H8", dir="o")),
-            Subsignal("vs", Pins("G8", dir="o")),
-            Attrs(io_standard="3.3-V LVTTL")
-        ),
+        VGAResource(0,
+            r="A9 B10 C9 A5",
+            g="L7 K7 J7 J8",
+            b="B6 B7 A8 A7",
+            hs="H8", vs="G8",
+            attrs=Attrs(io_standard="3.3-V LVTTL")),
 
         Resource("ps2_host", 0, # Keyboard
             Subsignal("clk", Pins("D3", dir="i")),

@@ -93,13 +93,13 @@ class MisterPlatform(IntelPlatform):
             conn=("gpio", 1), attrs=Attrs(io_standard="3.3-V LVTTL")),
 
         # The schematic is difficult to understand here...
-        Resource("vga", 0,
-            Subsignal("r", Pins("28 32 34 36 38 40", dir="o", conn=("gpio", 1))),
-            Subsignal("g", Pins("27 31 33 35 37 39", dir="o", conn=("gpio", 1))),
-            Subsignal("b", Pins("21 23 25 26 24 24", dir="o", conn=("gpio", 1))),
-            Subsignal("hs", Pins("20", dir="o", conn=("gpio", 1))),
-            Subsignal("vs", Pins("19", dir="o", conn=("gpio", 1))),
-            Attrs(io_standard="3.3-V LVTTL"))
+        VGAResource(0,
+            r="28 32 34 36 38 40",
+            g="27 31 33 35 37 39",
+            b="21 23 25 26 24 24",
+            hs="20", vs="19",
+            conn=("gpio", 1),
+            attrs=Attrs(io_standard="3.3-V LVTTL"))
     ]
     connectors  = [
         # Located on the top of the board, above the chip.
