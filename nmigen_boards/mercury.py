@@ -159,15 +159,12 @@ class MercuryPlatform(XilinxSpartan3APlatform):
     ]
 
     _vga = [
-        Resource("vga_out", 0,
-            Subsignal("hsync", PinsN("led_0:3", dir="o")),
-            Subsignal("vsync", PinsN("led_0:4", dir="o")),
-
-            Subsignal("r", Pins("dio_0:1 dio_0:2 dio_0:3", dir="o")),
-            Subsignal("g", Pins("dio_0:4 dio_0:5 dio_0:6", dir="o")),
-            Subsignal("b", Pins("dio_0:7 clkio_0:1", dir="o")),
-            Attrs(IOSTANDARD="LVCMOS33", SLEW="FAST")
-        )
+        VGAResource(0,
+            r="dio_0:1 dio_0:2 dio_0:3",
+            g="dio_0:4 dio_0:5 dio_0:6",
+            b="dio_0:7 clkio_0:1",
+            hs="led_0:3", vs="led_0:4", invert_sync=True,
+            Attrs(IOSTANDARD="LVCMOS33", SLEW="FAST"))
     ]
 
     _extclk = [
