@@ -64,16 +64,10 @@ class DE0Platform(IntelPlatform):
             hs="L21", vs="L22",
             attrs=Attrs(io_standard="3.3-V LVTTL")),
 
-        Resource("ps2_host", 0, # Keyboard
-            Subsignal("clk", Pins("P22", dir="i")),
-            Subsignal("dat", Pins("P21", dir="io")),
-            Attrs(io_standard="3.3-V LVTTL")
-        ),
-        Resource("ps2_host", 1, # Mouse
-            Subsignal("clk", Pins("R21", dir="i")),
-            Subsignal("dat", Pins("R22", dir="io")),
-            Attrs(io_standard="3.3-V LVTTL")
-        ),
+        PS2Resource(0, # Keyboard
+            clk="P22", dat="P21", attrs=Attrs(io_standard="3.3-V LVTTL")),
+        PS2Resource(1, # Mouse
+            clk="R21", dat="R22", attrs=Attrs(io_standard="3.3-V LVTTL")),
 
         *SDCardResources(0,
             clk="Y21", cmd="Y22", dat0="AA22", dat3="W21", wp_n="W20",

@@ -3,7 +3,7 @@ from nmigen.build import *
 
 __all__ = [
     "UARTResource", "IrDAResource", "SPIResource", "I2CResource",
-    "DirectUSBResource", "ULPIResource"
+    "DirectUSBResource", "ULPIResource", "PS2Resource",
 ]
 
 
@@ -130,3 +130,15 @@ def ULPIResource(*args, data, clk, dir, nxt, stp, rst=None,
     if attrs is not None:
         io.append(attrs)
     return Resource.family(*args, default_name="usb", ios=io)
+
+
+def PS2Resource(*args, clk, dat, conn=None, attrs=None):
+    ios = []
+
+    ios.append(Subsignal("clk", Pins(clk, dir="i", conn=conn, assert_width=1))),
+    ios.append(Subsignal("dat", Pins(dat, dir="io", conn=conn, assert_width=1))),
+
+    if attrs is not None:
+        ios.append(attrs)
+
+    return Resource.family(*args, default_name="ps2", ios=ios)
