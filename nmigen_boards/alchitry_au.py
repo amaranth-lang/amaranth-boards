@@ -41,24 +41,15 @@ class AlchitryAuPlatform(Xilinx7SeriesPlatform):
         ),
 
         # TODO: This is untested
-        Resource("ddr3", 0,
-            Subsignal("rst",     PinsN("D13", dir="o")),
-            Subsignal("clk",     DiffPairs("G14", "F14", dir="o"), Attrs(IOSTANDARD="LVDS")),
-            Subsignal("clk_en",  Pins("D15", dir="o")),
-            Subsignal("cs",      PinsN("D16", dir="o")),
-            Subsignal("we",      PinsN("E11", dir="o")),
-            Subsignal("ras",     PinsN("D11", dir="o")),
-            Subsignal("cas",     PinsN("D14", dir="o")),
-            Subsignal("a",       Pins("F12 G16 G15 E16 H11 G12 H16 H12 H16 H13 E12 H14 F13 J15", dir="o")),
-            Subsignal("ba",      Pins("E13 F15 E15", dir="o")),
-            Subsignal("dqs",     DiffPairs("B15 A15", "B9 A10", dir="io"), Attrs(IOSTANDARD="LVDS")),
-            Subsignal("dq",      Pins("A13 B16 B14 C11 C13 C16 C12 C14 D8 B11 C8 B10 A12 A8 B12 A9",
-                                      dir="io")),
-            Subsignal("dm",      Pins("A14 C9", dir="o")),
-            Subsignal("odt",     Pins("G11", dir="o")),
-            Attrs(IOSTANDARD="LVCMOS15")
-        )
-
+        DDR3Resource(0,
+            rst_n="D13", clk_p="G14", clk_n="F14", clk_en="D15", cs_n="D16", we_n="E11", ras_n="D14", cas_n="D14",
+            a="F12 G16 G15 E16 H11 G12 H16 H12 H16 H13 E12 H14 F13 J15",
+            ba="E13 F15 E15",
+            dqs_p="B15 A15", dqs_n="B9 A10",
+            dq="A13 B16 B14 C11 C13 C16 C12 C14 D8 B11 C8 B10 A12 A8 B12 A9",
+            dm="A14 C9", odt="G11",
+            diff_attrs=Attrs(IOSTANDARD="LVDS"),
+            attrs=Attrs(IOSTANDARD="LVCMOS15")),
     ]
 
     connectors  = [
