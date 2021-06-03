@@ -59,16 +59,10 @@ class AtlysPlatform(XilinxSpartan6Platform):
 
         UARTResource(0, rx="A16", tx="B16", attrs=Attrs(IOSTANDARD="LVCMOS33")), # J17/UART
 
-        Resource("ps2", 0, # PS/2 keyboard interface converted from J13 "HOST" USB connector
-            Subsignal("clk",    Pins("P17", dir="i")),
-            Subsignal("dat",    Pins("N15", dir="io")),
-            Attrs(IOSTANDARD="LVCMOS33"),
-        ),
-        Resource("ps2", 1, # PS/2 mouse interface converted from J13 "HOST" USB connector
-            Subsignal("clk",    Pins("N18", dir="i")),
-            Subsignal("dat",    Pins("P18", dir="io")),
-            Attrs(IOSTANDARD="LVCMOS33"),
-        ),
+        PS2Resource(0, # PS/2 keyboard interface converted from J13 "HOST" USB connector
+            clk="P17", dat="N15", attrs=Attrs(IOSTANDARD="LVCMOS33")),
+        PS2Resource(1, # PS/2 mouse interface converted from J13 "HOST" USB connector
+            clk="N18", dat="P18", attrs=Attrs(IOSTANDARD="LVCMOS33")),
 
         *SPIFlashResources(0,
             cs_n="AE14", clk="AH18", copi="AF14", cipo="AF20", wp_n="AG21", hold_n="AG17",

@@ -103,10 +103,9 @@ class Nexys4DDRPlatform(Xilinx7SeriesPlatform):
             attrs=Attrs(IOSTANDARD="LVCMOS33"),
             role="dce"),
 
-        Resource("ps2_host", 0,
-            Subsignal("clk", Pins("F4", dir="i")),
-            Subsignal("dat", Pins("B2", dir="io")),
-            Attrs(IOSTANDARD="LVCMOS33", PULLUP="TRUE")),
+        PS2Resource(0,
+            clk="F4", dat="B2",
+            attrs=Attrs(IOSTANDARD="LVCMOS33", PULLUP="TRUE")),
 
         Resource("eth", 0,                                  # LAN8720A
             Subsignal("mdio",   Pins("A9",      dir="io")),

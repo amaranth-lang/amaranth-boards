@@ -185,11 +185,8 @@ class MercuryPlatform(XilinxSpartan3APlatform):
     ]
 
     _ps2 = [
-        Resource("ps2", 0,
-             Subsignal("clk", Pins("2", dir="io", conn=("led", 0))),
-             Subsignal("data", Pins("1", dir="io", conn=("led", 0))),
-             Attrs(IOSTANDARD="LVTTL")
-        )
+        PS2Resource(0,
+            clk="2", dat="1", conn=("led", 0), attrs=Attrs(IOSTANDARD="LVTTL")),
     ]
 
     _audio = [

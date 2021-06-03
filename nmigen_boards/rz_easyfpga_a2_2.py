@@ -54,10 +54,7 @@ class RZEasyFPGAA2_2Platform(IntelPlatform):
         ),
 
         # PS2 port, located on upper right of the board.
-        Resource("ps2_host", 0, 
-            Subsignal("clk", Pins("119", dir="io")),
-            Subsignal("dat", Pins("120", dir="io")),
-        ),
+        PS2Resource(0, clk="119", dat="120"),
 
         # LM75 temperature sensor
         I2CResource(0, scl="112", sda="113"),
