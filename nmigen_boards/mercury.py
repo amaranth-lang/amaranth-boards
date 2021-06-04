@@ -164,7 +164,7 @@ class MercuryPlatform(XilinxSpartan3APlatform):
             g="dio_0:4 dio_0:5 dio_0:6",
             b="dio_0:7 clkio_0:1",
             hs="led_0:3", vs="led_0:4", invert_sync=True,
-            Attrs(IOSTANDARD="LVCMOS33", SLEW="FAST"))
+            attrs=Attrs(IOSTANDARD="LVCMOS33", SLEW="FAST"))
     ]
 
     _extclk = [
