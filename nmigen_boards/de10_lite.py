@@ -10,9 +10,10 @@ __all__ = ["DE10LitePlatform"]
 
 
 class DE10LitePlatform(IntelPlatform):
-    device      = "10M50DAF484" # MAX10
-    package     = "F23"     # FBGA-484
-    speed       = "I7"
+    device      = "10M50DA" # MAX10
+    package     = "F484"     # FBGA-484
+    speed       = "C7"
+    suffix      = "G"
     default_clk = "clk50"
     resources   = [
         Resource("clk10", 0, Pins("N5", dir="i"),
