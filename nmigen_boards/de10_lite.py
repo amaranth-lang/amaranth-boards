@@ -17,9 +17,9 @@ class DE10LitePlatform(IntelPlatform):
     resources   = [
         Resource("clk10", 0, Pins("N5", dir="i"),
                  Clock(50e6), Attrs(io_standard="3.3-V LVTTL")),
-        Resource("clk50", 1, Pins("P11", dir="i"),
+        Resource("clk50", 0, Pins("P11", dir="i"),
                  Clock(50e6), Attrs(io_standard="3.3-V LVTTL")),
-        Resource("clk50", 2, Pins("N14", dir="i"),
+        Resource("clk50", 1, Pins("N14", dir="i"),
                  Clock(50e6), Attrs(io_standard="3.3-V LVTTL")),
 
         *LEDResources(
