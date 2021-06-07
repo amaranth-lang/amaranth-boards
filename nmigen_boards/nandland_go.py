@@ -21,9 +21,9 @@ class NandlandGoPlatform(LatticeICE40Platform):
         *ButtonResources(pins="53 51 54 52"),
 
         Display7SegResource(0,
-            a="3", b="4", c="93", d="91", e="90", f="1", g="2"),
+            a="3", b="4", c="93", d="91", e="90", f="1", g="2", invert=True),
         Display7SegResource(1,
-            a="100", b="99", c="97", d="95", e="94", f="8", g="96"),
+            a="100", b="99", c="97", d="95", e="94", f="8", g="96", invert=True),
 
         UARTResource(0, rx="73", tx="74"),
 

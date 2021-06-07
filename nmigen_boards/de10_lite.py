@@ -10,16 +10,17 @@ __all__ = ["DE10LitePlatform"]
 
 
 class DE10LitePlatform(IntelPlatform):
-    device      = "10M50DAF484" # MAX10
-    package     = "F23"     # FBGA-484
-    speed       = "I7"
+    device      = "10M50DA" # MAX10
+    package     = "F484"     # FBGA-484
+    speed       = "C7"
+    suffix      = "G"
     default_clk = "clk50"
     resources   = [
         Resource("clk10", 0, Pins("N5", dir="i"),
                  Clock(50e6), Attrs(io_standard="3.3-V LVTTL")),
-        Resource("clk50", 1, Pins("P11", dir="i"),
+        Resource("clk50", 0, Pins("P11", dir="i"),
                  Clock(50e6), Attrs(io_standard="3.3-V LVTTL")),
-        Resource("clk50", 2, Pins("N14", dir="i"),
+        Resource("clk50", 1, Pins("N14", dir="i"),
                  Clock(50e6), Attrs(io_standard="3.3-V LVTTL")),
 
         *LEDResources(
