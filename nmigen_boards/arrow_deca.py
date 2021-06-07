@@ -62,7 +62,9 @@ class ArrowDECAPlatform(IntelPlatform):
         # file templates before modifying them to avoid modifying the original.
         return {
             **super().file_templates,
-            "{{name}}.qsf": r"""
+            "{{name}}.qsf":
+                super().file_templates.get("{{name}}.qsf") +
+                r"""
                 set_global_assignment -name IOBANK_VCCIO 2.5V -section_id 1A
                 set_global_assignment -name IOBANK_VCCIO 2.5V -section_id 1B
                 set_global_assignment -name IOBANK_VCCIO 2.5V -section_id 2
@@ -77,7 +79,7 @@ class ArrowDECAPlatform(IntelPlatform):
                 set_global_assignment -name AUTO_RESTART_CONFIGURATION OFF
                 set_global_assignment -name ENABLE_CONFIGURATION_PINS OFF
                 set_global_assignment -name ENABLE_BOOT_SEL_PIN OFF
-            """
+                """
         }
 
 
