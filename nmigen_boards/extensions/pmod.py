@@ -24,7 +24,7 @@ def PmodGPIOType1Resource(name, number, *, pmod, extras=None):
 
 def PmodSPIType2Resource(name, number, *, pmod, extras=None):
     return Resource(name, number,
-        Subsignal("cs_n",  Pins("1", dir="o", conn=("pmod", pmod))),
+        Subsignal("cs",   PinsN("1", dir="o", conn=("pmod", pmod))),
         Subsignal("clk",   Pins("2", dir="o", conn=("pmod", pmod))),
         Subsignal("copi",  Pins("3", dir="o", conn=("pmod", pmod))),
         Subsignal("cipo",  Pins("4", dir="i", conn=("pmod", pmod))),
@@ -34,7 +34,7 @@ def PmodSPIType2Resource(name, number, *, pmod, extras=None):
 
 def PmodSPIType2AResource(name, number, *, pmod, extras=None):
     return Resource(name, number,
-        Subsignal("cs_n",  Pins("1", dir="o", conn=("pmod", pmod))),
+        Subsignal("cs",   PinsN("1", dir="o", conn=("pmod", pmod))),
         Subsignal("clk",   Pins("2", dir="o", conn=("pmod", pmod))),
         Subsignal("copi",  Pins("3", dir="o", conn=("pmod", pmod))),
         Subsignal("cipo",  Pins("4", dir="i", conn=("pmod", pmod))),
