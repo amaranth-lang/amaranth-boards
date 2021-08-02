@@ -15,56 +15,56 @@ __all__ = [
 ]
 
 
-def PmodGPIOType1Resource(name, number, *, pmod, extras=None):
+def PmodGPIOType1Resource(name, number, *args, pmod):
     return Resource(name, number,
         Pins("1 2 3 4", dir="io", conn=("pmod", pmod)),
-        extras=extras
+        *args
     )
 
 
-def PmodSPIType2Resource(name, number, *, pmod, extras=None):
+def PmodSPIType2Resource(name, number, *args, pmod):
     return Resource(name, number,
-        Subsignal("cs_n",  Pins("1", dir="o", conn=("pmod", pmod))),
+        Subsignal("cs",   PinsN("1", dir="o", conn=("pmod", pmod))),
         Subsignal("clk",   Pins("2", dir="o", conn=("pmod", pmod))),
         Subsignal("copi",  Pins("3", dir="o", conn=("pmod", pmod))),
         Subsignal("cipo",  Pins("4", dir="i", conn=("pmod", pmod))),
-        extras=extras
+        *args
     )
 
 
-def PmodSPIType2AResource(name, number, *, pmod, extras=None):
+def PmodSPIType2AResource(name, number, *args, pmod):
     return Resource(name, number,
-        Subsignal("cs_n",  Pins("1", dir="o", conn=("pmod", pmod))),
+        Subsignal("cs",   PinsN("1", dir="o", conn=("pmod", pmod))),
         Subsignal("clk",   Pins("2", dir="o", conn=("pmod", pmod))),
         Subsignal("copi",  Pins("3", dir="o", conn=("pmod", pmod))),
         Subsignal("cipo",  Pins("4", dir="i", conn=("pmod", pmod))),
         Subsignal("int",   Pins("7", dir="i", conn=("pmod", pmod))),
         Subsignal("reset", Pins("8", dir="o", conn=("pmod", pmod))),
-        extras=extras
+        *args
         )
 
 
-def PmodUARTType3Resource(name, number, *, pmod, extras=None):
+def PmodUARTType3Resource(name, number, *args, pmod):
     return Resource(name, number,
         Subsignal("cts",   Pins("1", dir="o", conn=("pmod", pmod))),
         Subsignal("rts",   Pins("2", dir="i", conn=("pmod", pmod))),
         Subsignal("rx",    Pins("3", dir="i", conn=("pmod", pmod))),
         Subsignal("tx",    Pins("4", dir="o", conn=("pmod", pmod))),
-        extras=extras
+        *args
     )
 
 
-def PmodUARTType4Resource(name, number, *, pmod, extras=None):
+def PmodUARTType4Resource(name, number, *args, pmod):
     return Resource(name, number,
         Subsignal("cts",   Pins("1", dir="i", conn=("pmod", pmod))),
         Subsignal("tx",    Pins("2", dir="o", conn=("pmod", pmod))),
         Subsignal("rx",    Pins("3", dir="i", conn=("pmod", pmod))),
         Subsignal("rts",   Pins("4", dir="o", conn=("pmod", pmod))),
-        extras=extras
+        *args
     )
 
 
-def PmodUARTType4AResource(name, number, *, pmod, extras=None):
+def PmodUARTType4AResource(name, number, *args, pmod):
     return Resource(name, number,
         Subsignal("cts",   Pins("1", dir="i", conn=("pmod", pmod))),
         Subsignal("tx",    Pins("2", dir="o", conn=("pmod", pmod))),
@@ -72,23 +72,23 @@ def PmodUARTType4AResource(name, number, *, pmod, extras=None):
         Subsignal("rts",   Pins("4", dir="o", conn=("pmod", pmod))),
         Subsignal("int",   Pins("7", dir="i", conn=("pmod", pmod))),
         Subsignal("reset", Pins("8", dir="o", conn=("pmod", pmod))),
-        extras=extras
+        *args
     )
 
 
-def PmodHBridgeType5Resource(name, number, *, pmod, extras=None):
+def PmodHBridgeType5Resource(name, number, *args, pmod):
     return Resource(name, number,
         Subsignal("dir",   Pins("1", dir="o", conn=("pmod", pmod))),
         Subsignal("en",    Pins("2", dir="o", conn=("pmod", pmod))),
         Subsignal("sa",    Pins("3", dir="i", conn=("pmod", pmod))),
         Subsignal("sb",    Pins("4", dir="i", conn=("pmod", pmod))),
-        extras=extras
+        *args
     )
 
 
-def PmodDualHBridgeType6Resource(name, number, *, pmod, extras=None):
+def PmodDualHBridgeType6Resource(name, number, *args, pmod):
     return Resource(name, number,
         Subsignal("dir",   Pins("1 3", dir="o", conn=("pmod", pmod))),
         Subsignal("en",    Pins("2 4", dir="o", conn=("pmod", pmod))),
-        extras=extras
+        *args
     )
