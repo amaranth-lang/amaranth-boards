@@ -5,6 +5,9 @@ from nmigen.build import *
 from nmigen.vendor.lattice_ecp5 import *
 from .resources import *
 
+# The Colorlight 5A-75B PCB and IOs have been documented by @miek and @smunaut:
+# https://github.com/q3k/chubby75/tree/master/5a-75b
+
 
 __all__ = ["Colorlight_5A75B_R70Platform"]
 
@@ -32,17 +35,17 @@ class Colorlight_5A75B_R70Platform(LatticeECP5Platform):
 
         # SPIFlash (W25Q32JV)   1x/2x/4x speed
         Resource("spi_flash", 0,
-            Subsignal("cs",   PinsN("N8", dir="o")),
-            # Subsignal("clk", Pins("", dir="i")),              # driven through USRMCLK
-            Subsignal("cipo", Pins("T8", dir="i")),             # Chip: DI/IO0
-            Subsignal("copi", Pins("T7", dir="o")),             #       DO/IO1
-            # Subsignal("wp", PinsN("unknown", dir="o")),     #          IO2 Todo
-            # Subsignal("hold", PinsN("unknown", dir="o")),   #          IO3 Todo
+            Subsignal("cs",   PinsN("N8", dir="o")),      # CS_n
+            # Subsignal("clk", Pins("usrmclk", dir="i")), # CLK        driven through USRMCLK
+            Subsignal("copi", Pins("T8", dir="o")),       # IO0/DI
+            Subsignal("cipo", Pins("T7", dir="i")),       # IO1/DO
+            # Subsignal("wp", PinsN("n/a", dir="o")),     # IO2/WP_n   tied to 3.3v
+            # Subsignal("hold", PinsN("n/a", dir="o")),   # IO3/HOLD_n tied to 3.3v
             Attrs(IO_TYPE="LVCMOS33")
         ),
 
         # 2x ESMT M12L16161A-5T 1M x 16bit 200MHz SDRAMs (organized as 1M x 32bit)
-        # 2x WinBond W9816G6JH-6 1M x 16bit 166MHz SDRAMs (organized as 1M x 32bit) are lso reported 
+        # 2x WinBond W9816G6JH-6 1M x 16bit 166MHz SDRAMs (organized as 1M x 32bit) also reported
         SDRAMResource(0,
             clk="C6", we_n="C7", cas_n="E7", ras_n="D7",
             ba="A7", a="A9 E10 B12 D13 C12 D11 D10 E9 D9 B7 C8",
@@ -78,17 +81,16 @@ class Colorlight_5A75B_R70Platform(LatticeECP5Platform):
             Subsignal("rx_data", Pins("P13 N13 P14 M15", dir="i")),
             Attrs(IO_TYPE="LVCMOS33")
         ),
-
-    ]
-    connectors = [
-        Connector("j",  1, "F3  F1  G3  - G2  H3  H5  F15 L2 K1 J5 K2 B16 J14 F12 -"),
-        Connector("j",  2, "J4  K3  G1  - K4  C2  E3  F15 L2 K1 J5 K2 B16 J14 F12 -"),
-        Connector("j",  3, "H4  K5  P1  - R1  L5  F2  F15 L2 K1 J5 K2 B16 J14 F12 -"),
-        Connector("j",  4, "P4  R2  M8  - M9  T6  R6  F15 L2 K1 J5 K2 B16 J14 F12 -"),
-        Connector("j",  5, "M11 N11 P12 - K15 N12 L16 F15 L2 K1 J5 K2 B16 J14 F12 -"),
-        Connector("j",  6, "K16 J15 J16 - J12 H15 G16 F15 L2 K1 J5 K2 B16 J14 F12 -"),
-        Connector("j",  7, "H13 J13 H12 - G14 H14 G15 F15 L2 K1 J5 K2 B16 J14 F12 -"),
-        Connector("j",  8, "A15 F16 A14 - E13 B14 A13 F15 L2 K1 J5 K2 B16 J14 F12 -"),
+    ]                                                                                   # Differential pairs:
+    connectors = [                                                                      # high-speed      | regular-speed
+        Connector("j",  1, "F3  F1  G3  - G2  H3  H5  F15 L2 K1 J5 K2 B16 J14 F12 -"),  # F1-G2           | G3-H3           K1-K2
+        Connector("j",  2, "J4  K3  G1  - K4  C2  E3  F15 L2 K1 J5 K2 B16 J14 F12 -"),  #                 | J4-J5           K1-K2
+        Connector("j",  3, "H4  K5  P1  - R1  L5  F2  F15 L2 K1 J5 K2 B16 J14 F12 -"),  # P1-R1           |                 K1-K2
+        Connector("j",  4, "P4  R2  M8  - M9  T6  R6  F15 L2 K1 J5 K2 B16 J14 F12 -"),  #                 | T6-R6           K1-K2
+        Connector("j",  5, "M11 N11 P12 - K15 N12 L16 F15 L2 K1 J5 K2 B16 J14 F12 -"),  # M11-N11         |                 K1-K2
+        Connector("j",  6, "K16 J15 J16 - J12 H15 G16 F15 L2 K1 J5 K2 B16 J14 F12 -"),  # J16-J15 G16-H15 |                 K1-K2
+        Connector("j",  7, "H13 J13 H12 - G14 H14 G15 F15 L2 K1 J5 K2 B16 J14 F12 -"),  # H12-H13         | G14-H14         K1-K2
+        Connector("j",  8, "A15 F16 A14 - E13 B14 A13 F15 L2 K1 J5 K2 B16 J14 F12 -"),  #                 | B14-A15 A13-A14 K1-K2
         Connector("j", 19, " -  M13  -  - P11"),
     ]
 
