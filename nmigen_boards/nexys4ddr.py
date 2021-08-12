@@ -22,8 +22,13 @@ class Nexys4DDRPlatform(Xilinx7SeriesPlatform):
             PinsN("C12", dir="i"), Attrs(IOSTANDARD="LVCMOS33")),
 
         *SwitchResources(
-            pins="J15 L16 M13 R15 R17 T18 U18 R13 T8  U8  R16 T13 H6  U12 U11 V10",
+            pins={0: 'J15', 1: 'L16', 2: 'M13', 3: 'R15', 4: 'R17', 5: 'T18',
+                  6: 'U18', 7: 'R13', 10: 'R16', 11: 'T13', 12: 'H6',
+                  13: 'U12', 14: 'U11', 15: 'V10'},
             attrs=Attrs(IOSTANDARD="LVCMOS33")),
+        *SwitchResources(
+            pins={8: 'T8', 9: 'U8'},
+            attrs=Attrs(IOSTANDARD="LVCMOS18")),
 
         *LEDResources(
             pins="H17 K15 J13 N14 R18 V17 U17 U16 V16 T15 U14 T16 V15 V14 V12 V11",
