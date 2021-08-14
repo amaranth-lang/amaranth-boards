@@ -4,7 +4,9 @@ from nmigen.build import *
 from nmigen.vendor.lattice_ice40 import *
 from .resources import *
 
+
 __all__ = ["ICESugarPlatform"]
+
 
 class ICESugarPlatform(LatticeICE40Platform):
     device      = "iCE40UP5K"
@@ -59,5 +61,4 @@ class ICESugarPlatform(LatticeICE40Platform):
 
 if __name__ == "__main__":
     from .test.blinky import *
-    p = ICESugarPlatform()
-    p.build(Blinky(), do_program=True)
+    ICESugarPlatform().build(Blinky(), do_program=True)
