@@ -21,7 +21,7 @@ class OrangeCrabR0_1Platform(LatticeECP5Platform):
 
         # Used to reload FPGA configuration.
         # Can enter USB bootloader by assigning button 0 to program.
-        Resource("program", 0, PinsN("V17", dir="o"), Attrs(IO_TYPE="LVCMOS33")),
+        Resource("program", 0, PinsN("R16", dir="o"), Attrs(IO_TYPE="LVCMOS33")),
 
         RGBLEDResource(0,
             r="V17", g="T17", b="J3", invert=True,
