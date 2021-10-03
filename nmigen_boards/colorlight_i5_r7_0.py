@@ -131,7 +131,6 @@ class Colorlighti5R70Platform(LatticeECP5Platform):
         with products.extract("{}.bit".format(name)) as bitstream_filename:
             subprocess.run([tool, "-c", "cmsisdap", "-m", bitstream_filename])
 
-
 if __name__ == "__main__":
     from test.blinky import *
     Colorlighti5R70Platform().build(Blinky(), do_program=True)
