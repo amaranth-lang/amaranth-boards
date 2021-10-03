@@ -9,7 +9,7 @@ from .resources import *
 __all__ = ["Colorlighti5R70Platform"]
 
 
-class Colorlighti5R70Platform(LatticeECP5Platform):
+class Colorlighti5R70ExtensionBoardPlatform(LatticeECP5Platform):
     """
     The Colorlight i5 r7.0 is often paired with an extension develpmnet board
     which provides an ample set of I/O.
@@ -133,4 +133,4 @@ class Colorlighti5R70Platform(LatticeECP5Platform):
 
 if __name__ == "__main__":
     from test.blinky import *
-    Colorlighti5R70Platform().build(Blinky(), do_program=True)
+    Colorlighti5R70ExtensionBoardPlatform().build(Blinky(), do_program=True)
