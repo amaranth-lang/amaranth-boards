@@ -21,20 +21,17 @@ class _CmodA7Platform(Xilinx7SeriesPlatform):
     package     = "cpg236"
     speed       = "1"
     default_clk = "clk12"
-    default_rst = "rst"
+    default_rst = None
     resources   = [
         Resource("clk12", 0, Pins("L17", dir="i"),
                  Clock(12e6), Attrs(IOSTANDARD="LVCMOS33")),
 
-        # This is actually Button 0 "BTN0", there is no dedicated reset button
-        Resource("rst", 0, Pins("A18", dir="i"), Attrs(IOSTANDARD="LVCMOS33")),
-
         *LEDResources(pins="A17 C16", attrs=Attrs(IOSTANDARD="LVCMOS33")),
 
-        RGBLEDResource(0, r="C17", g="B16", b="B17",
+        RGBLEDResource(0, r="C17", g="B16", b="B17", invert=True,
             attrs=Attrs(IOSTANDARD="LVCMOS33")),
 
-        *ButtonResources(pins="B18", attrs=Attrs(IOSTANDARD="LVCMOS33")),
+        *ButtonResources(pins="A18 B18", attrs=Attrs(IOSTANDARD="LVCMOS33")),
 
         UARTResource(0,
             rx="J18", tx="J17",
@@ -47,6 +44,10 @@ class _CmodA7Platform(Xilinx7SeriesPlatform):
             attrs=Attrs(IOSTANDARD="LVCMOS33")
         ),
 
+        SRAMResource(0,
+            cs_n="N19", oe_n="P19", we_n="R19",
+            a="M18 M19 K17 N17 P17 P18 R18 W19 U19 V19 W18 T17 T18 U17 U18 V16 W16 W17 V15",
+            d="W15 W13 W14 U15 U16 V13 V14 U14")
     ]
     connectors  = [
         Connector("pmod", 0, "G17 G19 N18 L18 - - H17 H19 J19 K18 - -"), # JA
@@ -107,15 +108,12 @@ class _CmodA7Platform(Xilinx7SeriesPlatform):
         })
     ]
 
-    def toolchain_prepare(self, fragment, name, **kwargs):
-        overrides = {}
-        return super().toolchain_prepare(fragment, name, **overrides, **kwargs)
-
     def toolchain_program(self, products, name):
         openocd = os.environ.get("OPENOCD", "openocd")
         with products.extract("{}.bit".format(name)) as bitstream_filename:
             subprocess.check_call([openocd,
-                "-d",
+                # Use for debug output
+                #"-d",
                 "-c",
                 "source [find board/digilent_cmod_a7.cfg]; init; pld load 0 {}; exit"
                     .format(bitstream_filename)
