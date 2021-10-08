@@ -47,7 +47,10 @@ class _CmodA7Platform(Xilinx7SeriesPlatform):
         SRAMResource(0,
             cs_n="N19", oe_n="P19", we_n="R19",
             a="M18 M19 K17 N17 P17 P18 R18 W19 U19 V19 W18 T17 T18 U17 U18 V16 W16 W17 V15",
-            d="W15 W13 W14 U15 U16 V13 V14 U14")
+            d="W15 W13 W14 U15 U16 V13 V14 U14"),
+
+        Resource("crypto_onewire", 0, Pins("D17", dir="io"),
+            Attrs(IOSTANDARD="LVCMOS33"))
     ]
     connectors  = [
         Connector("pmod", 0, "G17 G19 N18 L18 - - H17 H19 J19 K18 - -"), # JA
