@@ -56,54 +56,14 @@ class _CmodA7Platform(Xilinx7SeriesPlatform):
     connectors  = [
         Connector("pmod", 0, "G17 G19 N18 L18 - - H17 H19 J19 K18 - -"), # JA
 
-        Connector("gpio", 0, {
-            "1":  "M3",
-            "2":  "L3",
-            "3":  "A16",
-            "4":  "K3",
-            "5":  "C15",
-            "6":  "H1",
-            "7":  "A15",
-            "8":  "B15",
-            "9":  "A14",
-            "10":  "J3",
-            "11": "J1",
-            "12": "K2",
-            "13": "L1",
-            "14": "L2",
-            # IO 15/16 are analog (XADC)
-            "17": "M1",
-            "18": "M3",
-            "19": "P3",
-            "20": "M2",
-            "21": "N1",
-            "22": "N2",
-            "23": "P1",
-            # IO 24/25 are VCC and GND
-            "26": "R3",
-            "27": "T3",
-            "28": "R2",
-            "29": "T1",
-            "30": "T2",
-            "31": "U1",
-            "32": "W2",
-            "33": "V2",
-            "34": "W3",
-            "35": "V3",
-            "36": "W5",
-            "37": "V4",
-            "38": "U4",
-            "39": "V5",
-            "40": "W4",
-            "41": "U5",
-            "42": "U2",
-            "43": "W6",
-            "44": "U3",
-            "45": "U7",
-            "46": "W7",
-            "47": "U8",
-            "48": "V8"
-        }),
+        # Pin 24/25 are VCC and GND
+        # Pin 15/16 are analog (XADC)
+        Connector("gpio", 0,
+                " M3  L3 A16  K3 C15  H1 A15 B15 A14  J3  J1  K2
+                  L1  L2   -   -  M1  M3  P3  M2  N1  N2  P1   -
+                   -  R3  T3  R2  T1  T2  U1  W2  V2  W3  V3  W5
+                  V4  U4  V5  W4  U5  U2  W6  U3  U7  W7  U8  V8"),
+
         Connector("xadc", 0, {
             "vaux4_n":   "G2",
             "vaux4_p":   "G3",
