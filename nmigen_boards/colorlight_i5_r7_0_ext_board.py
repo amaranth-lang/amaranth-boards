@@ -3,10 +3,10 @@ import subprocess
 
 from nmigen.build import *
 from nmigen.vendor.lattice_ecp5 import *
-from .resources import *
+from resources import *
 
 
-__all__ = ["Colorlighti5R70Platform"]
+__all__ = ["Colorlighti5R70ExtensionBoardPlatform"]
 
 
 class Colorlighti5R70ExtensionBoardPlatform(LatticeECP5Platform):
@@ -32,8 +32,7 @@ class Colorlighti5R70ExtensionBoardPlatform(LatticeECP5Platform):
     resources = [
         Resource("clk25", 0, Pins("P3", dir="i"), Clock(25e6), Attrs(IO_TYPE="LVCMOS33")),
 
-        *LEDResources(pins="U16", invert = True,
-                      attrs=Attrs(IO_TYPE="LVCMOS33", DRIVE="4")),
+        *LEDResources(pins="U16", invert = True, attrs=Attrs(IO_TYPE="LVCMOS33", DRIVE="4")),
 
         UARTResource(0,
             tx="H18",
@@ -48,7 +47,7 @@ class Colorlighti5R70ExtensionBoardPlatform(LatticeECP5Platform):
                 Attrs(IOSTANDARD="TMDS_33")),
             Attrs(IOSTANDARD="LVCMOS33")),
 
-        SPIFlashResources(0,
+        *SPIFlashResources(0,
             cs_n="R2",
             clk="U3",
             copi="W2",
