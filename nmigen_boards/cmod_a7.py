@@ -48,7 +48,9 @@ class _CmodA7Platform(Xilinx7SeriesPlatform):
             a="M18 M19 K17 N17 P17 P18 R18 W19 U19 V19 W18 T17 T18 U17 U18 V16 W16 W17 V15",
             d="W15 W13 W14 U15 U16 V13 V14 U14"),
 
-        Resource("crypto_onewire", 0, Pins("D17", dir="io"),
+        # One-wire interface to crypto authentication device
+        # May not be populated on the board
+        Resource("atsha204a", 0, Pins("D17", dir="io"),
             Attrs(IOSTANDARD="LVCMOS33"))
     ]
     connectors  = [
