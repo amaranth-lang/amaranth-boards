@@ -21,7 +21,6 @@ class _CmodA7Platform(Xilinx7SeriesPlatform):
     package     = "cpg236"
     speed       = "1"
     default_clk = "clk12"
-    default_rst = None
     resources   = [
         Resource("clk12", 0, Pins("L17", dir="i"),
                  Clock(12e6), Attrs(IOSTANDARD="LVCMOS33")),
