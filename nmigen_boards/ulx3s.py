@@ -119,6 +119,14 @@ class _ULX3SPlatform(LatticeECP5Platform):
             Subsignal("sda", Pins("B19", dir="io"),
                 Attrs(IO_TYPE="LVCMOS33", DRIVE="4", PULLMODE="UP"))),
 
+        # OLED connector
+        SPIResource(0,
+            cs_n="N2", clk="P4", copi="P3", cipo=None, reset="P2",
+            attrs=Attrs(IO_TYPE="LVCMOS33", DRIVE="4", PULLMODE="UP")),
+        Resource("oled", 0,
+            Subsignal("dc", Pins("P1", dir="o"),
+                Attrs(IO_TYPE="LVCMOS33", DRIVE="4", PULLMODE="UP"))),
+
         DirectUSBResource(0,
             d_p="D15", d_n="E15", pullup="B12",
             attrs=Attrs(IO_TYPE="LVCMOS33")
