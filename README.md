@@ -1,4 +1,4 @@
-# Amaranth HDL board definitions
+# Board definitions for Amaranth HDL
 
 TODO
 
