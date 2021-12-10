@@ -12,21 +12,21 @@ def scm_version():
 
 
 setup(
-    name="nmigen-boards",
+    name="amaranth-boards",
     use_scm_version=scm_version(),
     author="whitequark",
     author_email="whitequark@whitequark.org",
-    description="Board and connector definitions for nMigen",
+    description="Board and connector definitions for Amaranth HDL",
     #long_description="""TODO""",
     license="BSD",
     setup_requires=["wheel", "setuptools", "setuptools_scm"],
     install_requires=[
-        "nmigen>=0.2,<0.4",
+        "amaranth>=0.2,<0.4",
         "importlib_metadata; python_version<'3.8'",
     ],
     packages=find_packages(),
     project_urls={
-        "Source Code": "https://github.com/nmigen/nmigen-boards",
-        "Bug Tracker": "https://github.com/nmigen/nmigen-boards/issues",
+        "Source Code": "https://github.com/amaranth-lang/amaranth-boards",
+        "Bug Tracker": "https://github.com/amaranth-lang/amaranth-boards/issues",
     },
 )

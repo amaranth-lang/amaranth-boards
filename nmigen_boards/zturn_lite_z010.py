@@ -1,8 +1,7 @@
-from .zturn_lite_z007s import ZTurnLiteZ007SPlatform
+from amaranth_boards.zturn_lite_z010 import *
+from amaranth_boards.zturn_lite_z010 import __all__
 
 
-__all__ = ["ZTurnLiteZ010Platform"]
-
-
-class ZTurnLiteZ010Platform(ZTurnLiteZ007SPlatform):
-    device = "xc7z010"
+import warnings
+warnings.warn("instead of nmigen_boards.zturn_lite_z010, use amaranth_boards.zturn_lite_z010",
+              DeprecationWarning, stacklevel=2)

@@ -1,11 +1,9 @@
-# nMigen boards and connectors
+# Amaranth HDL board definitions
 
-## Ready to use board and connector pinouts, and programming scripts
+TODO
 
-TBD
+## License
 
-### License
-
-nMigen is released under the very permissive two-clause BSD license. Under the terms of this license, you are authorized to use nMigen for closed-source proprietary designs.
+Amaranth is released under the very permissive two-clause BSD license. Under the terms of this license, you are authorized to use Amaranth for closed-source proprietary designs.
 
 See LICENSE file for full copyright and license info.
