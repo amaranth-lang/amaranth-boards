@@ -40,10 +40,24 @@ class ICEBreakerBitsyPlatform(LatticeICE40Platform):
         )
     ]
 
-    def toolchain_program(self, products, name):
+    def toolchain_program(self, products, name, run_vid=None, run_pid=None, dfu_vid="1d50", dfu_pid="6146", reset=True):
         dfu_util = os.environ.get("DFU_UTIL", "dfu-util")
+
+        # Construct the device runtime and DFU vid pid string
+        dev_str = ""
+        if run_vid or run_pid:
+            dev_str = "{}:{}".format(run_vid or "", run_pid or "")
+        dev_str += ",{}:{}".format(dfu_vid or "", dfu_pid or "")
+
+        # Construct the argument list for dfu-util
+        args = [dfu_util, "-d", dev_str, "-a", "0"]
+        if reset: args.append("-R")
+        args.append("-D")
+
+        # Run dfu-util
         with products.extract("{}.bin".format(name)) as bitstream_filename:
-            subprocess.check_call([dfu_util, "-d", "1209:6146", "-a", "0", "-D", bitstream_filename])
+            args.append(bitstream_filename)
+            subprocess.check_call(args)
 
 
 if __name__ == "__main__":
