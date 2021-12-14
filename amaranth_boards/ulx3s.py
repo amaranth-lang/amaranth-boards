@@ -73,7 +73,7 @@ class _ULX3SPlatform(LatticeECP5Platform):
         ),
 
         # SPI bus for ADC.
-        SPIResource("adc", cs_n="R17", copi="R16", cipo="U16", clk="P17",
+        SPIResource("adc", 0, cs_n="R17", copi="R16", cipo="U16", clk="P17",
             attrs=Attrs(IO_TYPE="LVCMOS33", PULLMODE="UP")),
 
         # TRRS audio jack
