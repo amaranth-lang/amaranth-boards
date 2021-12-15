@@ -40,6 +40,9 @@ class ICEBreakerBitsyPlatform(LatticeICE40Platform):
             "12":"20", "13":"25", "14":"23", "15":"27", "16":"26", "17":"28",
             "18":"31", "19":"32", "20":"34", "21":"36", "22":"43", "23":"46"}
         ),
+        Connector("pmod", 1, " 0  2  4  6 - -  1  3  5  7 - -", conn=("edge", "0")), # PMOD 1
+        Connector("pmod", 2, "22 19 16 17 - - 21 18 15 20 - -", conn=("edge", "0")), # PMOD 2
+        Connector("pmod", 3, "14  9 11  8 - - 13 10 12 23 - -", conn=("edge", "0"))  # PMOD 3
     ]
 
     def toolchain_program(self, products, name, run_vid=None, run_pid=None, dfu_vid="1d50", dfu_pid="6146", reset=True):
