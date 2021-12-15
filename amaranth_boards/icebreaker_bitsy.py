@@ -35,9 +35,11 @@ class ICEBreakerBitsyPlatform(LatticeICE40Platform):
     ]
     connectors = [
         Connector("edge", 0,  # Pins bottom P0 - P12,
-            "47 44 48 45  4  3  9 10 11 12 21 13"
-            "20 25 23 27 26 28 31 32 34 36 43 46"
-        )
+            {"0":"47",  "1":"44",  "2":"48",  "3":"45",  "4": "4",  "5": "3",
+             "6": "9",  "7":"10",  "8":"11",  "9":"12", "10":"21", "11":"13",
+            "12":"20", "13":"25", "14":"23", "15":"27", "16":"26", "17":"28",
+            "18":"31", "19":"32", "20":"34", "21":"36", "22":"43", "23":"46"}
+        ),
     ]
 
     def toolchain_program(self, products, name, run_vid=None, run_pid=None, dfu_vid="1d50", dfu_pid="6146", reset=True):
