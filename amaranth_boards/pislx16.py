@@ -50,14 +50,14 @@ class PiSLX16Platform(XilinxSpartan6Platform):
         Connector("p", 1,
             "-    -    K16  J16  L16  K15  M15  M16  P16  N16  "
             "R16  P15  T15  R15  T14  R14  R12  T13  R9   T12  "
-            "L8   T9   R7   T7   T5   T6   T4   R5   R1   R2 "
-            "P2   M4   P6   N6   M5   N4   -    -    -    -  "
+            "L8   T9   R7   T7   T5   T6   T4   R5   R1   R2   "
+            "P2   M4   P6   N6   M5   N4   -    -    -    -    "
         ),
         Connector("p", 2,
             "-    -    A4   B5   A5   B6   A6   A7   B8   A8   "
             "C8   A9   A10  B10  A11  A12  B12  A13  A14  B14  "
-            "B15  B16  C15  C16  D16  E15  C9   E11  C10  D11"
-            "E16  F15  F16  G16  H15  H16  -    -    -    -  "
+            "B15  B16  C15  C16  D16  E15  C9   E11  C10  D11  "
+            "E16  F15  F16  G16  H15  H16  -    -    -    -    "
         ),
     ]
 
