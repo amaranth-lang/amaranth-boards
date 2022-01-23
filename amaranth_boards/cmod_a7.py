@@ -17,7 +17,7 @@ Supported programmer:
 __all__ = ["CmodA7_15Platform", "CmodA7_35Platform"]
 
 
-class _CmodA7Platform(Xilinx7SeriesPlatform):
+class _CmodA7Platform(XilinxPlatform):
     package     = "cpg236"
     speed       = "1"
     default_clk = "clk12"
