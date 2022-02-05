@@ -44,7 +44,11 @@ class PiSLX16Platform(XilinxSpartan6Platform):
 
         # DRAM H57V2562GTR SDRAMResource TODO
         # I2C AT24C02 EEPROM I2CResource TODO
-        # SDCardResources TODO
+        # SDCardResources
+        Resource("sd_clk", 0, Pins("M3", dir="o")),
+        Resource("sd_di",  0, Pins("L5", dir="o")),
+        Resource("sd_do",  0, Pins("L4", dir="i")),
+        Resource("sd_cs",  0, Pins("N3", dir="o")),
     ]
     connectors  = [
         Connector("p", 1,
