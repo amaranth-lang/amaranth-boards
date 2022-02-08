@@ -34,11 +34,11 @@ class Genesys2Platform(Xilinx7SeriesPlatform):
         Resource("clk", 0, DiffPairs(p="AD12 ", n="AD11", dir="i"),
                  Clock(200e6), Attrs(IOSTANDARD="LVDS")),
         *ButtonResources(pins={
-                "w": "M20",
-                "e": "C19",
-                "n": "B19",
-                "s": "M19",
-                "c": "E18"}, attrs=Attrs(IOSTANDARD=bank15_16_17_iostandard)),
+                0: "E18",
+                1: "B19",
+                2: "C19",
+                3: "M19",
+                4: "M20"}, attrs=Attrs(IOSTANDARD=bank15_16_17_iostandard)),
         *SwitchResources(pins="G19 G25 H24 K19 N19 P19",
                          attrs=Attrs(IOSTANDARD=bank15_16_17_iostandard)),
         *SwitchResources(pins={
