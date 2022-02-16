@@ -43,7 +43,7 @@ class LogicbonePlatform(LatticeECP5Platform):
 
         *LEDResources(pins="D16 C15 C13 B13", attrs=Attrs(IO_TYPE="LVCMOS33"), invert=True),
 
-        *SwitchResources(pins="U2", attrs=Attrs(IO_TYPE="LVCMOS33")),
+        *ButtonResources(pins="U2", attrs=Attrs(IO_TYPE="LVCMOS33"), invert=True),
 
         *SPIFlashResources(0,
             cs_n="R2", clk="U3", cipo="V2", copi="W2", wp_n="Y2", hold_n="W1",
