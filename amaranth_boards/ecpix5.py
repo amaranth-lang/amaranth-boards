@@ -83,15 +83,11 @@ class _ECPIX5Platform(LatticeECP5Platform):
             Attrs(IO_TYPE="LVDS")
         ),
 
-        Resource("ulpi", 0,
-            Subsignal("rst",  Pins("E23", dir="o")),
-            Subsignal("clk",  Pins("H24", dir="i")),
-            Subsignal("dir",  Pins("F22", dir="i")),
-            Subsignal("nxt",  Pins("F23", dir="i")),
-            Subsignal("stp",  Pins("H23", dir="o")),
-            Subsignal("data", Pins("M26 L25 L26 K25 K26 J23 P25 H25", dir="io")),
-            Attrs(IO_TYPE="LVCMOS33")
-        ),
+        ULPIResource("ulpi", 0,
+            data="M26 L25 L26 K25 K26 J23 P25 H25",
+            clk="H24", clk_dir="i", dir="F22", nxt="F23",
+            stp="H23", rst="E23", rst_invert=False,
+            attrs=Attrs(IO_TYPE="LVCMOS33", SLEWRATE="SLOW")),
 
         Resource("usbc_cfg", 0,
             Subsignal("scl", Pins("D24", dir="io")),
@@ -101,6 +97,7 @@ class _ECPIX5Platform(LatticeECP5Platform):
             Subsignal("int", PinsN("B24", dir="i")),
             Attrs(IO_TYPE="LVCMOS33")
         ),
+
         Resource("usbc_mux", 0,
             Subsignal("en",    Pins("C23", dir="oe")),
             Subsignal("amsel", Pins("B26", dir="oe")),
