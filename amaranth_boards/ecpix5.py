@@ -121,35 +121,11 @@ class _ECPIX5Platform(LatticeECP5Platform):
         Connector("pmod", 7, "D14 B14 E14 B16 - - C14 A14 A15 A16 - -"),
     ]
 
-    @property
-    def file_templates(self):
-        return {
-            **super().file_templates,
-            "{{name}}-openocd.cfg": r"""
-            interface ftdi
-            ftdi_vid_pid 0x0403 0x6010
-            ftdi_channel 0
-            ftdi_layout_init 0xfff8 0xfffb
-            reset_config none
-            adapter_khz 25000
-
-            {% if "85F" in platform.device -%}
-            jtag newtap ecp5 tap -irlen 8 -expected-id 0x81113043 ; # LF5UM5G-85F
-            {% else -%}
-            jtag newtap ecp5 tap -irlen 8 -expected-id 0x81112043 ; # LF5UM5G-45F
-            {% endif %}
-            """
-        }
-
     def toolchain_program(self, products, name):
-        openocd = os.environ.get("OPENOCD", "openocd")
-        with products.extract("{}-openocd.cfg".format(name), "{}.svf".format(name)) \
-                as (config_filename, vector_filename):
-            subprocess.check_call([openocd,
-                "-f", config_filename,
-                "-c", "transport select jtag; init; svf -quiet {}; exit".format(vector_filename)
-            ])
-
+        import os, subprocess
+        tool = os.environ.get("OPENFPGALOADER", "openFPGALoader")
+        with products.extract("{}.bit".format(name)) as bitstream_filename:
+            subprocess.check_call([tool, '-c', 'ft2232', '-m', bitstream_filename])
 
 class ECPIX545Platform(_ECPIX5Platform):
     device      = "LFE5UM5G-45F"
