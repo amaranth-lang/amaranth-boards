@@ -22,7 +22,7 @@ class VersaECP5Platform(LatticeECP5Platform):
         Resource("pclk", 0, DiffPairs("A4", "A5", dir="i"),
                  Attrs(IO_TYPE="LVDS")),
 
-        *LEDResources(pins="E16 D17 D18 E18 F17 F18 E17 F16",
+        *LEDResources(pins="E16 D17 D18 E18 F17 F18 E17 F16", invert=True,
                       attrs=Attrs(IO_TYPE="LVCMOS25")),
 
         Resource("alnum_led", 0,
