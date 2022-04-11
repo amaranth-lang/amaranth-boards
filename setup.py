@@ -21,8 +21,9 @@ setup(
     license="BSD",
     setup_requires=["wheel", "setuptools", "setuptools_scm"],
     install_requires=[
-        "amaranth>=0.2,<0.5",
+        "amaranth>=0.2,<0.6",
         "importlib_metadata; python_version<'3.8'",
+        "markupsafe==2.0.1",
     ],
     packages=find_packages(),
     project_urls={
