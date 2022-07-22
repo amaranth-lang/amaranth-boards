@@ -26,7 +26,7 @@ class MCH2022BadgePlatform(LatticeICE40Platform):
         UARTResource(0, rx="6", tx="9", attrs=Attrs(IO_STANDARD="SB_LVTTL", PULLUP=1)),
         # IRQ (to ESP32)
         Resource(
-            "irq", 0, PinsN("10", dir="o"), Attrs(IO_STANDARD="SB_LVCMOS", PULLUP=1)
+            "irq", 0, PinsN("10", dir="oe"), Attrs(IO_STANDARD="SB_LVCMOS", PULLUP=1)
         ),
         # SPI Peripheral (to ESP32)
         SPIResource(
@@ -57,9 +57,9 @@ class MCH2022BadgePlatform(LatticeICE40Platform):
             ),
             Subsignal("rs", Pins("11"), Attrs(PULLMODE="UP")),
             Subsignal("wr", PinsN("23"), Attrs(PULLMODE="UP")),
-            Subsignal("cs", PinsN("28"), Attrs(PULLMODE="UP")),
+            Subsignal("cs", PinsN("28", dir="oe"), Attrs(PULLMODE="UP")),
             Subsignal("mode", Pins("43")),
-            Subsignal("rst", PinsN("36")),
+            Subsignal("rst", PinsN("36", dir="oe")),
             Subsignal("fmark", Pins("25")),
             Attrs(IO_STANDARD="SB_LVCMOS"),
         ),
