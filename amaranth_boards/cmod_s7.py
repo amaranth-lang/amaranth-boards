@@ -73,14 +73,11 @@ class CmodS7_Platform(XilinxPlatform):
     ]
 
     def toolchain_program(self, products, name):
-        openocd = os.environ.get("OPENOCD", "openocd")
         with products.extract("{}.bit".format(name)) as bitstream_filename:
-            subprocess.check_call([openocd,
-                # Use for debug output
-                #"-d",
-                "-c",
-                "source [find board/digilent_cmod_s7.cfg]; init; pld load 0 {}; exit"
-                    .format(bitstream_filename)
+            subprocess.check_call(["openFPGALoader",
+                "-c", "digilent",
+                "--fpga-part", "xc7s25",
+                "{}".format(bitstream_filename)
             ])
 
 
