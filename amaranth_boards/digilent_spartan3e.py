@@ -185,54 +185,24 @@ class DigilentSpartan3ePlatform(XilinxPlatform):
     ]
 
     connectors = [
-        # ==== FX2 Connector (FX2) ====
-        #Resource("fx2_clkin",       0, Pins("E10"), Attrs(IOSTANDARD="LVCMOS33")), 
-        #Resource("fx2_clkio",       0, Pins("D9"), Attrs(IOSTANDARD="LVCMOS33", SLEW="FAST", DRIVE="8")), 
-        #Resource("fx2_clkout",      0, Pins("D10"), Attrs(IOSTANDARD="LVCMOS33", SLEW="FAST", DRIVE="8")), 
-        #Resource("fx2_io<1>",       0, Pins("B4"), Attrs(IOSTANDARD="LVCMOS33", SLEW="FAST", DRIVE="8")), 
-        #Resource("fx2_io<2>",       0, Pins("A4"), Attrs(IOSTANDARD="LVCMOS33", SLEW="FAST", DRIVE="8")), 
-        #Resource("fx2_io<3>",       0, Pins("D5"), Attrs(IOSTANDARD="LVCMOS33", SLEW="FAST", DRIVE="8")), 
-        #Resource("fx2_io<4>",       0, Pins("C5"), Attrs(IOSTANDARD="LVCMOS33", SLEW="FAST", DRIVE="8")), 
-        #Resource("fx2_io<5>",       0, Pins("A6"), Attrs(IOSTANDARD="LVCMOS33", SLEW="FAST", DRIVE="8")), 
-        #Resource("fx2_io<6>",       0, Pins("B6"), Attrs(IOSTANDARD="LVCMOS33", SLEW="FAST", DRIVE="8")), 
-        #Resource("fx2_io<7>",       0, Pins("E7"), Attrs(IOSTANDARD="LVCMOS33", SLEW="FAST", DRIVE="8")), 
-        #Resource("fx2_io<8>",       0, Pins("F7"), Attrs(IOSTANDARD="LVCMOS33", SLEW="FAST", DRIVE="8")), 
-        #Resource("fx2_io<9>",       0, Pins("D7"), Attrs(IOSTANDARD="LVCMOS33", SLEW="FAST", DRIVE="8")), 
-        #Resource("fx2_io<10>",      0, Pins("C7"), Attrs(IOSTANDARD="LVCMOS33", SLEW="FAST", DRIVE="8")), 
-        #Resource("fx2_io<11>",      0, Pins("F8"), Attrs(IOSTANDARD="LVCMOS33", SLEW="FAST", DRIVE="8")), 
-        #Resource("fx2_io<12>",      0, Pins("E8"), Attrs(IOSTANDARD="LVCMOS33", SLEW="FAST", DRIVE="8")), 
-        #Resource("FX2_IO<13>",      0, Pins("F9" ), Attrs(IOSTANDARD="LVCMOS33", SLEW="FAST", DRIVE="8")), 
-        #Resource("FX2_IO<14>",      0, Pins("E9" ), Attrs(IOSTANDARD="LVCMOS33", SLEW="FAST", DRIVE="8")), 
-        #Resource("FX2_IO<15>",      0, Pins("D11"), Attrs(IOSTANDARD="LVCMOS33", SLEW="FAST", DRIVE="8")), 
-        #Resource("FX2_IO<16>",      0, Pins("C11"), Attrs(IOSTANDARD="LVCMOS33", SLEW="FAST", DRIVE="8")), 
-        #Resource("FX2_IO<17>",      0, Pins("F11"), Attrs(IOSTANDARD="LVCMOS33", SLEW="FAST", DRIVE="8")), 
-        #Resource("FX2_IO<18>",      0, Pins("E11"), Attrs(IOSTANDARD="LVCMOS33", SLEW="FAST", DRIVE="8")), 
-        #Resource("FX2_IO<19>",      0, Pins("E12"), Attrs(IOSTANDARD="LVCMOS33", SLEW="FAST", DRIVE="8")), 
-        #Resource("FX2_IO<20>",      0, Pins("F12"), Attrs(IOSTANDARD="LVCMOS33", SLEW="FAST", DRIVE="8")),
-        #Resource("fx2_io<21>",      0, Pins("A13"), Attrs(IOSTANDARD="LVCMOS33", SLEW="FAST", DRIVE="8")), 
-        #Resource("fx2_io<22>",      0, Pins("B13"), Attrs(IOSTANDARD="LVCMOS33", SLEW="FAST", DRIVE="8")), 
-        #Resource("fx2_io<23>",      0, Pins("A14"), Attrs(IOSTANDARD="LVCMOS33", SLEW="FAST", DRIVE="8")), 
-        #Resource("fx2_io<24>",      0, Pins("B14"), Attrs(IOSTANDARD="LVCMOS33", SLEW="FAST", DRIVE="8")), 
-        #Resource("fx2_io<25>",      0, Pins("C14"), Attrs(IOSTANDARD="LVCMOS33", SLEW="FAST", DRIVE="8")), 
-        #Resource("fx2_io<26>",      0, Pins("D14"), Attrs(IOSTANDARD="LVCMOS33", SLEW="FAST", DRIVE="8")),
-        #Resource("fx2_io<27>",      0, Pins("A16"), Attrs(IOSTANDARD="LVCMOS33", SLEW="FAST", DRIVE="8")), 
-        #Resource("fx2_io<28>",      0, Pins("B16"), Attrs(IOSTANDARD="LVCMOS33", SLEW="FAST", DRIVE="8")), 
-        #Resource("fx2_io<29>",      0, Pins("E13"), Attrs(IOSTANDARD="LVCMOS33", SLEW="FAST", DRIVE="8")), 
-        #Resource("fx2_io<30>",      0, Pins("C4"), Attrs(IOSTANDARD="LVCMOS33", SLEW="FAST", DRIVE="8")), 
-        #Resource("fx2_io<31>",      0, Pins("B11"), Attrs(IOSTANDARD="LVCMOS33", SLEW="FAST", DRIVE="8")), 
-        #Resource("fx2_io<32>",      0, Pins("A11"), Attrs(IOSTANDARD="LVCMOS33", SLEW="FAST", DRIVE="8")), 
-        #Resource("fx2_io<33>",      0, Pins("A8"), Attrs(IOSTANDARD="LVCMOS33", SLEW="FAST", DRIVE="8")), 
-        #Resource("fx2_io<34>",      0, Pins("G9"), Attrs(IOSTANDARD="LVCMOS33", SLEW="FAST", DRIVE="8")), 
-        #Resource("fx2_ip<35>",      0, Pins("D12"), Attrs(IOSTANDARD="LVCMOS33", SLEW="FAST", DRIVE="8")), 
-        #Resource("fx2_ip<36>",      0, Pins("C12"), Attrs(IOSTANDARD="LVCMOS33", SLEW="FAST", DRIVE="8")), 
-        #Resource("fx2_ip<37>",      0, Pins("A15"), Attrs(IOSTANDARD="LVCMOS33", SLEW="FAST", DRIVE="8")), 
-        #Resource("fx2_ip<38>",      0, Pins("B15"), Attrs(IOSTANDARD="LVCMOS33", SLEW="FAST", DRIVE="8")), 
-        #Resource("fx2_io<39>",      0, Pins("C3"), Attrs(IOSTANDARD="LVCMOS33", SLEW="FAST", DRIVE="8")), 
-        #Resource("fx2_ip<40>",      0, Pins("C15"), Attrs(IOSTANDARD="LVCMOS33", SLEW="FAST", DRIVE="8")), 
+        # ==== 6-pin header J1 ==== (Pg. 121 in User Guide)
+        Connector("j", 1,
+            "B4 A4 D5 C5 - -"),
 
-        Connector("j", 0, "B4 A4 D5 C5"),
-        Connector("j", 1, "A6 B6 E7 F7"),
-        Connector("j", 2, "D7 C7 F8 E8")
+        # ==== 6-pin header J2 ==== (Pg. 121 in User Guide)
+        Connector("j", 2,
+            "A6 B6 E7 F7 - -"),
+
+        # ==== FX2 Connector (FX2) ==== (Pg. 113 in User Guide)
+        Connector("j", 3,
+            "-   -   -   -   -   B4  A4  D5  C5  A6 B6  E7  F7 D7 C7  F8  E8  F9  E9 D11 C11 F11 E11 E12 F12"
+            "A13 B13 A14 B14 C14 D14 A16 B16 E13 C4 B11 A11 A8 G9 D12 C12 A15 B15 C3 C15 -   D10 -   -   -  "
+            "-   -   -   -   -   -   -   -   -   -  -   -   -  -  -   -   -   -   -  -   -   -   -   -   -  "
+            "-   -   -   -   -   -   -   -   -   -  -   -   -  -  -   -   -   -   -  -   E10 -   D9  -   -  "),
+
+        # ==== 6-pin header J4 ==== (Pg. 121 in User Guide)
+        Connector("j", 4,
+            "D7 C7 F8 E8 - -"),
     ]
 
     def toolchain_program(self, products, name):
