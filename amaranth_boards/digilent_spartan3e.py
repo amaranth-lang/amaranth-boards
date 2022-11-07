@@ -131,10 +131,10 @@ class DigilentSpartan3ePlatform(XilinxPlatform):
 
         # ==== Character LCD (LCD) ==== (Pg. 41 in User Guide)
         Resource("lcd", 0,
-            Subsignal("e",  Pins("M18")), 
-            Subsignal("rs", Pins("L18")), 
-            Subsignal("rw", Pins("L17")), 
-            Subsignal("d",  Pins("R15 R16 P17 M15")),
+            Subsignal("e",  Pins("M18", dir='o')), 
+            Subsignal("rs", Pins("L18", dir='o')), 
+            Subsignal("rw", Pins("L17", dir='o')), 
+            Subsignal("d",  Pins("R15 R16 P17 M15", dir='o')),
             Attrs(IOSTANDARD="LVCMOS33", DRIVE="4", SLEW="SLOW")),
 
         # ==== Rotary Pushbutton Switch (ROT) ==== (Pg. 17 in User Guide)
