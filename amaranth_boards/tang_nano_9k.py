@@ -10,20 +10,24 @@ __all__ = ["TangNano9kPlatform"]
 
 
 class TangNano9kPlatform(GowinPlatform):
-    device      = "GW1NR"
-    package     = "LV9QN88PC6/I5"
+    device      = "GW1N-9C"
+    family      = "GW1NR"
+    voltage     = "LV"
+    size        = "9"
+    package     = "QN88P"
+    speed       = "C6/I5"
     default_clk = "clk27"
     board       = "tangnano9k"
     resources   = [
         Resource("clk27", 0, Pins("52", dir="i"),
-                 Clock(27e6), Attrs(IO_STANDARD="LVCMOS33")),
+                 Clock(27e6), Attrs(IO_TYPE="LVCMOS33")),
 
         *LEDResources(pins="10 11 12 13 14 15 16",
-                      attrs=Attrs(IO_STANDARD="LVCMOS33")),
+                      attrs=Attrs(IO_TYPE="LVCMOS33")),
 
         *SPIFlashResources(0,
             cs_n="60", clk="59", copi="61", cipo="62",
-            attrs=Attrs(IO_STANDARD="LVCMOS33")
+            attrs=Attrs(IO_TYPE="LVCMOS33")
         ),
     ]
     connectors  = [
