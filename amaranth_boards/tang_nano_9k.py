@@ -51,8 +51,7 @@ class TangNano9kPlatform(GowinPlatform):
     def toolchain_program(self, products, name):
         with products.extract("{}.fs".format(name)) as bitstream_filename:
             subprocess.check_call(["openFPGALoader",
-                                   "-b",
-                                   self.board,
+                                   "-b", self.board,
                                    bitstream_filename])
 
 
