@@ -3,7 +3,11 @@ import subprocess
 
 from amaranth.build import *
 from amaranth.vendor.gowin import *
-from .resources import *
+
+try:
+    from .resources import *
+except:
+    from resources import *
 
 
 __all__ = ["TangNano9kPlatform"]
@@ -22,7 +26,7 @@ class TangNano9kPlatform(GowinPlatform):
         Resource("clk27", 0, Pins("52", dir="i"),
                  Clock(27e6), Attrs(IO_TYPE="LVCMOS33")),
 
-        *LEDResources(pins="10 11 12 13 14 15 16",
+        *LEDResources(pins="10 11 13 14 15 16",
                       attrs=Attrs(IO_TYPE="LVCMOS33")),
 
         *SPIFlashResources(0,
@@ -53,5 +57,8 @@ class TangNano9kPlatform(GowinPlatform):
 
 
 if __name__ == "__main__":
-    from .test.blinky import *
+    try:
+        from .test.blinky import *
+    except:
+        from test.blinky import *
     TangNano9kPlatform().build(Blinky(), do_program=True)
