@@ -124,7 +124,7 @@ class OrangeCrabR0_2Platform(LatticeECP5Platform):
     def toolchain_program(self, products, name):
         dfu_util = os.environ.get("DFU_UTIL", "dfu-util")
         with products.extract("{}.bit".format(name)) as bitstream_filename:
-            subprocess.check_call([dfu_util, "-D", bitstream_filename])
+            subprocess.check_call([dfu_util, "-a 0", "-D", bitstream_filename])
 
 
 if __name__ == "__main__":
