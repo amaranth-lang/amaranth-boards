@@ -6,10 +6,10 @@ from amaranth.build import *
 from amaranth.vendor.lattice_ecp5 import *
 from .resources import *
 
-# NOTE: Keep OrangeCrabR0_2FPlatform for backwards compatibility
-# Originally, there was only OrangeCrabR0_2FPlatform, but the 85F variant
+# NOTE: Keep OrangeCrabR0_2Platform for backwards compatibility
+# Originally, there was only OrangeCrabR0_2Platform, but the 85F variant
 # needs a different device.
-__all__ = ["OrangeCrabR0_2FPlatform", "OrangeCrabR0_2_25FPlatform", "OrangeCrabR0_2_85FPlatform"]
+__all__ = ["OrangeCrabR0_2Platform", "OrangeCrabR0_2_25FPlatform", "OrangeCrabR0_2_85FPlatform"]
 
 class _OrangeCrabR0_2Platform(LatticeECP5Platform):
     package     = "MG285"
