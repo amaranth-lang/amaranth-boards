@@ -126,7 +126,7 @@ class _OrangeCrabR0_2Platform(LatticeECP5Platform):
         with products.extract("{}.bit".format(name)) as bitstream_filename:
             subprocess.check_call([dfu_util, "-a 0", "-D", bitstream_filename])
 
-class OrangeCrabR0_2FPlatform(_OrangeCrabR0_2Platform):
+class OrangeCrabR0_2Platform(_OrangeCrabR0_2Platform):
     device      = "LFE5U-25F"
 
 class OrangeCrabR0_2_25FPlatform(_OrangeCrabR0_2Platform):
