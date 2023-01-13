@@ -23,6 +23,7 @@ setup(
     install_requires=[
         "amaranth>=0.2,<0.5",
         "importlib_metadata; python_version<'3.8'",
+        "markupsafe==2.0.1",
     ],
     packages=find_packages(),
     project_urls={
