@@ -13,19 +13,27 @@ class ElbertV2NumatoPlatform(XilinxPlatform):
     resources = [
         Resource("clk12", 0, Pins("P129", dir="i"), Clock(12e6), Attrs(IOSTANDARD="LVCMOS33")),
 
-        *LEDResources(pins="P55 P54 P51 P50 P49 P48 P47 P46", attrs=Attrs(IOSTANDARD="LVCMOS33")),
-        Display7SegResource(0, a="P117", b="P116", c="P115", d="P113", e="P112", f="P111", g="P110", dp="P114",
-                            invert=True, attrs=Attrs(IOSTANDARD="LVCMOS33")),
+        *LEDResources(pins="P55 P54 P51 P50 P49 P48 P47 P46",
+                      attrs=Attrs(IOSTANDARD="LVCMOS33", SLEW="SLOW", DRIVE="12")),
+        Display7SegResource(0, a="P114", b="P110", c="P111", d="P112", e="P113", f="P115", g="P116", dp="P117",
+                            invert=True, attrs=Attrs(IOSTANDARD="LVCMOS33", SLEW="SLOW", DRIVE="12")),
         Resource("display_7seg_ctrl", 0,
-            Subsignal("en", Pins("P120 P121 P124", invert=True, dir="o"))
+            Subsignal("en", Pins("P120 P121 P124", invert=True, dir="o"),
+                      Attrs(IOSTANDARD="LVCMOS33", SLEW="SLOW", DRIVE="12"))
         ),
-        VGAResource(0, r="P105 P104 P103", g="P102 P101 P99", b="P98 P96", hs="P93", vs="P92", attrs=Attrs(IOSTANDARD="LVCMOS33")),
-        *SDCardResources(0, dat0="P83", dat1="P82", dat2="P90", dat3="P85", cmd="P84", clk="P57", attrs=Attrs(IOSTANDARD="LVCMOS33")),
+        VGAResource(0, r="P105 P104 P103", g="P102 P101 P99", b="P98 P96", hs="P93", vs="P92",
+                    attrs=Attrs(IOSTANDARD="LVCMOS33", SLEW="SLOW", DRIVE="12")),
+        *SDCardResources(0, dat0="P83", dat1="P82", dat2="P90", dat3="P85", cmd="P84", clk="P57",
+                         attrs=Attrs(IOSTANDARD="LVCMOS33", SLEW="SLOW", DRIVE="12")),
         Resource("audiojack", 0,
-            Subsignal("audio", Pins("P88 P87", dir="o"))
+            Subsignal("audio", Pins("P88 P87", dir="o"), Attrs(IOSTANDARD="LVCMOS33", SLEW="SLOW", DRIVE="12"))
         ),
-        *ButtonResources(pins="P80 P79 P78 P77 P76 P75", attrs=Attrs(IOSTANDARD="LVCMOS33")),
-        *SwitchResources(pins="P70 P69 P68 P64 P63 P60 P59 P58", attrs=Attrs(IOSTANDARD="LVCMOS33"))
+        *ButtonResources(pins="P80 P79 P78 P77 P76 P75",
+                         attrs=Attrs(IOSTANDARD="LVCMOS33", PULLUP="TRUE", DRIVE="12",
+                                     SLEW="SLOW")),
+        *SwitchResources(pins="P70 P69 P68 P64 P63 P60 P59 P58",
+                         attrs=Attrs(IOSTANDARD="LVCMOS33", PULLUP="TRUE", DRIVE="12",
+                                     SLEW="SLOW"))
     ]
 
     connectors = [
