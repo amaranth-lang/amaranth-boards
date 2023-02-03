@@ -3,11 +3,31 @@ name: CI
 jobs:
   test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version:
+        - '3.7'
+        # this version range needs to be synchronized with the one in pyproject.toml
+        amaranth-version:
+        - '0.2'
+        - '0.3'
+        - 'git'
+      fail-fast: false
     steps:
       - name: Check out source code
         uses: actions/checkout@v3
       - name: Set up Python
         uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install Amaranth release
+        if: ${{ matrix.amaranth-version != 'git' }}
+        run: |
+          pip install 'amaranth==${{ matrix.amaranth-version }}'
+      - name: Install Amaranth from git
+        if: ${{ matrix.amaranth-version == 'git' }}
+        run: |
+          pip install git+https://github.com/amaranth-lang/amaranth.git
       - name: Test
         run: |
-          python setup.py test
+          python -m unittest discover -t . -s amaranth_boards -p '*.py'

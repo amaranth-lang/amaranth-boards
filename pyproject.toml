@@ -12,6 +12,7 @@ license = {file = "LICENSE.txt"}
 
 dependencies = [
   "importlib_metadata; python_version<'3.8'",
+  # this version requirement needs to be synchronized with the one in .github/workflows/main.yml
   "amaranth>=0.2,<0.5",
 ]
 
