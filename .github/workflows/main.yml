@@ -23,6 +23,10 @@ jobs:
         if: ${{ matrix.amaranth-version != 'git' }}
         run: |
           pip install 'amaranth==${{ matrix.amaranth-version }}'
+      - name: Downgrade MarkupSafe
+        if: ${{ matrix.amaranth-version == '0.3' }}
+        run: |
+          pip install 'MarkupSafe==2.0.1'
       - name: Install Amaranth from git
         if: ${{ matrix.amaranth-version == 'git' }}
         run: |
