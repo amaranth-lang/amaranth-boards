@@ -1,13 +1,15 @@
 from amaranth.build import *
-from amaranth.vendor.xilinx_7series import *
+from amaranth.vendor.xilinx import *
+
 
 __all__ = ["MicroZedZ010Platform"]
 
-class MicroZedZ010Platform(Xilinx7SeriesPlatform):
-    device = "xc7z010"
-    package = "clg400"
-    speed = "1"
-    resources = []
+
+class MicroZedZ010Platform(XilinxPlatform):
+    device     = "xc7z010"
+    package    = "clg400"
+    speed      = "1"
+    resources  = []
     connectors = [
         Connector("JX1", 0,
             "F9  J6  "

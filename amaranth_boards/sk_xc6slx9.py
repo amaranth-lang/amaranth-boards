@@ -2,14 +2,14 @@ import os
 import subprocess
 
 from amaranth.build import *
-from amaranth.vendor.xilinx_spartan_3_6 import *
+from amaranth.vendor.xilinx import *
 from .resources import *
 
 
 __all__ = ["SK_XC6SLX9Platform"]
 
 
-class SK_XC6SLX9Platform(XilinxSpartan6Platform):
+class SK_XC6SLX9Platform(XilinxPlatform):
     device      = "xc6slx9"
     package     = "tqg144"
     speed       = "2"

@@ -2,14 +2,14 @@ import subprocess
 import textwrap
 
 from amaranth.build import *
-from amaranth.vendor.xilinx_spartan_3_6 import *
+from amaranth.vendor.xilinx import *
 from .resources import *
 
 
 __all__ = ["AtlysPlatform"]
 
 
-class AtlysPlatform(XilinxSpartan6Platform):
+class AtlysPlatform(XilinxPlatform):
     """Platform file for Digilent Atlys Spartan 6 board.
     https://reference.digilentinc.com/reference/programmable-logic/atlys/start"""
 

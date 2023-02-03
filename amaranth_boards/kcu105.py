@@ -2,14 +2,14 @@ import os
 import subprocess
 
 from amaranth.build import *
-from amaranth.vendor.xilinx_ultrascale import *
+from amaranth.vendor.xilinx import *
 from .resources import *
 
 
 __all__ = ["KCU105Platform"]
 
 
-class KCU105Platform(XilinxUltraScalePlatform):
+class KCU105Platform(XilinxPlatform):
     device      = "xcku040"
     package     = "ffva1156"
     speed       = "2-e"

@@ -1,5 +1,5 @@
 from amaranth.build import *
-from amaranth.vendor.lattice_machxo2 import *
+from amaranth.vendor.lattice_machxo_2_3l import *
 from .resources import *
 
 

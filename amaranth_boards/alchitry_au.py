@@ -3,7 +3,7 @@ import subprocess
 import shutil
 
 from amaranth.build import *
-from amaranth.vendor.xilinx_7series import *
+from amaranth.vendor.xilinx import *
 from .resources import *
 
 
@@ -20,7 +20,7 @@ def find_loader():
     return (loader_prgm, bridge_bin)
 
 
-class AlchitryAuPlatform(Xilinx7SeriesPlatform):
+class AlchitryAuPlatform(XilinxPlatform):
     device      = "XC7A35T" # Artix 7 33K LEs
     package     = "FTG256"
     speed       = "1"

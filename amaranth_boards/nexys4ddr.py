@@ -2,14 +2,14 @@ import os
 import subprocess
 
 from amaranth.build import *
-from amaranth.vendor.xilinx_7series import *
+from amaranth.vendor.xilinx import *
 from .resources import *
 
 
 __all__ = ["Nexys4DDRPlatform"]
 
 
-class Nexys4DDRPlatform(Xilinx7SeriesPlatform):
+class Nexys4DDRPlatform(XilinxPlatform):
     device      = "xc7a100t"
     package     = "csg324"
     speed       = "1"

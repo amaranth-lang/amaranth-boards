@@ -2,14 +2,14 @@ import os
 import subprocess
 
 from amaranth.build import *
-from amaranth.vendor.xilinx_7series import *
+from amaranth.vendor.xilinx import *
 from .resources import *
 
 
 __all__ = ["ArtyA7_35Platform", "ArtyA7_100Platform"]
 
 
-class _ArtyA7Platform(Xilinx7SeriesPlatform):
+class _ArtyA7Platform(XilinxPlatform):
     package     = "csg324"
     speed       = "1L"
     default_clk = "clk100"

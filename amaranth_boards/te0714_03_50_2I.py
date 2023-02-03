@@ -1,12 +1,12 @@
 from amaranth.build import *
-from amaranth.vendor.xilinx_7series import *
+from amaranth.vendor.xilinx import *
 from .resources import *
 
 
 __all__ = ["TE0714_03_50_2IPlatform"]
 
 
-class TE0714_03_50_2IPlatform(Xilinx7SeriesPlatform):
+class TE0714_03_50_2IPlatform(XilinxPlatform):
     device      = "xc7a50t"
     package     = "csg325"
     speed       = "2"

@@ -2,14 +2,14 @@ import os
 import subprocess
 
 from amaranth.build import *
-from amaranth.vendor.xilinx_7series import *
+from amaranth.vendor.xilinx import *
 from .resources import *
 
 
 __all__ = ["Genesys2Platform"]
 
 
-class Genesys2Platform(Xilinx7SeriesPlatform):
+class Genesys2Platform(XilinxPlatform):
     """Platform file for Diglient Genesys2 Kitex-7 board.
     https://reference.digilentinc.com/reference/programmable-logic/genesys-2/start"""
 

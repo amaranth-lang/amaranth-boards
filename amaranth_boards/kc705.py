@@ -2,14 +2,14 @@ import os
 import subprocess
 
 from amaranth.build import *
-from amaranth.vendor.xilinx_7series import *
+from amaranth.vendor.xilinx import *
 from .resources import *
 
 
 __all__ = ["KC705Platform"]
 
 
-class KC705Platform(Xilinx7SeriesPlatform):
+class KC705Platform(XilinxPlatform):
     device      = "xc7k325t"
     package     = "ffg900"
     speed       = "2"

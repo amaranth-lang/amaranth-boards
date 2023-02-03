@@ -1,11 +1,11 @@
 from amaranth.build import *
-from amaranth.vendor.xilinx_7series import *
+from amaranth.vendor.xilinx import *
 
 
 __all__ = ["ZTurnLiteZ007SPlatform"]
 
 
-class ZTurnLiteZ007SPlatform(Xilinx7SeriesPlatform):
+class ZTurnLiteZ007SPlatform(XilinxPlatform):
     device     = "xc7z007s"
     package    = "clg400"
     speed      = "1"

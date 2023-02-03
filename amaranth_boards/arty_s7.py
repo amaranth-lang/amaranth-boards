@@ -3,14 +3,14 @@ import textwrap
 import subprocess
 
 from amaranth.build import *
-from amaranth.vendor.xilinx_7series import *
+from amaranth.vendor.xilinx import *
 from .resources import *
 
 
 __all__ = ["ArtyS7_25Platform", "ArtyS7_50Platform"]
 
 
-class _ArtyS7Platform(Xilinx7SeriesPlatform):
+class _ArtyS7Platform(XilinxPlatform):
     package     = "csga324"
     speed       = "1"
     default_clk = "clk100"

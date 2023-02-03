@@ -2,14 +2,14 @@ import os
 import subprocess
 
 from amaranth.build import *
-from amaranth.vendor.xilinx_spartan_3_6 import *
+from amaranth.vendor.xilinx import *
 from .resources import *
 
 
 __all__ = ["MercuryPlatform"]
 
 
-class MercuryPlatform(XilinxSpartan3APlatform):
+class MercuryPlatform(XilinxPlatform):
     """
     Original Mercury Board from Micro-Nova: https://www.micro-nova.com
 

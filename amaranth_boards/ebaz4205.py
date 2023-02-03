@@ -2,14 +2,14 @@ import os
 import subprocess
 
 from amaranth.build import *
-from amaranth.vendor.xilinx_7series import *
+from amaranth.vendor.xilinx import *
 from .resources import *
 
 
 __all__ = ["EBAZ4205Platform"]
 
 
-class EBAZ4205Platform(Xilinx7SeriesPlatform):
+class EBAZ4205Platform(XilinxPlatform):
     device      = "xc7z010"
     package     = "clg400"
     speed       = "1"
