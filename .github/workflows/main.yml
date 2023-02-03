@@ -9,7 +9,6 @@ jobs:
         - '3.7'
         # this version range needs to be synchronized with the one in pyproject.toml
         amaranth-version:
-        - '0.2'
         - '0.3'
         - 'git'
       fail-fast: false
