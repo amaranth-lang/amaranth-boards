@@ -1,0 +1,23 @@
+[build-system]
+requires = ["wheel", "setuptools~=67.0", "setuptools_scm[toml]>=6.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+dynamic = ["version"]
+
+name = "amaranth-boards"
+description = "Board and connector definitions for Amaranth HDL"
+authors = [{name = "Amaranth HDL contributors"}]
+license = {file = "LICENSE.txt"}
+
+dependencies = [
+  "importlib_metadata; python_version<'3.8'",
+  "amaranth>=0.2,<0.5",
+]
+
+[project.urls]
+"Source Code" = "https://github.com/amaranth-lang/amaranth-boards"
+"Bug Tracker" = "https://github.com/amaranth-lang/amaranth-boards/issues"
+
+[tool.setuptools_scm]
+local_scheme = "node-and-timestamp"
