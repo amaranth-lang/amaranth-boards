@@ -58,7 +58,7 @@ class DE10NanoPlatform(IntelPlatform):
             Subsignal("mclk", Pins("U11", dir="o")),
             Subsignal("lrclk", Pins("T11", dir="o")),
             Subsignal("sclk", Pins("T12", dir="o")),
-            Subsignal("scl", Pins("U10", dir="o")),
+            Subsignal("scl", Pins("U10", dir="io")),
             Subsignal("sda", Pins("AA4", dir="io")),
             Attrs(io_standard="3.3-V LVTTL")),
     ]
