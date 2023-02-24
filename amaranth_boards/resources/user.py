@@ -7,18 +7,6 @@ __all__ = ["LEDResources", "RGBLEDResource", "ButtonResources", "SwitchResources
 def _SplitResources(*args, pins, invert=False, conn=None, attrs=None, default_name, dir):
     assert isinstance(pins, (str, list, dict))
 
-    if isinstance(pins, dict): # this must be tested first
-        keys = pins.keys()
-        keys_are_ints = None
-        if all(isinstance(k, int) for k in keys):
-            keys_are_ints = 1
-        elif all(isinstance(k, str) for k in keys):
-            keys_are_ints = 0
-        else:
-            raise TypeError("A dict of pins must not mix key types!")
-        if keys_are_ints == 0:
-            pins = dict(enumerate(pins.items()))
-
     if isinstance(pins, str):
         pins = pins.split()
     if isinstance(pins, list):
@@ -26,17 +14,10 @@ def _SplitResources(*args, pins, invert=False, conn=None, attrs=None, default_na
 
     resources = []
     for number, pin in pins.items():
-        if isinstance(pin, tuple):
-            pin_name = pin[0]
-            res_name = pin[1]
-        else:
-            pin_name = pin
-            res_name = default_name
-
-        ios = [Pins(pin_name, dir=dir, invert=invert, conn=conn)]
+        ios = [Pins(pin, dir=dir, invert=invert, conn=conn)]
         if attrs is not None:
             ios.append(attrs)
-        resources.append(Resource.family(*args, number, default_name=res_name, ios=ios))
+        resources.append(Resource.family(*args, number, default_name=default_name, ios=ios))
     return resources
 
 
