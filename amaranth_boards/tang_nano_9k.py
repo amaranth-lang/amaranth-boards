@@ -26,26 +26,74 @@ class TangNano9kPlatform(GowinPlatform):
         Resource("clk27", 0, Pins("52", dir="i"),
                  Clock(27e6), Attrs(IO_TYPE="LVCMOS33")),
 
+        *ButtonResources(pins="3 4",
+                         attrs=Attrs(IO_TYPE="LVCMOS33")),
+
+        # Pins 5 to 8 are JTAG (TMS, TCK, TDI, TDO) from BL702
+
+        # Pin 12 is VCC03_1V8
         *LEDResources(pins="10 11 13 14 15 16",
                       attrs=Attrs(IO_TYPE="LVCMOS33")),
 
+        # Connects to BL702 UART1
+        UARTResource(0, rx="18", tx="17", attrs=Attrs(IO_TYPE="LVCMOS33")),
+
         *SPIFlashResources(0,
             cs_n="60", clk="59", copi="61", cipo="62",
-            attrs=Attrs(IO_TYPE="LVCMOS33")
-        ),
+            attrs=Attrs(IO_TYPE="LVCMOS33")),
+
+        *SDCardResources(0,
+            clk="36", cmd="37", dat0="39", dat3="38", wp_n="-",
+            attrs=Attrs(IO_TYPE="LVCMOS33")),
+
+        Resource("backlight_pwm", 0, Pins("86", dir="o"),
+            Attrs(IO_TYPE="LVCMOS33")),
+
+        # Missing 1.14 inch LCD
+        # LCD_RESET  RESET PIN47_EN
+        # PIN49_RS   RS
+        # PIN77_MO   SDA
+        # PIN76_MCLK SCL
+        # PIN48_CS   CS
+
+        Resource("hdmi", 0,  # FPGA_HDMI
+                 Subsignal("clk",
+                           DiffPairs(p="69", n="68", dir="o")),
+                 Subsignal("d",
+                           DiffPairs(p="71 73 75",
+                                     n="70 72 74", dir="o")),
+                 Attrs(IO_TYPE="LVCMOS33")),
+
     ]
     connectors  = [
         Connector("gpio", 0,
-                  # When viewed from top (FPGA-side up), from USB to HDMI
-                  # top row
-                  #                                                   5V
-                  "63 86 85 84 83 82 81 80 79 77 76 75 74 73 72 71 70  -"
-                  #           GND 3V3
-                  "48 49 31 32  -  -"
-                  # bottom row
-                  "38 37 36 39 25 26 27 28 29 30 33 34 40 35 41 42 51 53"
-                  "54 55 56 57 68 69"
+            # When viewed from top (FPGA-side up), from USB to HDMI
+            # top row
+            #                                                   5V
+            "63 86 85 84 83 82 81 80 79 77 76 75 74 73 72 71 70  -"
+            #           GND 3V3
+            "48 49 31 32  -  -"
+            # bottom row
+            "38 37 36 39 25 26 27 28 29 30 33 34 40 35 41 42 51 53"
+            "54 55 56 57 68 69"
         ),
+        # TODO: Convert to Resource
+        Connector("rgb_lcd", 0,
+            # LEDK LEDA GND +3V3 GND GND GND
+            "    -    -   -    -   -   -   -"
+            # HDMI_D2 ...    GND ... HDMI_CK_N
+            # R3 R4 R5 R6 R7     G2 G3 G4
+            " 75 74 73 72 71 - - 70 69 68"
+            # RGB_G5 ... GND ...     RGB_B7 GND
+            # G5 G6 G7       B3 B4 B7 B6 B7
+            " 57 56 55 - - - 54 53 51 42 41   -"
+            # RGB_CK +3V3 RGB_HS RGB_VS RGB_DE NC GND
+            # CLK    DISP  HSYNC  VSYNC    DEN
+            " 35        -     40     34     33  -   -"
+            # RGB_INIT ...GND GND
+            # XR YD XL YU
+            " 32 31 63 50   -   -"
+        )
     ]
 
     def toolchain_program(self, products, name):
