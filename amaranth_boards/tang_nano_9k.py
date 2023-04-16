@@ -74,19 +74,19 @@ class TangNano9kPlatform(GowinPlatform):
 
             # When viewed from top (FPGA-side up), from USB to HDMI
             # top row
-            # 1                                              17     # gpio Pin
+            # 1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17     # gpio Pin
             #                                                   5V  # voltage
             # 1  3  3  3  3  3  3  3  3  1  1  1  1  1  1  1  1     # bank
             "63 86 85 84 83 82 81 80 79 77 76 75 74 73 72 71 70  -" # silkscreen
-            #19       22         # gpio Pin
+            #19 20 21 22         # gpio Pin
             #           GND 3V3  # voltage
-            # 1  1 2  2          # bank
+            # 1  1  2  2         # bank
             "48 49 31 32  -  -"
             # bottom row
-            #25                                                 42  # gpio Pin
+            #25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42  # gpio Pin
             # 2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  1  1  # bank
             "38 37 36 39 25 26 27 28 29 30 33 34 40 35 41 42 51 53"
-            #43             48   # gpio Pin
+            #43 44 45 46 47 48   # gpio Pin
             # 1  1  1  1  1  1   # bank
             "54 55 56 57 68 69"
         ),
