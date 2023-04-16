@@ -38,7 +38,8 @@ class TangNano9kPlatform(GowinPlatform):
                       attrs=Attrs(IO_TYPE="LVCMOS33")),
 
         # Connects to BL702 UART1
-        UARTResource(0, rx="18", tx="17", attrs=Attrs(IO_TYPE="LVCMOS33")),
+        UARTResource(0, rx="18", tx="17",
+            attrs=Attrs(PULL_MODE="UP", IO_TYPE="LVCMOS33")),
 
         *SPIFlashResources(0,
             cs_n="60", clk="59", copi="61", cipo="62",
@@ -69,14 +70,24 @@ class TangNano9kPlatform(GowinPlatform):
     ]
     connectors  = [
         Connector("gpio", 0,
+            # I/O banks: 1: 3.3V, 2: 3.3V, 3: 1.8V
+
             # When viewed from top (FPGA-side up), from USB to HDMI
             # top row
-            #                                                   5V
-            "63 86 85 84 83 82 81 80 79 77 76 75 74 73 72 71 70  -"
-            #           GND 3V3
+            # 1                                              17     # gpio Pin
+            #                                                   5V  # voltage
+            # 1  3  3  3  3  3  3  3  3  1  1  1  1  1  1  1  1     # bank
+            "63 86 85 84 83 82 81 80 79 77 76 75 74 73 72 71 70  -" # silkscreen
+            #19       22         # gpio Pin
+            #           GND 3V3  # voltage
+            # 1  1 2  2          # bank
             "48 49 31 32  -  -"
             # bottom row
+            #25                                                 42  # gpio Pin
+            # 2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  1  1  # bank
             "38 37 36 39 25 26 27 28 29 30 33 34 40 35 41 42 51 53"
+            #43             48   # gpio Pin
+            # 1  1  1  1  1  1   # bank
             "54 55 56 57 68 69"
         ),
         # TODO: Convert to Resource
