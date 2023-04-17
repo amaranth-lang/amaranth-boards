@@ -72,6 +72,11 @@ class TangNano9kPlatform(GowinPlatform):
         Connector("gpio", 0,
             # I/O banks: 1: 3.3V, 2: 3.3V, 3: 1.8V
 
+            # Some pins are not available, when certain boot modes are enabled:
+            # MSPI: MI, MO, MCS_N, MCLK, FASTRD_N
+            # SSPI: SI, SO, SSPI_CS_N
+            # See 'overrides' below in toolchain_prepare()
+
             # When viewed from top (FPGA-side up), from USB to HDMI
             # top row
             #  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17     # gpio Pin
@@ -109,6 +114,15 @@ class TangNano9kPlatform(GowinPlatform):
             " 32 31 63 50   -   -"
         )
     ]
+
+    def toolchain_prepare(self, fragment, name, **kwargs):
+        overrides = {
+            "add_options":
+                "set_option -use_mspi_as_gpio 1 -use_sspi_as_gpio 1",
+            "gowin_pack_opts":
+                "--sspi_as_gpio --mspi_as_gpio"
+        }
+        return super().toolchain_prepare(fragment, name, **overrides, **kwargs)
 
     def toolchain_program(self, products, name):
         with products.extract("{}.fs".format(name)) as bitstream_filename:
