@@ -34,7 +34,8 @@ class TangNano9kPlatform(GowinPlatform):
         # Pins 5 to 8 are JTAG (TMS, TCK, TDI, TDO) from BL702
 
         # Pin 12 is VCC03_1V8
-        *LEDResources(pins="10 11 13 14 15 16",
+        # LEDs are connected to 1V8, pins pull cathode to GND, when low
+        *LEDResources(pins="10 11 13 14 15 16", invert=True,
                       attrs=Attrs(IO_TYPE="LVCMOS33")),
 
         # Connects to BL702 UART1
