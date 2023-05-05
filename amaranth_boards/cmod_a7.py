@@ -77,8 +77,7 @@ class _CmodA7Platform(XilinxPlatform):
     def toolchain_program(self, products, name):
         with products.extract("{}.bit".format(name)) as bitstream_filename:
             subprocess.check_call(["openFPGALoader",
-                "-c", "digilent",
-                "--fpga-part", "xc7a35",
+                "-b", "cmoda7_35t",
                 "{}".format(bitstream_filename)
             ])
 
