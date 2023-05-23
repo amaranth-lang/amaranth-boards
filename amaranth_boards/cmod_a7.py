@@ -61,7 +61,7 @@ class _CmodA7Platform(XilinxPlatform):
         Connector("gpio", 0,
             """
             M3  L3 A16  K3 C15  H1 A15 B15 A14  J3  J1  K2
-            L1  L2   -   -  M1  M3  P3  M2  N1  N2  P1   -
+            L1  L2   -   -  M1  N3  P3  M2  N1  N2  P1   -
              -  R3  T3  R2  T1  T2  U1  W2  V2  W3  V3  W5
             V4  U4  V5  W4  U5  U2  W6  U3  U7  W7  U8  V8
             """),
@@ -77,8 +77,7 @@ class _CmodA7Platform(XilinxPlatform):
     def toolchain_program(self, products, name):
         with products.extract("{}.bit".format(name)) as bitstream_filename:
             subprocess.check_call(["openFPGALoader",
-                "-c", "digilent",
-                "--fpga-part", "xc7a35",
+                "-b", "cmoda7_35t",
                 "{}".format(bitstream_filename)
             ])
 
