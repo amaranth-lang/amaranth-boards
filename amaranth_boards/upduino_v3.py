@@ -5,6 +5,7 @@ from amaranth.build import *
 from amaranth.vendor.lattice_ice40 import *
 from amaranth_boards.resources import *
 
+
 __all__ = ["UpduinoV3Platform"]
 
 
@@ -13,15 +14,16 @@ class UpduinoV3Platform(LatticeICE40Platform):
     package     = "SG48"
     default_clk = "SB_HFOSC"
     hfosc_div   = 0
-    resources = [
+    resources   = [
         # Solder the OSC jumper to connect the onboard oscillator to pin 20.
         # Note that this overlaps with the QSPI pins.
-        Resource("clk12", 0, Pins("20", dir="i"),
-                 Clock(12e6), Attrs(IO_STANDARD="SB_LVCMOS")),
+        Resource("clk12", 0,
+            Pins("20", dir="i"),
+            Clock(12e6), Attrs(IO_STANDARD="SB_LVCMOS")),
 
         RGBLEDResource(0, 
-                       r="41", g="39", b="40", invert=True,
-                       attrs=Attrs(IO_STANDARD="SB_LVCMOS")),
+            r="41", g="39", b="40", invert=True,
+            attrs=Attrs(IO_STANDARD="SB_LVCMOS")),
 
         # To use QSPI mode, solder the appropriate jumpers.
         *SPIFlashResources(0,
@@ -35,8 +37,6 @@ class UpduinoV3Platform(LatticeICE40Platform):
         # "Right" row of header pins (JP6 on the schematic)
         Connector("j", 1, "20 10 - - 12 21 13 19 18 11 9 6 44 4 3 48 45 47 46 2")
     ]
-
-
 
     def toolchain_program(self, products, name):
         iceprog = os.environ.get("ICEPROG", "iceprog")
