@@ -3,9 +3,8 @@ import subprocess
 
 from amaranth.build import *
 from amaranth.vendor.lattice_nexus import *
-from amaranth.back import verilog
-from .resources import *
-import pdb
+from amaranth import *
+from resources import *
 
 __all__ = ["LIFCLEVNPlatform"]
 
@@ -92,12 +91,11 @@ class LIFCLEVNPlatform(LatticeNexusPlatform):
         *LEDResources(pins={8: "R17", 9: "R18", 10: "U20", 11: "T20", 12: "W20", 13: "V20"}, invert=True,
                               attrs=Attrs(IO_TYPE=bank2_iostandard)),
 
-        #*ButtonResources(pins="G14 G15", invert=True,
-        #                 attrs=Attrs(IO_TYPE="LVCMOS33")),
-        #*SwitchResources(pins={1: "J1", 2: "H1", 3: "K1"}, invert=True,
-        #                 attrs=Attrs(IO_TYPE=bank6_iostandard)),
-        #*SwitchResources(pins={4: "E15", 5: "D16", 6: "B16", 7: "C16", 8: "A16"}, invert=True,
-        #                 attrs=Attrs(IO_TYPE=bank1_iostandard)),
+        *ButtonResources(pins="G14 G15 G19", invert=True,
+                         attrs=Attrs(IO_TYPE=bank1_iostandard)),
+
+        *SwitchResources(pins={0: "N14", 1: "M14", 2: "M16", 3: "M15", 4: "N15", 5: "N16", 6: "M17", 7: "M18"}, invert=True, 
+                        attrs=Attrs(IO_TYPE=bank2_iostandard)),
 
         # Requires installation of 0-ohm jumpers R15 and R17 to properly route signals
         # Note that it is R15 and R17, not R16 and R17 as stated in the user guide
@@ -113,7 +111,171 @@ class LIFCLEVNPlatform(LatticeNexusPlatform):
 
         # TODO: add other resources
     ]
-    connectors  = []
+
+    connectors  = [
+        Connector("fmc", 0, {
+            "C1":  "—",    # GND
+            "C2":  "—",    # TXDP_FMC
+            "C3":  "—",    # TXDN_FMC
+            "C4":  "—",    # GND
+            "C5":  "—",    # GND
+            "C6":  "—",    # RXDP_FMC
+            "C7":  "—",    # RXDN_FMC
+            "C8":  "—",    # GND
+            "C9":  "—",    # GND
+            "C10": "W9",  # FMC_LA06_P
+            "C11": "Y9",  # FMC_LA06_N
+            "C12": "—",   # GND
+            "C13": "—",   # GND
+            "C14": "W10", # FMC_LA10_P
+            "C15": "Y10", # FMC_LA10_N
+            "C16": "—",   # GND
+            "C17": "—",   # GND
+            "C18": "W11", # FMC_LA14_P
+            "C19": "Y11", # FMC_LA14_N
+            "C20": "—",   # GND
+            "C21": "—",   # GND
+            "C22": "R8",  # FMC_LA18_CC_P
+            "C23": "T8",  # FMC_LA18_CC_N
+            "C24": "—",   # GND
+            "C25": "—",   # GND
+            "C26": "Y13", # FMC_LA27_P
+            "C27": "Y14", # FMC_LA27_N
+            "C28": "—",   # GND
+            "C29": "—",   # GND
+            "C30": "—",   # FMC_SCL
+            "C31": "—",   # FMC_SDA
+            "C32": "—",   # GND
+            "C33": "—",   # GND
+            "C34": "—",   # GND
+            "C35": "—",   # 12V
+            "C36": "—",   # GND
+            "C37": "—",   # 12V
+            "C38": "—",   # GND
+            "C39": "—",   # V3P3
+            "C40": "—",   # GND
+            "D1":  "—",    # PS_POR_B
+            "D2":  "—",    # GND
+            "D3":  "—",    # GND
+            "D4":  "—",    # REFCLKP_FMC
+            "D5":  "—",    # REFCLKN_FMC
+            "D6":  "—",    # GND
+            "D7":  "—",    # GND
+            "D8":  "W13",  # FMC_LA01_CC_P
+            "D9":  "V12",  # FMC_LA01_CC_N
+            "D10": "—",   # GND
+            "D11": "R5",  # FMC_LA05_P
+            "D12": "R6",  # FMC_LA05_N
+            "D13": "—",   # GND
+            "D14": "V6",  # FMC_LA09_P
+            "D15": "U7",  # FMC_LA09_N
+            "D16": "—",   # GND
+            "D17": "R9",  # FMC_LA13_P
+            "D18": "P9",  # FMC_LA13_N
+            "D19": "—",   # GND
+            "D20": "U10", # FMC_LA17_P
+            "D21": "V10", # FMC_LA17_N
+            "D22": "—",   # GND
+            "D23": "P11", # FMC_LA23_P
+            "D24": "R11", # FMC_LA23_N
+            "D25": "—",   # GND
+            "D26": "T13", # FMC_LA26_P
+            "D27": "T14", # FMC_LA26_N
+            "D28": "—",   # GND
+            "D29": "—",   # FMC_TCK
+            "D30": "—",   # FMC_TDI
+            "D31": "—",   # FMC_TDO
+            "D32": "—",   # V3P3
+            "D33": "—",   # FMC_TMS
+            "D34": "—",   # No Connect
+            "D35": "—",   # GND
+            "D36": "—",   # V3P3
+            "D37": "—",   # GND
+            "D38": "—",   # V3P3
+            "D39": "—",   # GND
+            "D40": "—",   # V3P3
+            "G1":  "—",    # GND
+            "G2":  "R7",   # FMC_CLK1_P
+            "G3":  "T7",   # FMC_CLK1_N
+            "G4":  "—",    # GND
+            "G5":  "—",    # GND
+            "G6":  "V11",  # FMC_LA00_CC_P
+            "G7":  "U11",  # FMC_LA00_CC_N
+            "G8":  "—",    # GND
+            "G9":  "W6",   # FMC_LA03_P
+            "G10": "Y6",  # FMC_LA03_N
+            "G11": "—",   # GND
+            "G12": "Y7",  # FMC_LA08_P
+            "G13": "Y8",  # FMC_LA08_N
+            "G14": "—",   # GND
+            "G15": "U1",  # FMC_LA12_P
+            "G16": "T1",  # FMC_LA12_N
+            "G17": "—",   # GND
+            "G18": "P7",  # FMC_LA16_P
+            "G19": "P8",  # FMC_LA16_N
+            "G20": "—",   # GND
+            "G21": "T10", # FMC_LA20_P
+            "G22": "T11", # FMC_LA20_N
+            "G23": "—",   # GND
+            "G24": "V14", # FMC_LA22_P
+            "G25": "U14", # FMC_LA22_N
+            "G26": "—",   # GND
+            "G27": "R12", # FMC_LA25_P
+            "G28": "P12", # FMC_LA25_N
+            "G29": "—",   # GND
+            "G30": "Y15", # FMC_LA29_P
+            "G31": "Y16", # FMC_LA29_N
+            "G32": "—",   # GND
+            "G33": "Y17", # FMC_LA31_P
+            "G34": "W17", # FMC_LA31_N
+            "G35": "—",   # GND
+            "G36": "—",   # ADC_IN1P
+            "G37": "—",   # ADC_IN1N
+            "G38": "—",   # GND
+            "G39": "—",   # VADJ
+            "G40": "—",   # GND
+            "H1":  "T6",   # FMC_VREF (ALSO Y18)
+            "H2":  "—",    # FMC_PRSNT
+            "H3":  "—",    # GND
+            "H4":  "Y12",  # FMC_CLK0_P
+            "H5":  "W12",  # FMC_CLK0_N
+            "H6":  "—",    # GND
+            "H7":  "Y2",   # FMC_LA02_P
+            "H8":  "Y3",   # FMC_LA02_N
+            "H9":  "—",    # GND
+            "H10": "V1",  # FMC_LA04_P
+            "H11": "W1",  # FMC_LA04_N
+            "H12": "—",   # GND
+            "H13": "W7",  # FMC_LA07_P
+            "H14": "V7",  # FMC_LA07_N
+            "H15": "—",   # GND
+            "H16": "P10", # FMC_LA11_P
+            "H17": "R10", # FMC_LA11_N
+            "H18": "—",   # GND
+            "H19": "W8",  # FMC_LA15_P
+            "H20": "V9",  # FMC_LA15_N
+            "H21": "—",   # GND
+            "H22": "U12", # FMC_LA19_P
+            "H23": "T12", # FMC_LA19_N
+            "H24": "—",   # GND
+            "H25": "P13", # FMC_LA21_P
+            "H26": "R13", # FMC_LA21_N
+            "H27": "—",   # GND
+            "H28": "W14", # FMC_LA24_P
+            "H29": "W15", # FMC_LA24_N
+            "H30": "—",   # GND
+            "H31": "U15", # FMC_LA28_P
+            "H32": "V16", # FMC_LA28_N
+            "H33": "—",   # GND
+            "H34": "V17", # FMC_LA30_P
+            "H35": "U16", # FMC_LA30_N
+            "H36": "—",   # GND
+            "H37": "—",   # VREF2_CON
+            "H38": "—",   # No Connect
+            "H39": "—",   # GND
+            "H40": "—",   # VADJ
+            }), 
+            ]
 
     @property
     def file_templates(self):
