@@ -4,7 +4,7 @@ import subprocess
 
 from amaranth.build import *
 from amaranth.vendor.lattice_ice40 import *
-from .amaranth_boards.resources import *
+from .resources import *
 
 __all__ = ["AlchitryCuPlatform"]
 
