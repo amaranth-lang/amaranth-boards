@@ -25,7 +25,7 @@ class AlchitryCuIOPlatform(AlchitryCuPlatform):
             Subsignal("7seg_1", Pins("22", dir="o")),
             Subsignal("7seg_2", Pins("5",  dir="o")),
             Subsignal("7seg_3", Pins("6",  dir="o")),
-            conn=("bank",0), invert=True, Attrs(IO_STANDARD="SB_LVCMOS")
+            conn=("bank",0), invert=True
             ),
 
         # Kind of a weird hack because I want to use generic connector
