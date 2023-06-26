@@ -14,7 +14,7 @@ class AlchitryCuIOPlatform(AlchitryCuPlatform):
     resources = [
         *Display7SegResource(0, 
             a="3", b="4", c="18", d="19",
-            e="20", d="2", g="1", dp="17", 
+            e="20", f="2", g="1", dp="17", 
             conn=("bank",0), invert=True, attrs="SB_LVCMOS"
             ),
 
