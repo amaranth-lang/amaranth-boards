@@ -10,7 +10,7 @@ jobs:
     strategy:
       matrix:
         python-version:
-        - '3.7'
+        - '3.8'
         # this version range needs to be synchronized with the one in pyproject.toml
         amaranth-version:
         - '0.3'
