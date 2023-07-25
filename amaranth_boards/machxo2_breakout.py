@@ -18,10 +18,12 @@ class MachXO2_7000HE_BreakoutPlatform(LatticeMachXO2Platform):
     speed          = "4"
     resources      = [
         *LEDResources(pins="97 98 99 100 104 105 106 107", invert=True),
-
-        # Connectable to the FTDI UART but disconnected by default. Populate R14-R21 to connect.
-        UARTResource(0, rx="73", tx="74", rts="75", cts="76", dtr="81", dsr="77", dcd="78", role="dte"),
     ]
+
+    # Connectable to the FTDI UART but disconnected by default. Populate R14-R21 to connect.
+    # Use `p.add_resource(p.serial)` to add the resource.
+    serial = UARTResource(0, rx="73", tx="74", rts="75", cts="76", dtr="81", dsr="77", dcd="78", role="dte")
+
     connectors     = [
         Connector("j", 2, # J2
                   "- - "
