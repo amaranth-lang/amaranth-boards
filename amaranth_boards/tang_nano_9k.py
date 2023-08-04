@@ -21,7 +21,7 @@ class TangNano9kPlatform(GowinPlatform):
     voltage     = "LV"
     package     = "QN88P"
     speed       = "C6/I5"
-    default_clk = "clk27" # or "sys_clk0" to use on-chip oscillator
+    default_clk = "clk27" # or "OSC" to use on-chip oscillator
     osc_div     = 100     # only for on-chip oscillator, range(2, 128, 2)
     board       = "tangnano9k"
     resources   = [
