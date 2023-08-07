@@ -14,17 +14,17 @@ __all__ = ["TangNano9kPlatform"]
 
 
 class TangNano9kPlatform(GowinPlatform):
-    device      = "GW1N-9C" # tied to chip-db
-    series      = "GW1NR"
-    size        = "9"
-    subseries   = "C"
-    voltage     = "LV"
-    package     = "QN88P"
-    speed       = "C6/I5"
-    default_clk = "clk27" # or "OSC" to use on-chip oscillator
-    osc_freq    = 2.5     # only for on-chip oscillator, range(2, 128, 2)
-    board       = "tangnano9k"
-    resources   = [
+    device        = "GW1N-9C" # tied to chip-db
+    series        = "GW1NR"
+    size          = "9"
+    subseries     = "C"
+    voltage       = "LV"
+    package       = "QN88P"
+    speed         = "C6/I5"
+    default_clk   = "clk27" # or "OSC" to use on-chip oscillator
+    osc_frequency = 2500000 # Hz
+    board         = "tangnano9k"
+    resources     = [
         Resource("clk27", 0, Pins("52", dir="i"),
                  Clock(27e6), Attrs(IO_TYPE="LVCMOS33")),
 
