@@ -22,8 +22,16 @@ jobs:
         amaranth-version:
         - '0.3'
         - 'git'
-      fail-fast: false
-    name: 'test (${{ matrix.python-version }}, ${{ matrix.amaranth-version }})'
+        allow-failure:
+        - true
+        - false
+        exclude: # all of these are inverted (this is unfortunately the best way to do this)
+        - amaranth-version: '0.3'
+          allow-failure: false
+        - amaranth-version: 'git'
+          allow-failure: true
+    continue-on-error: '${{ matrix.allow-failure }}'
+    name: "test (${{ matrix.python-version }}, ${{ matrix.amaranth-version }}${{ matrix.allow-failure == 'false' && ', required' }})"
     steps:
       - name: Check out source code
         uses: actions/checkout@v3
