@@ -19,7 +19,7 @@ dependencies = [
 # Build system configuration
 
 [build-system]
-requires = ["wheel", "setuptools~=67.0", "setuptools_scm[toml]>=6.2"]
+requires = ["wheel", "setuptools>=67.0", "setuptools_scm[toml]>=6.2"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
