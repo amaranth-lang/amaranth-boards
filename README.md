@@ -25,12 +25,19 @@ If you find you are missing either setuptools package, running the following com
 pip install setuptools setuptools_scm[toml]
 ```
 
+### Quick Installation
+
+Use the following command to directly install from this repository
+```bash
+pip install 'amaranth-boards @ git+https://github.com/amaranth-lang/amaranth-boards.git'
+```
+
 ### Local Installation
 
 Either clone a copy of the source code from the repository, or download a bundled copy of the current `main` branch from the releases on this page. From within the root directory of the repository run the following command to install the current release of the boards package to the current user's python packages directory.
 
 ```bash
-pip install --user .
+pip install --user -e .
 ```
 
 ## License
