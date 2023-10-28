@@ -141,14 +141,14 @@ class VersaECP5Platform(LatticeECP5Platform):
         return {
             **super().file_templates,
             "{{name}}-openocd.cfg": r"""
-            interface ftdi
+            adapter driver ftdi
+            adapter speed 25000
             {# FTDI descriptors is identical between non-5G and 5G recent Versa boards #}
-            ftdi_device_desc "Lattice ECP5_5G VERSA Board"
-            ftdi_vid_pid 0x0403 0x6010
-            ftdi_channel 0
-            ftdi_layout_init 0xfff8 0xfffb
+            ftdi device_desc "Lattice ECP5_5G VERSA Board"
+            ftdi vid_pid 0x0403 0x6010
+            ftdi channel 0
+            ftdi layout_init 0xfff8 0xfffb
             reset_config none
-            adapter_khz 25000
 
             # ispCLOCK device (unusable with openocd and must be bypassed)
             #jtag newtap ispclock tap -irlen 8 -expected-id 0x00191043
