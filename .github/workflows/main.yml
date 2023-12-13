@@ -20,13 +20,13 @@ jobs:
         - 'pypy-3.9'
         # this version range needs to be synchronized with the one in pyproject.toml
         amaranth-version:
-        - '0.3'
+        - '0.4'
         - 'git'
         allow-failure:
         - true
         - false
         exclude: # all of these are inverted (this is unfortunately the best way to do this)
-        - amaranth-version: '0.3'
+        - amaranth-version: '0.4'
           allow-failure: false
         - amaranth-version: 'git'
           allow-failure: true
@@ -43,10 +43,6 @@ jobs:
         if: ${{ matrix.amaranth-version != 'git' }}
         run: |
           pip install 'amaranth==${{ matrix.amaranth-version }}'
-      - name: Downgrade MarkupSafe
-        if: ${{ matrix.amaranth-version == '0.3' }}
-        run: |
-          pip install 'MarkupSafe==2.0.1'
       - name: Install Amaranth from git
         if: ${{ matrix.amaranth-version == 'git' }}
         run: |

@@ -1,5 +1,5 @@
 from amaranth.build import *
-from amaranth.vendor.xilinx import *
+from amaranth.vendor import XilinxPlatform
 
 
 __all__ = ["ZTurnLiteZ007SPlatform"]

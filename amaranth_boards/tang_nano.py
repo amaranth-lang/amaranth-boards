@@ -1,5 +1,5 @@
 import subprocess
-from amaranth.vendor.gowin import GowinPlatform
+from amaranth.vendor import GowinPlatform
 from amaranth.build import *
 from .resources import *
 

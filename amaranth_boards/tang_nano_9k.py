@@ -2,7 +2,7 @@ import os
 import subprocess
 
 from amaranth.build import *
-from amaranth.vendor.gowin import *
+from amaranth.vendor import GowinPlatform
 
 from .resources import *
 

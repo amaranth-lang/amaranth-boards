@@ -3,7 +3,7 @@ import subprocess
 import shutil
 
 from amaranth.build import *
-from amaranth.vendor.xilinx import *
+from amaranth.vendor import XilinxPlatform
 from .resources import *
 
 
