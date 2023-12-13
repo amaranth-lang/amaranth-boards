@@ -3,7 +3,7 @@ import subprocess
 import shutil
 
 from amaranth.build import *
-from amaranth.vendor.lattice_ecp5 import *
+from amaranth.vendor import LatticeECP5Platform
 from .resources import *
 
 # NOTE: Keep OrangeCrabR0_2Platform for backwards compatibility
