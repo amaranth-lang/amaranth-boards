@@ -1,8 +1,13 @@
 # Python
-*.pyc
-/*.egg-info
-/.eggs
+__pycache__/
+*.egg-info
 /dist
+
+# pdm
+/.pdm-plugins
+/.pdm-python
+/.venv
+/pdm.lock
 
 # misc user-created
 /build

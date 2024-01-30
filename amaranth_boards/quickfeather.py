@@ -3,7 +3,7 @@ import sys
 import subprocess
 
 from amaranth.build import *
-from amaranth.vendor.quicklogic import *
+from amaranth.vendor import QuicklogicPlatform
 from amaranth_boards.resources import *
 
 

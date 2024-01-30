@@ -3,19 +3,35 @@ on:
   pull_request:
   schedule:
   - cron: '0 0 * * *' # test daily against git HEAD of dependencies
+
 name: CI
 jobs:
+
   test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         python-version:
-        - '3.7'
+        - '3.8'
+        - '3.9'
+        - '3.10'
+        - '3.11'
+        - 'pypy-3.8'
+        - 'pypy-3.9'
         # this version range needs to be synchronized with the one in pyproject.toml
         amaranth-version:
-        - '0.3'
+        - '0.4'
         - 'git'
-      fail-fast: false
+        allow-failure:
+        - true
+        - false
+        exclude: # all of these are inverted (this is unfortunately the best way to do this)
+        - amaranth-version: '0.4'
+          allow-failure: false
+        - amaranth-version: 'git'
+          allow-failure: true
+    continue-on-error: '${{ matrix.allow-failure }}'
+    name: "test (${{ matrix.python-version }}, ${{ matrix.amaranth-version }}${{ matrix.allow-failure == 'false' && ', required' || '' }})"
     steps:
       - name: Check out source code
         uses: actions/checkout@v3
@@ -27,10 +43,6 @@ jobs:
         if: ${{ matrix.amaranth-version != 'git' }}
         run: |
           pip install 'amaranth==${{ matrix.amaranth-version }}'
-      - name: Downgrade MarkupSafe
-        if: ${{ matrix.amaranth-version == '0.3' }}
-        run: |
-          pip install 'MarkupSafe==2.0.1'
       - name: Install Amaranth from git
         if: ${{ matrix.amaranth-version == 'git' }}
         run: |
@@ -38,3 +50,11 @@ jobs:
       - name: Test
         run: |
           python -m unittest discover -t . -s amaranth_boards -p '*.py'
+
+  required: # group all required workflows into one for the required status check
+    needs:
+      - test
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          true
