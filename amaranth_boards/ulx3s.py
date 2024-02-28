@@ -2,6 +2,7 @@ import os
 import argparse
 import subprocess
 import shutil
+import unittest
 
 from amaranth.build import *
 from amaranth.vendor import LatticeECP5Platform
@@ -44,7 +45,7 @@ class _ULX3SPlatform(LatticeECP5Platform):
         Resource("button_right", 0, Pins("H16", dir="i"), Attrs(IO_TYPE="LVCMOS33", PULLMODE="DOWN")),
 
         # FTDI connection.
-        UARTResource(0, 
+        UARTResource(0,
             rx="M1", tx="L4", rts="M3", dtr="N1", role="dce",
             attrs=Attrs(IO_TYPE="LVCMOS33")
         ),
@@ -103,7 +104,7 @@ class _ULX3SPlatform(LatticeECP5Platform):
         Resource("diff_gpio", 1, DiffPairs("A10", "A11"), Attrs(IO_TYPE="LVCMOS33")),
         Resource("diff_gpio", 2, DiffPairs("A9", "B10"), Attrs(IO_TYPE="LVCMOS33")),
         Resource("diff_gpio", 3, DiffPairs("B9", "C10"),  Attrs(IO_TYPE="LVCMOS33")),
-        
+
         # HDMI (only TX, due to the top bank of ECP5 only supporting diff. outputs)
         Resource("hdmi", 0,
             Subsignal("cec", Pins("A18", dir="io"),
@@ -177,16 +178,22 @@ class ULX3S_85F_Platform(_ULX3SPlatform):
     device                 = "LFE5U-85F"
 
 
+class TestCase(unittest.TestCase):
+    def test_smoke(self):
+        from .test.blinky import Blinky
+        ULX3S_45F_Platform().build(Blinky(), do_build=False)
+
+
 if __name__ == "__main__":
     from .test.blinky import *
-    
+
     variants = {
         '12F': ULX3S_12F_Platform,
         '25F': ULX3S_25F_Platform,
         '45F': ULX3S_45F_Platform,
         '85F': ULX3S_85F_Platform
     }
-    
+
     # Figure out which FPGA variant we want to target...
     parser = argparse.ArgumentParser()
     parser.add_argument('variant', choices=variants.keys())

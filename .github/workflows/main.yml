@@ -42,19 +42,19 @@ jobs:
       - name: Install Amaranth release
         if: ${{ matrix.amaranth-version != 'git' }}
         run: |
-          pip install 'amaranth==${{ matrix.amaranth-version }}'
+          pip install 'amaranth[builtin-yosys] ==${{ matrix.amaranth-version }}'
       - name: Install Amaranth from git
         if: ${{ matrix.amaranth-version == 'git' }}
         run: |
-          pip install git+https://github.com/amaranth-lang/amaranth.git
-      - name: Test
+          pip install 'amaranth[builtin-yosys] @ git+https://github.com/amaranth-lang/amaranth.git'
+      - name: Run tests
         run: |
           python -m unittest discover -t . -s amaranth_boards -p '*.py'
 
-  required: # group all required workflows into one for the required status check
+  required: # group all required workflows into one to avoid reconfiguring this in Actions settings
     needs:
       - test
+    if: ${{ always() && !contains(needs.*.result, 'cancelled') }}
     runs-on: ubuntu-latest
     steps:
-      - run: |
-          true
+      - run: ${{ contains(needs.*.result, 'failure') && 'false' || 'true' }}

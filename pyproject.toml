@@ -40,8 +40,8 @@ toolchain = [
   "yowasp-yosys",
   "yowasp-nextpnr-ice40",
   "yowasp-nextpnr-ecp5",
-  "yowasp-nextpnr-gowin",
 ]
 
 [tool.pdm.scripts]
 _.env_file = ".env.toolchain"
+test.cmd = "python -m unittest discover -t . -s amaranth_boards -p *.py"

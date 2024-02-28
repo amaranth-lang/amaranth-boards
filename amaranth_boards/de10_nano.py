@@ -1,5 +1,6 @@
 import os
 import subprocess
+import unittest
 
 from amaranth.build import *
 from amaranth.vendor import IntelPlatform
@@ -88,6 +89,12 @@ class DE10NanoPlatform(IntelPlatform):
             # puts the ARM cores first.
             subprocess.check_call([quartus_pgm, "--haltcc", "--mode", "JTAG",
                                    "--operation", "P;" + bitstream_filename + "@2"])
+
+
+class TestCase(unittest.TestCase):
+    def test_smoke(self):
+        from .test.blinky import Blinky
+        DE10NanoPlatform().build(Blinky(), do_build=False)
 
 
 if __name__ == "__main__":
