@@ -1,5 +1,6 @@
 import os
 import subprocess
+import unittest
 
 from amaranth.build import *
 from amaranth.vendor import XilinxPlatform
@@ -223,6 +224,12 @@ class ArtyA7_35Platform(_ArtyA7Platform):
 
 class ArtyA7_100Platform(_ArtyA7Platform):
     device      = "xc7a100ti"
+
+
+class TestCase(unittest.TestCase):
+    def test_smoke(self):
+        from .test.blinky import Blinky
+        ArtyA7_35Platform().build(Blinky(), do_build=False)
 
 
 if __name__ == "__main__":

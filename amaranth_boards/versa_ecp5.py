@@ -1,5 +1,6 @@
 import os
 import subprocess
+import unittest
 
 from amaranth.build import *
 from amaranth.vendor import LatticeECP5Platform
@@ -171,6 +172,12 @@ class VersaECP5Platform(LatticeECP5Platform):
             ])
 
 
+class TestCase(unittest.TestCase):
+    def test_smoke(self):
+        from .test.blinky import Blinky
+        VersaECP5Platform().build(Blinky(), do_build=False)
+
+
 if __name__ == "__main__":
-    from .test.blinky import *
+    from .test.blinky import Blinky
     VersaECP5Platform().build(Blinky(), do_program=True)
