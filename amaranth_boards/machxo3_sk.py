@@ -60,7 +60,7 @@ class MachXO3SKPlatform(LatticeMachXO3LPlatform):
              "-  -  H6  N3  M2  M1  L2  L1  L3  L5  "
              "-  -  K4  J1  K1  J2  J3  H3  H2  H1  "
              "-  -  G2  G1  F2  F1  E2  E1  D2  D1  "
-             "-  -  C2  C1  G3  B1  D3  E3  F3  F5  "),
+             "-  C2 C1  G3  B1  D3  E3  F3  F5  -   "),
     ]
 
     def toolchain_program(self, products, name):
