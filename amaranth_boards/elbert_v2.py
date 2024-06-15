@@ -38,19 +38,19 @@ class ElbertV2NumatoPlatform(XilinxPlatform):
 
     connectors = [
         Connector("p", 1,
-            "- - - - P25 P24 P29 P27 P30 P28 P32 P31"
+            "P31 P32 P28 P30 P27 P29 P24 P25 - - - -"
         ),
         Connector("p", 6,
-            "- - - - P13 P12 P16 P15 P20 P18 P21 P19"
+            "P19 P21 P18 P20 P15 P16 P12 P13 - - - -"
         ),
         Connector("p", 2,
-            "- - - - P6 P4 P5 P3 P8 P7 P11 P10"
+            "P10 P11 P7 P8 P3 P5 P4 P6 - - - -"
         ),
         Connector("p", 4,
-            "- - - - P132 P130 P135 P134 P139 P138 P143 P141"
+            "P141 P143 P138 P139 P134 P135 P130 P132 - - - -"
         ),
         Connector("p", 5,
-            "- - P140 P142 P91 P131 P126 P127 P123 P125"
+            "P125 P123 P127 P126 P131 P91 P142 P140 - -"
         )
     ]
 
