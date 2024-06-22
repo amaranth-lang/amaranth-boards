@@ -1,3 +1,8 @@
+# Project metadata
+
+[tool.pdm.version]
+source = "scm"
+
 [project]
 dynamic = ["version"]
 
@@ -19,18 +24,8 @@ dependencies = [
 # Build system configuration
 
 [build-system]
-requires = ["wheel", "setuptools>=67.0", "setuptools_scm[toml]>=6.2"]
-build-backend = "setuptools.build_meta"
-
-[tool.setuptools]
-# If old amaranth-boards is checked out with git (e.g. as a part of a persistent editable install
-# or a git worktree cached by tools like poetry), it can have an empty `nmigen_boards` directory
-# left over, which causes a hard error because setuptools cannot determine the top-level package.
-# Add a workaround to improve experience for people upgrading from old checkouts.
-packages = ["amaranth_boards"]
-
-[tool.setuptools_scm]
-local_scheme = "node-and-timestamp"
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
 
 # Development workflow configuration
 
