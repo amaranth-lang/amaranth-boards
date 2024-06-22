@@ -35,10 +35,15 @@ jobs:
     steps:
       - name: Check out source code
         uses: actions/checkout@v3
-      - name: Set up Python
-        uses: actions/setup-python@v4
+        with:
+          fetch-depth: 0
+      - name: Set up PDM
+        uses: pdm-project/setup-pdm@v3
         with:
           python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          pdm install --dev
       - name: Install Amaranth release
         if: ${{ matrix.amaranth-version != 'git' }}
         run: |
@@ -49,7 +54,7 @@ jobs:
           pip install 'amaranth[builtin-yosys] @ git+https://github.com/amaranth-lang/amaranth.git'
       - name: Run tests
         run: |
-          python -m unittest discover -t . -s amaranth_boards -p '*.py'
+          pdm run test
 
   required: # group all required workflows into one to avoid reconfiguring this in Actions settings
     needs:
