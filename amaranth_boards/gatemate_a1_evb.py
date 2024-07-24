@@ -75,9 +75,9 @@ class GateMate_A1_EVB(GateMatePlatform):
         ),
 
         Resource("serdes", 0,
-            Subsignal("clk", DiffPairs("IO_SER_CLK_N IO_SER_CLK_P", "complement")),
-            Subsignal("tx",  DiffPairs("IO_SER_TX_P IO_SER_TX_N",     "complement")),
-            Subsignal("rx",  DiffPairs("IO_SER_RX_N IO_SER_RX_P",     "complement")),
+            Subsignal("clk", DiffPairs("IO_SER_CLK_N", "IO_SER_CLK_P")),
+            Subsignal("tx",  DiffPairs("IO_SER_TX_P",  "IO_SER_TX_N")),
+            Subsignal("rx",  DiffPairs("IO_SER_RX_N",  "IO_SER_RX_P")),
         ),
 
         # Mostly used for RP2040
@@ -218,14 +218,14 @@ class GateMate_A1_EVB(GateMatePlatform):
         }),
 
         Connector("pmod", 0, {
-            1:  "IO_EA_A4",
-            7:  "IO_EA_B4",
-            2:  "IO_EA_A5",
-            8:  "IO_EA_B5",
-            3:  "IO_EA_A6",
-            9:  "IO_EA_B6",
-            4:  "IO_EA_A7",
-            10: "IO_EA_B7"
+            "1":  "IO_EA_A4",
+            "7":  "IO_EA_B4",
+            "2":  "IO_EA_A5",
+            "8":  "IO_EA_B5",
+            "3":  "IO_EA_A6",
+            "9":  "IO_EA_B6",
+            "4":  "IO_EA_A7",
+            "10": "IO_EA_B7"
         }),
 
         Connector("uext", 0, {
