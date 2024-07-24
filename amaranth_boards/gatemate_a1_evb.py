@@ -13,7 +13,7 @@ __all__ = [
     "GateMate_A1_EVB"
 ]
 
-class _GateMate_A1_EVB(GateMatePlatform):
+class GateMate_A1_EVB(GateMatePlatform):
     device                 = "GateMate_A1_EVB"
     package                = "CCGM1A1"
     default_clk            = "clk0"
@@ -44,37 +44,19 @@ class _GateMate_A1_EVB(GateMatePlatform):
         ),
 
         Resource("psram", 0,
-            Subsignal("psram_cs",   Pins("IO_WC_A4", dir="o")),
-            Subsignal("psram_sclk", Pins("IO_WC_B4", dir="o")),
-            Subsignal("psram_data", Pins("IO_WC_A5 IO_WC_B5 IO_WC_A6 IO_WC_B6 "
+            Subsignal("cs",   Pins("IO_WC_A4", dir="o")),
+            Subsignal("sclk", Pins("IO_WC_B4", dir="o")),
+            Subsignal("data", Pins("IO_WC_A5 IO_WC_B5 IO_WC_A6 IO_WC_B6 "
                                          "IO_WC_A7 IO_WC_B7 IO_WC_A8 IO_WC_B8", 
                                           dir="io"))
         ),
-
-        Resource("vga", 0,
-            Subsignal("hsync", Pins("IO_WB_A1", dir="o")),
-            Subsignal("vsync", Pins("IO_WB_B1", dir="o")),
-            Subsignal("red", Pins(
-                "IO_WB_B3"  # Red_0
-                "IO_WB_A3"  # Red_1
-                "IO_WB_B2"  # Red_2
-                "IO_WB_A2",  # Red_3
-                dir="o"
-            )),
-            Subsignal("green", Pins(
-                "IO_WB_B5"  # Green_0
-                "IO_WB_A5"  # Green_1
-                "IO_WB_B4"  # Green_2
-                "IO_WB_A4",  # Green_3
-                dir="o"
-            )),
-            Subsignal("blue", Pins(
-                "IO_WB_B7"  # Blue_0
-                "IO_WB_A7"  # Blue_1
-                "IO_WB_B6"  # Blue_2
-                "IO_WB_A6",  # Blue_3
-                dir="o"
-            ))
+        
+        VGAResource("vga", 0, 
+            r="IO_WB_B3 IO_WB_A3 IO_WB_B2 IO_WB_A2",
+            g="IO_WB_B5 IO_WB_A5 IO_WB_B4 IO_WB_A4",
+            b="IO_WB_B7 IO_WB_A7 IO_WB_B6 IO_WB_A6",
+            vs= "IO_WB_B1",
+            hs="IO_WB_A1"
         ),
 
         Resource("jtag", 0,
@@ -85,7 +67,6 @@ class _GateMate_A1_EVB(GateMatePlatform):
             Subsignal("tdo", Pins("IO_WA_B3", dir="o"))
         ),
 
-        # TODO: Mybe the d Resource needs to be different input/output
         Resource("spi", 0,
             Subsignal("clk", Pins("IO_WA_B8", dir="o")),
             Subsignal("csn", Pins("IO_WA_A8", dir="o")),
@@ -93,39 +74,11 @@ class _GateMate_A1_EVB(GateMatePlatform):
             Subsignal("fwd", Pins("IO_WA_B5", dir="o")),
         ),
 
-        # TODO: Check how to declare LVDS pins
-        # TODO: Check direction of serdes pins
         Resource("serdes", 0,
-            Subsignal("ser_clk_n", Pins("IO_SER_CLK_N", dir="io")),
-            Subsignal("ser_clk_p", Pins("IO_SER_CLK_P", dir="io")),
-            Subsignal("ser_tx_p",  Pins("IO_SER_TX_P",  dir="io")),
-            Subsignal("ser_tx_n",  Pins("IO_SER_TX_N",  dir="io")),
-            Subsignal("ser_rx_n",  Pins("IO_SER_RX_N",  dir="io")),
-            Subsignal("ser_rx_p",  Pins("IO_SER_RX_P",  dir="io"))
+            Subsignal("clk", DiffPairs("IO_SER_CLK_N IO_SER_CLK_P", "complement")),
+            Subsignal("tx",  DiffPairs("IO_SER_TX_P IO_SER_TX_N",     "complement")),
+            Subsignal("rx",  DiffPairs("IO_SER_RX_N IO_SER_RX_P",     "complement")),
         ),
-
-        Resource("uext", 0,
-            Subsignal("txd",  Pins("IO_EA_A0", dir ="o" )),
-            Subsignal("rxd",  Pins("IO_EA_B0", dir ="i" )),
-            Subsignal("scl",  Pins("IO_EA_A1", dir ="io")),
-            Subsignal("sda",  Pins("IO_EA_B1", dir ="io")),
-            Subsignal("miso", Pins("IO_EA_A2", dir ="i" )),
-            Subsignal("mosi", Pins("IO_EA_B2", dir ="o" )),
-            Subsignal("sck",  Pins("IO_EA_A3", dir ="o" )),    
-            Subsignal("cs",   Pins("IO_EA_B3", dir ="o" )),
-        ),
-
-        Resource("pmod", 0,
-            Subsignal("1",  Pins("IO_EA_A4", dir ="io")),
-            Subsignal("7",  Pins("IO_EA_B4", dir ="io")),
-            Subsignal("2",  Pins("IO_EA_A5", dir ="io")),
-            Subsignal("8",  Pins("IO_EA_B5", dir ="io")),
-            Subsignal("3",  Pins("IO_EA_A6", dir ="io")),
-            Subsignal("9",  Pins("IO_EA_B6", dir ="io")),
-            Subsignal("4",  Pins("IO_EA_A7", dir ="io")),    
-            Subsignal("10", Pins("IO_EA_B7", dir ="io")),
-        ),
-        
 
         # Mostly used for RP2040
         Resource("gpio", 0,
@@ -262,14 +215,31 @@ class _GateMate_A1_EVB(GateMatePlatform):
             "24": "IO_SER_TX_N",
             "26": "IO_SER_RX_N",
             "28": "IO_SER_RX_P"
+        }),
+
+        Connector("pmod", 0, {
+            1:  "IO_EA_A4",
+            7:  "IO_EA_B4",
+            2:  "IO_EA_A5",
+            8:  "IO_EA_B5",
+            3:  "IO_EA_A6",
+            9:  "IO_EA_B6",
+            4:  "IO_EA_A7",
+            10: "IO_EA_B7"
+        }),
+
+        Connector("uext", 0, {
+            "txd":  "IO_EA_A0",
+            "rxd":  "IO_EA_B0",
+            "scl":  "IO_EA_A1",
+            "sda":  "IO_EA_B1",
+            "miso": "IO_EA_A2",
+            "mosi": "IO_EA_B2",
+            "sck":  "IO_EA_A3",
+            "cs":   "IO_EA_B3"
         })
     ]
 
-    @property
-    def required_tools(self):
-        return super().required_tools + [
-            "openFPGALoader"
-        ]
 
     def toolchain_prepare(self, fragment, name, **kwargs):
         overrides = dict(yosys_opts="-p 'synth_gatemate -top {} -nomx8 -vlog'".format(name),
@@ -284,8 +254,6 @@ class _GateMate_A1_EVB(GateMatePlatform):
         with products.extract("{}_00.cfg.bit".format(name)) as bitstream_filename:
             subprocess.check_call([tool, "-b", "gatemate_evb_jtag", "--cable", "dirtyJtag", bitstream_filename])
 
-class GateMate_A1_EVB(_GateMate_A1_EVB):
-    name = "Olimex GateMateA1-EVB"
 
 class TestCase(unittest.TestCase):
     def test_smoke(self):
@@ -296,8 +264,6 @@ class TestCase(unittest.TestCase):
 
 if __name__ == "__main__":
     from .test.blinky import *
-
-    variants = [] # No variants so far
 
     platform = GateMate_A1_EVB()
     platform.build(Blinky(), do_program=True)
