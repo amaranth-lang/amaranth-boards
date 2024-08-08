@@ -8,7 +8,6 @@ from amaranth.build import *
 from amaranth.vendor import GateMatePlatform
 from .resources import *
 
-
 __all__ = [
     "GateMate_A1_EVB"
 ]
