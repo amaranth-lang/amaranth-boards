@@ -240,15 +240,6 @@ class GateMate_A1_EVB(GateMatePlatform):
         })
     ]
 
-
-    def toolchain_prepare(self, fragment, name, **kwargs):
-        overrides = dict(yosys_opts="-p 'synth_gatemate -top {} -nomx8 -vlog'".format(name),
-                         pr_opts="-v -ccP",
-                         openfpgaloader_opts="-b gatemate_evb_jtag --cable dirtyJtag")
-        overrides.update(kwargs)
-        return super().toolchain_prepare(fragment, name, **overrides)
-
-
     def toolchain_program(self, products, name):
         tool = os.environ.get("OPENFPGALOADER", "openFPGALoader")
         with products.extract("{}_00.cfg.bit".format(name)) as bitstream_filename:
