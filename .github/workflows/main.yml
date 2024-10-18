@@ -21,14 +21,13 @@ jobs:
         - 'pypy-3.10'
         # this version range needs to be synchronized with the one in pyproject.toml
         amaranth-version:
-        - '0.4'
         - '0.5'
         - 'git'
         allow-failure:
         - true
         - false
         exclude: # all of these are inverted (this is unfortunately the best way to do this)
-        - amaranth-version: '0.4'
+        - amaranth-version: '0.5'
           allow-failure: false
         - amaranth-version: 'git'
           allow-failure: true
