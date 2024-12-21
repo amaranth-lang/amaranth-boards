@@ -34,7 +34,7 @@ class CmodS7_Platform(XilinxPlatform):
         *ButtonResources(pins="D2 D1", attrs=Attrs(IOSTANDARD="LVCMOS33")),
 
         UARTResource(0,
-            rx="L12", tx="K15",
+            rx="K15", tx="L12",
             attrs=Attrs(IOSTANDARD="LVCMOS33")
         ),
 
