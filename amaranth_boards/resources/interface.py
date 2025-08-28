@@ -114,13 +114,20 @@ def DirectUSBResource(*args, d_p, d_n, pullup=None, vbus_valid=None, conn=None, 
     return Resource.family(*args, default_name="usb", ios=io)
 
 
-def ULPIResource(*args, data, clk, dir, nxt, stp, rst=None,
-            clk_dir='i', rst_invert=False, attrs=None, conn=None):
+def ULPIResource(*args, data, clk, dir, nxt, stp, rst=None, clk_dir='i',
+            rst_invert=False, conn=None, attrs=None, clk_attrs=None):
     assert clk_dir in ('i', 'o',)
+
+    clk_subsig = Subsignal("clk", Pins(clk, dir=clk_dir, conn=conn, assert_width=1))
+    # If the clock is an input, we must constrain it to be 60MHz.
+    if clk_dir == 'i':
+        clk_subsig.clock = Clock(60e6)
+    if clk_attrs is not None:
+        clk_subsig.attrs.update(clk_attrs)
 
     io = []
     io.append(Subsignal("data", Pins(data, dir="io", conn=conn, assert_width=8)))
-    io.append(Subsignal("clk", Pins(clk, dir=clk_dir, conn=conn, assert_width=1)))
+    io.append(clk_subsig)
     io.append(Subsignal("dir", Pins(dir, dir="i", conn=conn, assert_width=1)))
     io.append(Subsignal("nxt", Pins(nxt, dir="i", conn=conn, assert_width=1)))
     io.append(Subsignal("stp", Pins(stp, dir="o", conn=conn, assert_width=1)))
