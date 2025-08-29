@@ -1,5 +1,6 @@
 import os
 import subprocess
+import shutil
 
 from amaranth.build import *
 from amaranth.vendor import XilinxPlatform
@@ -19,7 +20,7 @@ def find_loader():
         )
     bridge_bin = os.environ.get(
         "ALCHITRY_BRIDGE_BIN",
-        os.path.join(os.path.dirname(loader_prgm), "au_loader.bin"),
+        os.path.join(os.path.dirname(loader_prgm), "pt_v2_loader.bin"),
     )
     return (loader_prgm, bridge_bin)
 
@@ -117,13 +118,6 @@ class AlchitryPtV2Platform(XilinxPlatform):
             Attrs(IOSTANDARD="DIFF_SSTL135", SLEW="FAST", on="dqs"),
         ),
     ]
-
-    # --- IO Connectors ---
-    # Note on IOSTANDARD:
-    # Bank 13 can be powered by 3.3V, 2.5V, or 1.8V.
-    # All other IO banks (14, 16, 34, 35) are fixed at 3.3V.
-    # Defaulting to LVCMOS33 is safe, but for Bank 13, you may need to
-    # override the IOSTANDARD for your specific application if using a different VCC.
 
     connectors = [
         Connector(
@@ -328,172 +322,78 @@ class AlchitryPtV2Platform(XilinxPlatform):
                 "C36": "U3",
             },
         ),
+        Connector(
+            "top_b",
+            0,
+            {
+                "B3": "R14",
+                "B4": "R16",
+                "B5": "P14",
+                "B6": "P15",
+                "B9": "R17",
+                "B10": "P17",
+                "B11": "P16",
+                "B12": "N17",
+                "B15": "W17",
+                "B16": "T18",
+                "B17": "V17",
+                "B18": "R18",
+                "B21": "AB20",
+                "B22": "V19",
+                "B23": "AA19",
+                "B24": "V18",
+                "B27": "Y19",
+                "B28": "V20",
+                "B29": "Y18",
+                "B30": "U20",
+                "B33": "AB10",
+                "B34": "AB15",
+                "B35": "AA9",
+                "B36": "AA15",
+                "B39": "W12",
+                "B40": "Y12",
+                "B41": "W11",
+                "B42": "Y11",
+                "B45": "V14",
+                "B46": "V15",
+                "B47": "V13",
+                "B48": "U15",
+                "B51": "W10",
+                "B52": "AB17",
+                "B53": "V10",
+                "B54": "AB16",
+                "B57": "AB12",
+                "B58": "AA16",
+                "B59": "AB11",
+                "B60": "Y16",
+                "B63": "AA11",
+                "B64": "T15",
+                "B65": "AA10",
+                "B66": "T14",
+                "B69": "AB13",
+                "B70": "Y14",
+                "B71": "AA13",
+                "B72": "W14",
+                "B75": "AA14",
+                "B76": "W16",
+                "B77": "Y13",
+                "B78": "W15",
+            },
+        ),
     ]
 
-    # The Top B connector differs between the Alpha and final V2 release.
-    # We handle this by dynamically adding the correct connector based on the revision.
-    _top_b_pins_v2 = {
-        "B3": "R14",
-        "B4": "R16",
-        "B5": "P14",
-        "B6": "P15",
-        "B9": "R17",
-        "B10": "P17",
-        "B11": "P16",
-        "B12": "N17",
-        "B15": "W17",
-        "B16": "T18",
-        "B17": "V17",
-        "B18": "R18",
-        "B21": "AB20",
-        "B22": "V19",
-        "B23": "AA19",
-        "B24": "V18",
-        "B27": "Y19",
-        "B28": "V20",
-        "B29": "Y18",
-        "B30": "U20",
-        "B33": "AB10",
-        "B34": "AB15",
-        "B35": "AA9",
-        "B36": "AA15",
-        "B39": "W12",
-        "B40": "Y12",
-        "B41": "W11",
-        "B42": "Y11",
-        "B45": "V14",
-        "B46": "V15",
-        "B47": "V13",
-        "B48": "U15",
-        "B51": "W10",
-        "B52": "AB17",
-        "B53": "V10",
-        "B54": "AB16",
-        "B57": "AB12",
-        "B58": "AA16",
-        "B59": "AB11",
-        "B60": "Y16",
-        "B63": "AA11",
-        "B64": "T15",
-        "B65": "AA10",
-        "B66": "T14",
-        "B69": "AB13",
-        "B70": "Y14",
-        "B71": "AA13",
-        "B72": "W14",
-        "B75": "AA14",
-        "B76": "W16",
-        "B77": "Y13",
-        "B78": "W15",
-    }
-
-    _top_b_pins_alpha = {
-        "B3": "AB13",
-        "B4": "AA11",
-        "B5": "AA13",
-        "B6": "AA10",
-        "B9": "AB12",
-        "B10": "Y14",
-        "B11": "AB11",
-        "B12": "W14",
-        "B15": "AB15",
-        "B16": "W16",
-        "B17": "AA15",
-        "B18": "W15",
-        "B21": "AB17",
-        "B22": "V19",
-        "B23": "AB16",
-        "B24": "V18",
-        "B27": "Y19",
-        "B28": "V20",
-        "B29": "Y18",
-        "B30": "U20",
-        "B33": "AB10",
-        "B34": "W10",
-        "B35": "AA9",
-        "B36": "V10",
-        "B39": "W12",
-        "B40": "Y12",
-        "B41": "W11",
-        "B42": "Y11",
-        "B45": "V14",
-        "B46": "V15",
-        "B47": "V13",
-        "B48": "U15",
-        "B51": "AB20",
-        "B52": "AA16",
-        "B53": "AA19",
-        "B54": "Y16",
-        "B57": "W17",
-        "B58": "T15",
-        "B59": "V17",
-        "B60": "T14",
-        "B63": "AA14",
-        "B64": "R16",
-        "B65": "Y13",
-        "B66": "P15",
-        "B69": "R17",
-        "B70": "T18",
-        "B71": "P16",
-        "B72": "R18",
-        "B75": "N14",
-        "B76": "P17",
-        "B77": "N13",
-        "B78": "N17",
-    }
-
-    def __init__(self, *, revision="v2", **kwargs):
-        if revision.lower() == "v2":
-            self.connectors.append(Connector("top_b", 0, self._top_b_pins_v2))
-        elif revision.lower() in ("pt_alpha", "alpha"):
-            self.connectors.append(Connector("top_b", 0, self._top_b_pins_alpha))
-        else:
-            raise ValueError(f"Unknown revision '{revision}', expected 'v2' or 'alpha'")
+    def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-    def toolchain_program(self, products, name, **kwargs):
-        with products.extract(f"{name}.bit") as bitstream_filename:
-            # Create TCL script for programming
-            tcl_content = f"""
-open_hw_manager
-connect_hw_server
-open_hw_target
-set_property PROGRAM.FILE {{{bitstream_filename}}} [get_hw_devices xc7a100t_0]
-set_property PROBES.FILE {{}} [get_hw_devices xc7a100t_0]
-set_property FULL_PROBES.FILE {{}} [get_hw_devices xc7a100t_0]
-current_hw_device [get_hw_devices xc7a100t_0]
-program_hw_devices [get_hw_devices xc7a100t_0]
-close_hw_manager
-exit
-"""
-            tcl_script = "program_fpga.tcl"
-            tcl_full_path = os.path.join("build", tcl_script)
-            with open(tcl_full_path, "w") as f:
-                f.write(tcl_content)
-
-            # Run vivado to program the FPGA
-            subprocess.run(
-                ["vivado", "-mode", "batch", "-source", tcl_script],
-                cwd="build",
-                check=True,
+    def toolchain_program(self, products, name):
+        (loader, bridge_bin) = find_loader()
+        with products.extract("{}.bin".format(name)) as bitstream_filename:
+            subprocess.check_call(
+                [loader, "-e", "-f", bitstream_filename, "-p", bridge_bin]
             )
 
 
 if __name__ == "__main__":
-    # Example usage:
-    p = AlchitryPtV2Platform()
-    # To use the alpha board revision:
-    # p = AlchitryPtV2Platform(revision="alpha")
+    from .test.blinky import Blinky
 
-    # Requesting a single LED
-    led = p.request("led", 0)
-    print(f"LED 0: {led.pins}")
-
-    # Requesting a pin from a connector by name
-    a3_pin = p.request("top_a", conn_name="A3")
-    print(f"Top A3 pin: {a3_pin.pins}")
-
-    # Requesting the DDR resource and accessing a subsignal
-    ddr = p.request("ddr3")
-    print(f"DDR DQS0 (p): {ddr.dqs.p[0].pin}")
-    print(f"DDR DQS0 (n): {ddr.dqs.n[0].pin}")
+    AlchitryPtV2Platform().build(Blinky(), do_program=True)
