@@ -55,9 +55,9 @@ class ECP55GEVNPlatform(LatticeECP5Platform):
                       attrs=Attrs(IO_TYPE=bank1_iostandard)),
         *ButtonResources(pins="P4", invert=True,
                          attrs=Attrs(IO_TYPE=bank6_iostandard)),
-        *SwitchResources(pins={1: "J1", 2: "H1", 3: "K1"}, invert=True,
+        *SwitchResources(pins={0: "J1", 1: "H1", 2: "K1"}, invert=True,
                          attrs=Attrs(IO_TYPE=bank6_iostandard)),
-        *SwitchResources(pins={4: "E15", 5: "D16", 6: "B16", 7: "C16", 8: "A16"}, invert=True,
+        *SwitchResources(pins={3: "E15", 4: "D16", 5: "B16", 6: "C16", 7: "A16"}, invert=True,
                          attrs=Attrs(IO_TYPE=bank1_iostandard)),
 
         # In order to use the UART as a UART you need to swap two resistor jumpers,
