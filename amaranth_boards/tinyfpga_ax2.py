@@ -9,6 +9,7 @@ __all__ = ["TinyFPGAAX2Platform"]
 class TinyFPGAAX2Platform(LatticeMachXO2Platform):
     device      = "LCMXO2-1200HC"
     package     = "SG32"
+    default_clk = "OSCH" # Leave as OSCH to use the internal clock
     speed       = "4"
     connectors  = [
         Connector("gpio", 0,
@@ -21,4 +22,5 @@ class TinyFPGAAX2Platform(LatticeMachXO2Platform):
         ),
     ]
     resources = []
+    osch_frequency = 2.08 # Only required if using OSCH. Use one of the allowed clock frequencies!
     # This board doesn't have an integrated programmer.
