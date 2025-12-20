@@ -1,3 +1,8 @@
+# Project metadata
+
+[tool.pdm.version]
+source = "scm"
+
 [project]
 dynamic = ["version"]
 
@@ -6,10 +11,10 @@ description = "Board and connector definitions for Amaranth HDL"
 authors = [{name = "Amaranth HDL contributors"}]
 license = {file = "LICENSE.txt"}
 
-requires-python = "~=3.8"
+requires-python = "~=3.9"
 dependencies = [
   # this version requirement needs to be synchronized with the one in .github/workflows/main.yml
-  "amaranth>=0.3,<0.5",
+  "amaranth>=0.5,<0.7",
 ]
 
 [project.urls]
@@ -19,18 +24,8 @@ dependencies = [
 # Build system configuration
 
 [build-system]
-requires = ["wheel", "setuptools>=67.0", "setuptools_scm[toml]>=6.2"]
-build-backend = "setuptools.build_meta"
-
-[tool.setuptools]
-# If old amaranth-boards is checked out with git (e.g. as a part of a persistent editable install
-# or a git worktree cached by tools like poetry), it can have an empty `nmigen_boards` directory
-# left over, which causes a hard error because setuptools cannot determine the top-level package.
-# Add a workaround to improve experience for people upgrading from old checkouts.
-packages = ["amaranth_boards"]
-
-[tool.setuptools_scm]
-local_scheme = "node-and-timestamp"
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
 
 # Development workflow configuration
 
@@ -40,8 +35,8 @@ toolchain = [
   "yowasp-yosys",
   "yowasp-nextpnr-ice40",
   "yowasp-nextpnr-ecp5",
-  "yowasp-nextpnr-gowin",
 ]
 
 [tool.pdm.scripts]
 _.env_file = ".env.toolchain"
+test.cmd = "python -m unittest discover -t . -s amaranth_boards -p *.py"

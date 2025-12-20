@@ -1,8 +1,9 @@
 import os
 import subprocess
+import unittest
 
 from amaranth.build import *
-from amaranth.vendor.lattice_ice40 import *
+from amaranth.vendor import LatticeICE40Platform
 from .resources import *
 
 
@@ -63,6 +64,12 @@ class ICE40HX8KBEVNPlatform(LatticeICE40Platform):
             subprocess.check_call([iceprog, "-S", bitstream_filename])
 
 
+class TestCase(unittest.TestCase):
+    def test_smoke(self):
+        from .test.blinky import Blinky
+        ICE40HX8KBEVNPlatform().build(Blinky(), do_build=False)
+
+
 if __name__ == "__main__":
-    from .test.blinky import *
+    from .test.blinky import Blinky
     ICE40HX8KBEVNPlatform().build(Blinky(), do_program=True)

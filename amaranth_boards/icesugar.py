@@ -1,7 +1,7 @@
 import subprocess
 
 from amaranth.build import *
-from amaranth.vendor.lattice_ice40 import *
+from amaranth.vendor import LatticeICE40Platform
 from .resources import *
 
 

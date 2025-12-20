@@ -1,16 +1,16 @@
 import os
+import argparse
 import subprocess
 
 from amaranth.build import *
-from amaranth.vendor.lattice_machxo_2_3l import *
+from amaranth.vendor import LatticeMachXO3LPlatform
 from .resources import *
 
 
-__all__ = ["MachXO3SKPlatform"]
+__all__ = ["MachXO3LSKPlatform", "MachXO3LFSKPlatform"]
 
 
-class MachXO3SKPlatform(LatticeMachXO3LPlatform):
-    device      = "LCMXO3LF-6900C"
+class _MachXO3SKPlatform(LatticeMachXO3LPlatform):
     package     = "BG256"
     speed       = "5"
     default_clk = "clk12"
@@ -60,7 +60,7 @@ class MachXO3SKPlatform(LatticeMachXO3LPlatform):
              "-  -  H6  N3  M2  M1  L2  L1  L3  L5  "
              "-  -  K4  J1  K1  J2  J3  H3  H2  H1  "
              "-  -  G2  G1  F2  F1  E2  E1  D2  D1  "
-             "-  -  C2  C1  G3  B1  D3  E3  F3  F5  "),
+             "-  C2 C1  G3  B1  D3  E3  F3  F5  -   "),
     ]
 
     def toolchain_program(self, products, name):
@@ -69,6 +69,27 @@ class MachXO3SKPlatform(LatticeMachXO3LPlatform):
             subprocess.check_call([openFPGALoader, bitstream_filename])
 
 
+class MachXO3LSKPlatform(_MachXO3SKPlatform):
+    device      = "LCMXO3L-6900C"
+
+
+class MachXO3LFSKPlatform(_MachXO3SKPlatform):
+    device      = "LCMXO3LF-6900C"
+
+
 if __name__ == "__main__":
     from .test.blinky import *
-    MachXO3SKPlatform().build(Blinky(), do_program=True)
+
+    variants = {
+        'MachXO3L':  MachXO3LSKPlatform,
+        'MachXO3LF': MachXO3LFSKPlatform,
+    }
+
+    # Figure out which FPGA variant we want to target...
+    parser = argparse.ArgumentParser()
+    parser.add_argument('variant', choices=variants.keys())
+    parser.add_argument('toolchain', nargs="?", choices=["Trellis", "Diamond"], default="Trellis")
+    args = parser.parse_args()
+
+    platform = variants[args.variant]
+    platform(toolchain=args.toolchain).build(Blinky(), do_program=True)
