@@ -6,7 +6,7 @@ from amaranth.vendor import IntelPlatform
 from .resources import *
 
 
-__all__ = ["DE0Platform"]
+__all__ = ["DE0NanoPlatform"]
 
 
 class DE0NanoPlatform(IntelPlatform):
