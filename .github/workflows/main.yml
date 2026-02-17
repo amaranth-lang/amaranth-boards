@@ -83,6 +83,7 @@ jobs:
       run: |
         COMMIT_MSG=$(git show -s --format=%s)
         LAST_TAG=$(git tag -l "v0.*.*" --sort=-v:refname | head -n 1)
+        LAST_MINOR_TAG=$(git tag -l "v0.*.0" --sort=-v:refname | head -n 1)
         IFS='.' read -r MAJOR MINOR PATCH <<< "${LAST_TAG#v}"
 
         if [[ -z "$LAST_TAG" ]]; then
@@ -90,10 +91,15 @@ jobs:
           exit 1
         fi
 
+        if [[ -z "$LAST_MINOR_TAG" ]]; then
+          echo "Unable to determine most recent minor version tag!"
+          exit 1
+        fi
+
         if [[ "$COMMIT_MSG" == *"breaking change"* || "$COMMIT_MSG" == *"breaking-change"* ]]; then
             NEW_TAG="v$MAJOR.$((MINOR + 1)).0"
         else
-            NEW_PATCH=$(git rev-list --count "$LAST_TAG"..HEAD)
+            NEW_PATCH=$(git rev-list --count "$LAST_MINOR_TAG"..HEAD)
             NEW_TAG="v$MAJOR.$MINOR.$NEW_PATCH"
         fi
 
