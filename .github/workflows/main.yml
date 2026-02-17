@@ -64,3 +64,79 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: ${{ contains(needs.*.result, 'failure') && 'false' || 'true' }}
+
+  publish-package:
+    needs: required
+    runs-on: ubuntu-latest
+    environment: publish
+    permissions:
+      id-token: write
+    steps:
+    - name: Check out source code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Tag release
+      run: |
+        COMMIT_MSG=$(git show -s --format=%s)
+        LAST_TAG=$(git tag -l "v0.*.*" --sort=-v:refname | head -n 1)
+        IFS='.' read -r MAJOR MINOR PATCH <<< "${LAST_TAG#v}"
+
+        if [[ -z "$LAST_TAG" ]]; then
+          echo "Unable to determine most recent version tag!"
+          exit 1
+        fi
+
+        if [[ "$COMMIT_MSG" == *"breaking change"* || "$COMMIT_MSG" == *"breaking-change"* ]]; then
+            NEW_TAG="v$MAJOR.$((MINOR + 1)).0"
+        else
+            NEW_PATCH=$(git rev-list --count "$LAST_TAG"..HEAD)
+            NEW_TAG="v$MAJOR.$MINOR.$NEW_PATCH"
+        fi
+
+        git tag "$NEW_TAG"
+        git push origin "$NEW_TAG"
+
+    - name: Build package
+      run: |
+        pip install build
+        python -m build
+    - name: Upload package artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: package
+        path: dist/
+    - name: Verify package metadata
+      run: |
+        pip install twine
+        twine check dist/*
+    - name: Publish package to Test PyPI
+      if: ${{ github.repository == 'fischermoseley/amaranth-boards' && github.event_name == 'push' && github.event.ref == 'refs/heads/main' }}
+      uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        repository-url: https://test.pypi.org/legacy/
+    # - name: Publish package to PyPI
+    #   if: ${{ github.repository == 'fischermoseley/amaranth-boards' && github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v') && !contains(github.event.ref, 'dev') }}
+    #   uses: pypa/gh-action-pypi-publish@release/v1
+
+  publish-release:
+    needs: publish-package
+    if: ${{ github.repository == 'fischermoseley/amaranth-boards' && github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v') && !contains(github.event.ref, 'dev') }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+    - name: Determine release metadata
+      id: metadata
+      env:
+        REF_NAME: ${{ github.ref_name }}
+      run: |
+        echo name=${REF_NAME/v/} >>$GITHUB_OUTPUT
+    - name: Create release
+      uses: comnoco/create-release-action@v2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref_name }}
+        release_name: ${{ steps.metadata.outputs.name }}
