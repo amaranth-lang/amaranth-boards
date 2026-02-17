@@ -122,9 +122,12 @@ jobs:
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
         repository-url: https://test.pypi.org/legacy/
+        verbose: true
     - name: Publish package to PyPI
       if: ${{ github.repository == 'amaranth-lang/amaranth-boards' && github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v') && !contains(github.event.ref, 'dev') }}
       uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        verbose: true
 
   publish-release:
     needs: publish-package
