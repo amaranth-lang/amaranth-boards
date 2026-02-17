@@ -121,7 +121,6 @@ jobs:
     #   if: ${{ github.repository == 'fischermoseley/amaranth-boards' && github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v') && !contains(github.event.ref, 'dev') }}
     #   uses: pypa/gh-action-pypi-publish@release/v1
 
-
   publish-release:
     needs: publish-package
     if: ${{ github.repository == 'fischermoseley/amaranth-boards' && github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v') && !contains(github.event.ref, 'dev') }}
