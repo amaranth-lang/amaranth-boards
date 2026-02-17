@@ -79,6 +79,7 @@ jobs:
         fetch-depth: 0
 
     - name: Tag release
+      if: ${{ github.repository == 'amaranth-lang/amaranth-boards' && github.event_name == 'push' && github.event.ref == 'refs/heads/main' }}
       run: |
         COMMIT_MSG=$(git show -s --format=%s)
         LAST_TAG=$(git tag -l "v0.*.*" --sort=-v:refname | head -n 1)
