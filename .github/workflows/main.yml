@@ -71,6 +71,7 @@ jobs:
     environment: publish
     permissions:
       id-token: write
+      contents: write
     steps:
     - name: Check out source code
       uses: actions/checkout@v4
