@@ -113,17 +113,17 @@ jobs:
         pip install twine
         twine check dist/*
     - name: Publish package to Test PyPI
-      if: ${{ github.repository == 'fischermoseley/amaranth-boards' && github.event_name == 'push' && github.event.ref == 'refs/heads/main' }}
+      if: ${{ github.repository == 'amaranth-lang/amaranth-boards' && github.event_name == 'push' && github.event.ref == 'refs/heads/main' }}
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
         repository-url: https://test.pypi.org/legacy/
-    # - name: Publish package to PyPI
-    #   if: ${{ github.repository == 'fischermoseley/amaranth-boards' && github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v') && !contains(github.event.ref, 'dev') }}
-    #   uses: pypa/gh-action-pypi-publish@release/v1
+    - name: Publish package to PyPI
+      if: ${{ github.repository == 'amaranth-lang/amaranth-boards' && github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v') && !contains(github.event.ref, 'dev') }}
+      uses: pypa/gh-action-pypi-publish@release/v1
 
   publish-release:
     needs: publish-package
-    if: ${{ github.repository == 'fischermoseley/amaranth-boards' && github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v') && !contains(github.event.ref, 'dev') }}
+    if: ${{ github.repository == 'amaranth-lang/amaranth-boards' && github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v') && !contains(github.event.ref, 'dev') }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
