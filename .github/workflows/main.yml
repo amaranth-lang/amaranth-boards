@@ -67,6 +67,7 @@ jobs:
 
   publish-package:
     needs: required
+    if: ${{ github.repository == 'amaranth-lang/amaranth-boards' && github.event_name == 'push' && github.event.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
     environment: publish
     permissions:
@@ -78,7 +79,6 @@ jobs:
       with:
         fetch-depth: 0
     - name: Tag release
-      if: ${{ github.repository == 'amaranth-lang/amaranth-boards' && github.event_name == 'push' && github.event.ref == 'refs/heads/main' }}
       run: |
         COMMIT_MSG=$(git show -s --format=%s)
         LAST_TAG=$(git tag -l "v0.*.*" --sort=-v:refname | head -n 1)
@@ -117,24 +117,21 @@ jobs:
         pip install twine
         twine check dist/*
     - name: Publish package to Test PyPI
-      if: ${{ github.repository == 'amaranth-lang/amaranth-boards' && github.event_name == 'push' && github.event.ref == 'refs/heads/main' }}
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
         repository-url: https://test.pypi.org/legacy/
         verbose: true
     - name: Publish package to PyPI
-      if: ${{ github.repository == 'amaranth-lang/amaranth-boards' && github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v') && !contains(github.event.ref, 'dev') }}
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
         verbose: true
     - name: Push release tag
-      if: ${{ github.repository == 'amaranth-lang/amaranth-boards' && github.event_name == 'push' && github.event.ref == 'refs/heads/main' }}
       run: |
         git push origin --tags
 
   publish-release:
     needs: publish-package
-    if: ${{ github.repository == 'amaranth-lang/amaranth-boards' && github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v') && !contains(github.event.ref, 'dev') }}
+    if: ${{ github.repository == 'amaranth-lang/amaranth-boards' && github.event_name == 'push' && github.event.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
