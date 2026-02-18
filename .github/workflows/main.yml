@@ -73,12 +73,16 @@ jobs:
     permissions:
       id-token: write
       contents: write
+    outputs:
+      tag: ${{ steps.tag.outputs.tag }}
+      version: ${{ steps.tag.outputs.version }}
     steps:
     - name: Check out source code
       uses: actions/checkout@v4
       with:
         fetch-depth: 0
     - name: Tag release
+      id: tag
       run: |
         COMMIT_MSG=$(git show -s --format=%s)
         LAST_TAG=$(git tag -l "v0.*.*" --sort=-v:refname | head -n 1)
@@ -103,6 +107,8 @@ jobs:
         fi
 
         git tag "$NEW_TAG"
+        echo "tag=$NEW_TAG" >>$GITHUB_OUTPUT
+        echo "version=${NEW_TAG#v}" >>$GITHUB_OUTPUT
     - name: Build package
       run: |
         pip install build
@@ -131,16 +137,10 @@ jobs:
     permissions:
       contents: write
     steps:
-    - name: Determine release metadata
-      id: metadata
-      env:
-        REF_NAME: ${{ github.ref_name }}
-      run: |
-        echo name=${REF_NAME/v/} >>$GITHUB_OUTPUT
     - name: Create release
       uses: comnoco/create-release-action@v2
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ github.ref_name }}
-        release_name: ${{ steps.metadata.outputs.name }}
+        tag_name: ${{ needs.publish-package.outputs.tag }}
+        release_name: ${{ needs.publish-package.outputs.version }}
