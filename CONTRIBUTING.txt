@@ -4,6 +4,20 @@ We love contributions from the community. Please send pull requests and raise
 issues! All code submissions require review. We use GitHub pull requests for
 this purpose.
 
+See the "Contributing" section of the documentation manual for more details
+about contributing to Amaranth.
+
+
+USE OF LARGE LANGUAGE MODELS / "GENERATIVE AI" TOOLS
+
+Contributions created using large language models or "generative AI" tools are
+not accepted.
+
+The burden of ensuring the appropriateness of a contribution lies on its
+author, with code review being a tool to assist this process, and even partial
+shift of this responsibility to reviewers that occurs when these tools are
+used is both unethical and unsustainable.
+
 
 COPYRIGHTS and LICENSE
 
