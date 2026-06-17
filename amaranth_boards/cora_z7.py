@@ -35,16 +35,19 @@ class CoraZ7Platform(XilinxPlatform):
             Pins("J15", dir="io"),
             Attrs(IOSTANDARD="LVCMOS33")),
 
-        # Pmod connectors JA and JB (full 8‑bit I/O)
-        Resource("pmod", 0,
-            Subsignal("io", Pins("Y18 Y19 Y16 Y17 U18 U19 W18 W19", dir="io")),
-            Attrs(IOSTANDARD="LVCMOS33")),
-        Resource("pmod", 1,
-            Subsignal("io", Pins("W14 Y14 T11 T10 V16 W16 V12 W13", dir="io")),
-            Attrs(IOSTANDARD="LVCMOS33")),
+        SPIResource(0,
+            cipo="W15", copi="T12", clk="H15", cs_n="F16",
+            attrs=Attrs(IOSTANDARD="LVCMOS33")),
+
+        I2CResource(0,
+            scl="P16", sda="P15",
+            attrs=Attrs(IOSTANDARD="LVCMOS33")),
     ]
 
     connectors = [
+        Connector("pmod", 0, "Y18 Y19 Y16 Y17 - - U18 U19 W18 W19 - -"),
+        Connector("pmod", 1, "W14 Y14 T11 T10 - - V16 W16 V12 W13 - -"),
+
         # ChipKit outer digital header (0‑13)
         Connector("ck_io", 0, {
             "io0":  "U14", "io1":  "V13", "io2":  "T14", "io3":  "T15",
@@ -59,20 +62,6 @@ class CoraZ7Platform(XilinxPlatform):
             "io30": "T16", "io31": "U17", "io32": "T17", "io33": "R18",
             "io34": "P18", "io35": "N17", "io36": "M17", "io37": "L17",
             "io38": "H17", "io39": "H18", "io40": "G18", "io41": "L20",
-        }),
-
-        # ChipKit SPI header
-        Connector("ck_spi", 0, {
-            "cipo": "W15",
-            "copi": "T12",
-            "sck":  "H15",
-            "ss":   "F16",
-        }),
-
-        # ChipKit I2C header
-        Connector("ck_i2c", 0, {
-            "scl": "P16",
-            "sda": "P15",
         }),
 
         # User digital I/O header J1 (1‑12)
