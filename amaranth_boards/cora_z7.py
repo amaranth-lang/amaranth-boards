@@ -7,11 +7,10 @@ from amaranth.vendor import XilinxPlatform
 from .resources import *
 
 
-__all__ = ["CoraZ7Platform"]
+__all__ = ["CoraZ7_07SPlatform", "CoraZ7_10Platform"]
 
 
-class CoraZ7Platform(XilinxPlatform):
-    device      = "xc7z007s"
+class _CoraZ7Platform(XilinxPlatform):
     package     = "clg400"
     speed       = "1"
     default_clk = "clk125"
@@ -94,12 +93,21 @@ class CoraZ7Platform(XilinxPlatform):
             )
 
 
+class CoraZ7_07SPlatform(_CoraZ7Platform):
+    device      = "xc7z007s"
+
+
+class CoraZ7_10Platform(_CoraZ7Platform):
+    device      = "xc7z010"
+
+
 class TestCase(unittest.TestCase):
     def test_smoke(self):
         from .test.blinky import Blinky
-        CoraZ7Platform().build(Blinky(), do_build=False)
+        CoraZ7_07SPlatform().build(Blinky(), do_build=False)
+        CoraZ7_10Platform().build(Blinky(), do_build=False)
 
 
 if __name__ == "__main__":
     from .test.blinky import Blinky
-    CoraZ7Platform().build(Blinky(), do_program=True)
+    CoraZ7_07SPlatform().build(Blinky(), do_program=True)
