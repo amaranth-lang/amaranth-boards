@@ -170,10 +170,16 @@ def DDR3Resource(*args, rst_n=None, clk_p, clk_n, clk_en, cs_n, we_n, ras_n, cas
                  conn=None, diff_attrs=None, attrs=None):
     ios = []
 
+    clk = DiffPairs(clk_p, clk_n, dir="o", conn=conn)
+    cs = PinsN(cs_n, dir="o", conn=conn)
+
+    ranks = len(cs)
+    assert (len(clk) == 1) or (len(clk) == ranks), "Must have one clock pair or as many pairs as there are ranks"
+
     ios.append(Subsignal("rst", PinsN(rst_n, dir="o", conn=conn, assert_width=1)))
-    ios.append(Subsignal("clk", DiffPairs(clk_p, clk_n, dir="o", conn=conn, assert_width=1), diff_attrs))
-    ios.append(Subsignal("clk_en", Pins(clk_en, dir="o", conn=conn, assert_width=1)))
-    ios.append(Subsignal("cs", PinsN(cs_n, dir="o", conn=conn, assert_width=1)))
+    ios.append(Subsignal("clk", clk, diff_attrs))
+    ios.append(Subsignal("clk_en", Pins(clk_en, dir="o", conn=conn, assert_width=ranks)))
+    ios.append(Subsignal("cs", cs))
     ios.append(Subsignal("we", PinsN(we_n, dir="o", conn=conn, assert_width=1)))
     ios.append(Subsignal("ras", PinsN(ras_n, dir="o", conn=conn, assert_width=1)))
     ios.append(Subsignal("cas", PinsN(cas_n, dir="o", conn=conn, assert_width=1)))
@@ -182,7 +188,7 @@ def DDR3Resource(*args, rst_n=None, clk_p, clk_n, clk_en, cs_n, we_n, ras_n, cas
     ios.append(Subsignal("dqs", DiffPairs(dqs_p, dqs_n, dir="io", conn=conn), diff_attrs))
     ios.append(Subsignal("dq", Pins(dq, dir="io", conn=conn)))
     ios.append(Subsignal("dm", Pins(dm, dir="o", conn=conn)))
-    ios.append(Subsignal("odt", Pins(odt, dir="o", conn=conn, assert_width=1)))
+    ios.append(Subsignal("odt", Pins(odt, dir="o", conn=conn, assert_width=ranks)))
 
     if attrs is not None:
         ios.append(attrs)
