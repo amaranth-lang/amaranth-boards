@@ -228,8 +228,3 @@ class ArtyS7_50Platform(_ArtyS7Platform):
 
 class ArtyS7_25Platform(_ArtyS7Platform):
     device      = "xc7s25"
-
-
-if __name__ == "__main__":
-    from .test.blinky import *
-    ArtyS7_25Platform().build(Blinky(), do_program=True)
