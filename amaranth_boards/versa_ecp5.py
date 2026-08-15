@@ -23,6 +23,16 @@ class VersaECP5Platform(LatticeECP5Platform):
         Resource("pclk", 0, DiffPairs("A4", "A5", dir="i"),
                  Attrs(IO_TYPE="LVDS")),
 
+        # SerDes connections.
+        Resource("serdes", 0,
+            Subsignal("rx", DiffPairs("Y5", "Y6")),
+            Subsignal("tx", DiffPairs("W4", "W5")),
+        ),
+        Resource("serdes", 1,
+            Subsignal("rx", DiffPairs("Y8", "Y7")),
+            Subsignal("tx", DiffPairs("W8", "W9")),
+        ),
+
         *LEDResources(pins="E16 D17 D18 E18 F17 F18 E17 F16", invert=True,
                       attrs=Attrs(IO_TYPE="LVCMOS25")),
 
