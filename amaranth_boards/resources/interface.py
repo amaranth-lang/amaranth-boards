@@ -3,7 +3,7 @@ from amaranth.build import *
 
 __all__ = [
     "UARTResource", "IrDAResource", "SPIResource", "I2CResource",
-    "DirectUSBResource", "ULPIResource", "PS2Resource",
+    "DirectUSBResource", "ULPIResource", "PS2Resource", "RGMIIResource",
 ]
 
 
@@ -142,3 +142,20 @@ def PS2Resource(*args, clk, dat, conn=None, attrs=None):
         ios.append(attrs)
 
     return Resource.family(*args, default_name="ps2", ios=ios)
+
+
+def RGMIIResource(*args, txc, txd, tx_ctl, rxc, rxd, rx_ctl, mdc, mdio, attrs=None, conn=None):
+    io = []
+
+    io.append(Subsignal("txc", Pins(txc, dir="o", conn=conn, assert_width=1)))
+    io.append(Subsignal("txd", Pins(txd, dir="o", conn=conn, assert_width=4)))
+    io.append(Subsignal("tx_ctl", Pins(txc, dir="o", conn=conn, assert_width=1)))
+    io.append(Subsignal("rxc", Pins(rxc, dir="i", conn=conn, assert_width=1)))
+    io.append(Subsignal("rxd", Pins(rxd, dir="i", conn=conn, assert_width=4)))
+    io.append(Subsignal("rx_ctl", Pins(txc, dir="i", conn=conn, assert_width=1)))
+    io.append(Subsignal("mdc", Pins(mdc, dir="o", conn=conn, assert_width=1)))
+    io.append(Subsignal("mdio", Pins(mdio, dir="io", conn=conn, assert_width=1)))
+
+    if attrs is not None:
+        io.append(attrs)
+    return Resource.family(*args, default_name="rgmii", ios=io)
