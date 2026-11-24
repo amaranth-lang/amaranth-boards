@@ -4,7 +4,7 @@ from amaranth.build import *
 __all__ = [
     "SPIFlashResources", "SDCardResources",
     "SRAMResource", "SDRAMResource", "NORFlashResources",
-    "DDR3Resource",
+    "DDR3Resource", "DDR4Resource"
 ]
 
 
@@ -166,14 +166,20 @@ def NORFlashResources(*args, rst=None, byte_n=None, cs_n, oe_n, we_n, wp_n, by, 
     return resources
 
 
-def DDR3Resource(*args, rst_n=None, clk_p, clk_n, clk_en, cs_n, we_n, ras_n, cas_n, a, ba, dqs_p, dqs_n, dq, dm, odt,
+def DDR3Resource(*args, rst_n, clk_p, clk_n, clk_en, cs_n, we_n, ras_n, cas_n, a, ba, dqs_p, dqs_n, dq, dm, odt,
                  conn=None, diff_attrs=None, attrs=None):
     ios = []
 
+    clk = DiffPairs(clk_p, clk_n, dir="o", conn=conn)
+    cs = PinsN(cs_n, dir="o", conn=conn)
+
+    ranks = len(cs)
+    assert (len(clk) == 1) or (len(clk) == ranks), "Must have one clock pair or as many pairs as there are ranks"
+
     ios.append(Subsignal("rst", PinsN(rst_n, dir="o", conn=conn, assert_width=1)))
-    ios.append(Subsignal("clk", DiffPairs(clk_p, clk_n, dir="o", conn=conn, assert_width=1), diff_attrs))
-    ios.append(Subsignal("clk_en", Pins(clk_en, dir="o", conn=conn, assert_width=1)))
-    ios.append(Subsignal("cs", PinsN(cs_n, dir="o", conn=conn, assert_width=1)))
+    ios.append(Subsignal("clk", clk, diff_attrs))
+    ios.append(Subsignal("clk_en", Pins(clk_en, dir="o", conn=conn, assert_width=ranks)))
+    ios.append(Subsignal("cs", cs))
     ios.append(Subsignal("we", PinsN(we_n, dir="o", conn=conn, assert_width=1)))
     ios.append(Subsignal("ras", PinsN(ras_n, dir="o", conn=conn, assert_width=1)))
     ios.append(Subsignal("cas", PinsN(cas_n, dir="o", conn=conn, assert_width=1)))
@@ -182,9 +188,53 @@ def DDR3Resource(*args, rst_n=None, clk_p, clk_n, clk_en, cs_n, we_n, ras_n, cas
     ios.append(Subsignal("dqs", DiffPairs(dqs_p, dqs_n, dir="io", conn=conn), diff_attrs))
     ios.append(Subsignal("dq", Pins(dq, dir="io", conn=conn)))
     ios.append(Subsignal("dm", Pins(dm, dir="o", conn=conn)))
-    ios.append(Subsignal("odt", Pins(odt, dir="o", conn=conn, assert_width=1)))
+    ios.append(Subsignal("odt", Pins(odt, dir="o", conn=conn, assert_width=ranks)))
 
     if attrs is not None:
         ios.append(attrs)
 
     return Resource.family(*args, default_name="ddr3", ios=ios)
+
+
+def DDR4Resource(*args,
+                 rst_n, clk_p, clk_n, clk_en,
+                 cs_n, we_n, ras_n, cas_n, act_n,
+                 parity=None, alert_n=None, test_en=None,
+                 a, ba, bg, dqs_p, dqs_n, dq, dm_n, odt,
+                 conn=None,
+                 diff_pod_attrs=None, pod_attrs=None, diff_attrs=None,
+                 attrs=None):
+    ios = []
+
+    clk = DiffPairs(clk_p, clk_n, dir="o", conn=conn)
+    cs = PinsN(cs_n, dir="o", conn=conn)
+
+    ranks = len(cs)
+    assert (len(clk) == 1) or (len(clk) == ranks), "Must have one clock pair or as many pairs as there are ranks"
+
+    ios.append(Subsignal("rst", PinsN(rst_n, dir="o", conn=conn, assert_width=1)))
+    ios.append(Subsignal("clk", clk, diff_attrs))
+    ios.append(Subsignal("clk_en", Pins(clk_en, dir="o", conn=conn, assert_width=ranks)))
+    ios.append(Subsignal("cs", cs))
+    ios.append(Subsignal("we", PinsN(we_n, dir="o", conn=conn, assert_width=1)))
+    ios.append(Subsignal("ras", PinsN(ras_n, dir="o", conn=conn, assert_width=1)))
+    ios.append(Subsignal("cas", PinsN(cas_n, dir="o", conn=conn, assert_width=1)))
+    ios.append(Subsignal("act", PinsN(act_n, dir="o", conn=conn, assert_width=1)))
+    if parity is not None:
+        ios.append(Subsignal("parity", Pins(parity, dir="o", conn=conn, assert_width=1)))
+    if alert_n is not None:
+        ios.append(Subsignal("alert", PinsN(act_n, dir="i", conn=conn, assert_width=1)))
+    if test_en is not None:
+        ios.append(Subsignal("test_en", Pins(test_en, dir="o", conn=conn, assert_width=ranks)))
+    ios.append(Subsignal("a", Pins(a, dir="o", conn=conn)))
+    ios.append(Subsignal("ba", Pins(ba, dir="o", conn=conn)))
+    ios.append(Subsignal("bg", Pins(bg, dir="o", conn=conn)))
+    ios.append(Subsignal("dqs", DiffPairs(dqs_p, dqs_n, dir="io", conn=conn), diff_pod_attrs))
+    ios.append(Subsignal("dq", Pins(dq, dir="io", conn=conn), pod_attrs))
+    ios.append(Subsignal("dm", PinsN(dm_n, dir="o", conn=conn), pod_attrs))
+    ios.append(Subsignal("odt", Pins(odt, dir="o", conn=conn, assert_width=ranks)))
+
+    if attrs is not None:
+        ios.append(attrs)
+
+    return Resource.family(*args, default_name="ddr4", ios=ios)
