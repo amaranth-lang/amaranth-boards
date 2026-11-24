@@ -8,6 +8,11 @@ from .resources import *
 
 __all__ = ["LogiPiPlatform"]
 
+# Amaranth platform for the ValentF(x) LogiPi board
+#
+# Pinouts taken from the schematic at:
+#
+# https://github.com/fpga-logi/logi-boards/blob/master/fpga-boards/logi-pi/PRJ-DOC/sch/sch-logi-pi-r1_1.pdf
 
 class LogiPiPlatform(XilinxPlatform):
     device      = "xc6slx9"
